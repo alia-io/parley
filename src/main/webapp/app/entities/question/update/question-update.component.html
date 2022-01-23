@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-question-heading" data-cy="QuestionCreateUpdateHeading">Create or edit a Question</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_questionName">Question Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="questionName"
+            id="field_questionName"
+            data-cy="questionName"
+            formControlName="questionName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_question">Question</label>
+          <input type="text" class="form-control" name="question" id="field_question" data-cy="question" formControlName="question" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_interview">Interview</label>
+          <select class="form-control" id="field_interview" data-cy="interview" name="interview" formControlName="interview">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="interviewOption.id === editForm.get('interview')!.value?.id ? editForm.get('interview')!.value : interviewOption"
+              *ngFor="let interviewOption of interviewsSharedCollection; trackBy: trackInterviewById"
+            >
+              {{ interviewOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

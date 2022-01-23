@@ -1,0 +1,73 @@
+/**
+ * The Interview entity.
+ */
+entity Interview {
+    details String
+}
+
+/**
+ * The Question entity.
+ */
+entity Question {
+    questionName String,
+    question String
+}
+
+/**
+ * The Attribute entity.
+ */
+entity Attribute {
+    attributeName String,
+    description String,
+}
+
+/**
+ * The Employee entity.
+ */
+entity Users {
+	firstName String required maxlength(20),
+	lastName String required maxlength(20)
+  }
+
+enum JobStatus {
+	OPEN, FILLED, CLOSED
+}
+
+/**
+ * The Job entity.
+ */
+entity Job {
+    jobName String,
+	jobDescription String,
+    postedDate Instant,
+    jobRole String,
+    minimumQualifications String,
+    responsibilities String    
+}
+
+
+/**
+ * The Candidate entity.
+ */
+entity Candidate {
+	firstName String required maxlength(20),
+	lastName String required maxlength(20) ,
+	email String required maxlength(20)
+}
+
+relationship OneToMany {
+  Interview{questions} to Question{interview},
+  Question{attributes} to Attribute{questions}
+}
+
+relationship ManyToMany {
+  Users{interview} to Interview{users}
+}
+
+relationship OneToOne {
+  Candidate{interview} to Interview{candidate},
+  Job{interview} to Interview{job}
+}
+
+
+

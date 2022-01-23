@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="attribute">
+      <h2 data-cy="attributeDetailsHeading"><span>Attribute</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ attribute.id }}</span>
+        </dd>
+        <dt><span>Attribute Name</span></dt>
+        <dd>
+          <span>{{ attribute.attributeName }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ attribute.description }}</span>
+        </dd>
+        <dt><span>Questions</span></dt>
+        <dd>
+          <div *ngIf="attribute.questions">
+            <a [routerLink]="['/question', attribute.questions?.id, 'view']">{{ attribute.questions?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/attribute', attribute.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
