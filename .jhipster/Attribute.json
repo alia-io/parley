@@ -1,0 +1,32 @@
+{
+  "name": "Attribute",
+  "fields": [
+    {
+      "fieldName": "attributeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "attributes",
+      "relationshipName": "questions"
+    }
+  ],
+  "javadoc": "The Attribute entity.",
+  "entityTableName": "attribute",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220123012432"
+}

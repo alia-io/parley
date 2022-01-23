@@ -1,0 +1,38 @@
+{
+  "name": "Question",
+  "fields": [
+    {
+      "fieldName": "questionName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "question",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "attribute",
+      "otherEntityRelationshipName": "questions",
+      "relationshipName": "attributes"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "interview",
+      "otherEntityRelationshipName": "questions",
+      "relationshipName": "interview"
+    }
+  ],
+  "javadoc": "The Question entity.",
+  "entityTableName": "question",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220123012431"
+}

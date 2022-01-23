@@ -1,0 +1,49 @@
+{
+  "name": "Interview",
+  "fields": [
+    {
+      "fieldName": "details",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "interview",
+      "relationshipName": "questions"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "candidate",
+      "otherEntityRelationshipName": "interview",
+      "relationshipName": "candidate",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "job",
+      "otherEntityRelationshipName": "interview",
+      "relationshipName": "job",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "users",
+      "otherEntityRelationshipName": "interview",
+      "relationshipName": "users",
+      "ownerSide": false
+    }
+  ],
+  "javadoc": "The Interview entity.",
+  "entityTableName": "interview",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220123012430"
+}

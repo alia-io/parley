@@ -1,0 +1,49 @@
+{
+  "name": "Job",
+  "fields": [
+    {
+      "fieldName": "jobName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "jobDescription",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "jobRole",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "minimumQualifications",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "responsibilities",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "interview",
+      "otherEntityRelationshipName": "job",
+      "relationshipName": "interview",
+      "ownerSide": true
+    }
+  ],
+  "javadoc": "The Job entity.",
+  "entityTableName": "job",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220123012434"
+}

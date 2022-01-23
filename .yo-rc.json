@@ -40,6 +40,8 @@
     "devServerPort": 4200,
     "clientPackageManager": "npm",
     "enableGradleEnterprise": false,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Interview", "Question", "Attribute", "Users", "Job", "Candidate"],
+    "lastLiquibaseTimestamp": 1642901075000
   }
 }

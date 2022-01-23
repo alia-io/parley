@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="job">
+      <h2 data-cy="jobDetailsHeading"><span>Job</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ job.id }}</span>
+        </dd>
+        <dt><span>Job Name</span></dt>
+        <dd>
+          <span>{{ job.jobName }}</span>
+        </dd>
+        <dt><span>Job Description</span></dt>
+        <dd>
+          <span>{{ job.jobDescription }}</span>
+        </dd>
+        <dt><span>Posted Date</span></dt>
+        <dd>
+          <span>{{ job.postedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Job Role</span></dt>
+        <dd>
+          <span>{{ job.jobRole }}</span>
+        </dd>
+        <dt><span>Minimum Qualifications</span></dt>
+        <dd>
+          <span>{{ job.minimumQualifications }}</span>
+        </dd>
+        <dt><span>Responsibilities</span></dt>
+        <dd>
+          <span>{{ job.responsibilities }}</span>
+        </dd>
+        <dt><span>Interview</span></dt>
+        <dd>
+          <div *ngIf="job.interview">
+            <a [routerLink]="['/interview', job.interview?.id, 'view']">{{ job.interview?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/job', job.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
