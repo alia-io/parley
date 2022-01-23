@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "application",
+      "type": "com.syr.parley.config.ApplicationProperties",
+      "sourceType": "com.syr.parley.config.ApplicationProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
