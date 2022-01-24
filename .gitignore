@@ -67,3 +67,5 @@ secrets.yml
 node_modules/
 target/
 .idea/
+classes/
+.idea/**/workspace.xml
