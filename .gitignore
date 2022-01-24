@@ -36,7 +36,7 @@ hs_err_pid*
 .classpath
 .factorypath
 .gradle
-.idea
+.idea/
 .metadata
 .project
 .recommenders
