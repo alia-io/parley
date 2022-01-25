@@ -655,7 +655,7 @@
                             </requireMavenVersion>
                             <requireJavaVersion>
                                 <message>You are running an incompatible version of Java. JHipster supports JDK 17 to 11.</message>
-                                <version>[17,18),[16,17),[15,16),[14,15),[13,14),[12,13),[11,12)</version>
+                                <version>11</version>
                             </requireJavaVersion>
                         </rules>
                     </configuration>
