@@ -36,7 +36,7 @@ hs_err_pid*
 .classpath
 .factorypath
 .gradle
-.idea
+.idea/
 .metadata
 .project
 .recommenders
@@ -66,4 +66,8 @@ secrets.yml
 .sts4-caches
 node_modules/
 target/
-.idea/
+.idea
+classes/
+.idea/**/workspace.xml
+classes/**/application.yml
+classes/**/boostrap.yml
