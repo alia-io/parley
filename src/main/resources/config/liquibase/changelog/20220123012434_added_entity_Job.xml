@@ -33,7 +33,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="interview_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_job__interview_id" />
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

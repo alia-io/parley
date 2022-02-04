@@ -28,11 +28,10 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
+      "relationshipType": "many-to-one",
       "otherEntityName": "interview",
-      "otherEntityRelationshipName": "job",
-      "relationshipName": "interview",
-      "ownerSide": true
+      "otherEntityRelationshipName": "jobs",
+      "relationshipName": "interview"
     }
   ],
   "javadoc": "The Job entity.",

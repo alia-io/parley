@@ -40,9 +40,8 @@ public class Job implements Serializable {
     @Column(name = "responsibilities")
     private String responsibilities;
 
-    @JsonIgnoreProperties(value = { "questions", "candidate", "job", "users" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "questions", "jobs", "candidate", "users" }, allowSetters = true)
     private Interview interview;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

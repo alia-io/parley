@@ -154,14 +154,6 @@ public class InterviewResource {
                 .filter(interview -> interview.getCandidate() == null)
                 .collect(Collectors.toList());
         }
-
-        if ("job-is-null".equals(filter)) {
-            log.debug("REST request to get all Interviews where job is null");
-            return StreamSupport
-                .stream(interviewRepository.findAll().spliterator(), false)
-                .filter(interview -> interview.getJob() == null)
-                .collect(Collectors.toList());
-        }
         log.debug("REST request to get all Interviews");
         return interviewRepository.findAll();
     }

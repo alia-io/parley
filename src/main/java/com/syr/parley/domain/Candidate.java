@@ -37,7 +37,7 @@ public class Candidate implements Serializable {
     @Column(name = "email", length = 20, nullable = false)
     private String email;
 
-    @JsonIgnoreProperties(value = { "questions", "candidate", "job", "users" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questions", "jobs", "candidate", "users" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Interview interview;

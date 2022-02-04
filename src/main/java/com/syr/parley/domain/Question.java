@@ -34,7 +34,7 @@ public class Question implements Serializable {
     private Set<Attribute> attributes = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "questions", "candidate", "job", "users" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questions", "jobs", "candidate", "users" }, allowSetters = true)
     private Interview interview;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

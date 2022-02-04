@@ -30,13 +30,13 @@ public class Interview implements Serializable {
     @JsonIgnoreProperties(value = { "attributes", "interview" }, allowSetters = true)
     private Set<Question> questions = new HashSet<>();
 
+    @OneToMany(mappedBy = "interview")
     @JsonIgnoreProperties(value = { "interview" }, allowSetters = true)
-    @OneToOne(mappedBy = "interview")
-    private Candidate candidate;
+    private Set<Job> jobs = new HashSet<>();
 
     @JsonIgnoreProperties(value = { "interview" }, allowSetters = true)
     @OneToOne(mappedBy = "interview")
-    private Job job;
+    private Candidate candidate;
 
     @ManyToMany(mappedBy = "interviews")
     @JsonIgnoreProperties(value = { "interviews" }, allowSetters = true)
@@ -101,6 +101,37 @@ public class Interview implements Serializable {
         return this;
     }
 
+    public Set<Job> getJobs() {
+        return this.jobs;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        if (this.jobs != null) {
+            this.jobs.forEach(i -> i.setInterview(null));
+        }
+        if (jobs != null) {
+            jobs.forEach(i -> i.setInterview(this));
+        }
+        this.jobs = jobs;
+    }
+
+    public Interview jobs(Set<Job> jobs) {
+        this.setJobs(jobs);
+        return this;
+    }
+
+    public Interview addJobs(Job job) {
+        this.jobs.add(job);
+        job.setInterview(this);
+        return this;
+    }
+
+    public Interview removeJobs(Job job) {
+        this.jobs.remove(job);
+        job.setInterview(null);
+        return this;
+    }
+
     public Candidate getCandidate() {
         return this.candidate;
     }
@@ -117,25 +148,6 @@ public class Interview implements Serializable {
 
     public Interview candidate(Candidate candidate) {
         this.setCandidate(candidate);
-        return this;
-    }
-
-    public Job getJob() {
-        return this.job;
-    }
-
-    public void setJob(Job job) {
-        if (this.job != null) {
-            this.job.setInterview(null);
-        }
-        if (job != null) {
-            job.setInterview(this);
-        }
-        this.job = job;
-    }
-
-    public Interview job(Job job) {
-        this.setJob(job);
         return this;
     }
 

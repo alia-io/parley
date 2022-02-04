@@ -46,22 +46,23 @@ describe('Job Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call interview query and add missing value', () => {
+    it('Should call Interview query and add missing value', () => {
       const job: IJob = { id: 456 };
       const interview: IInterview = { id: 18581 };
       job.interview = interview;
 
       const interviewCollection: IInterview[] = [{ id: 8678 }];
       jest.spyOn(interviewService, 'query').mockReturnValue(of(new HttpResponse({ body: interviewCollection })));
-      const expectedCollection: IInterview[] = [interview, ...interviewCollection];
+      const additionalInterviews = [interview];
+      const expectedCollection: IInterview[] = [...additionalInterviews, ...interviewCollection];
       jest.spyOn(interviewService, 'addInterviewToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ job });
       comp.ngOnInit();
 
       expect(interviewService.query).toHaveBeenCalled();
-      expect(interviewService.addInterviewToCollectionIfMissing).toHaveBeenCalledWith(interviewCollection, interview);
-      expect(comp.interviewsCollection).toEqual(expectedCollection);
+      expect(interviewService.addInterviewToCollectionIfMissing).toHaveBeenCalledWith(interviewCollection, ...additionalInterviews);
+      expect(comp.interviewsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
@@ -73,7 +74,7 @@ describe('Job Management Update Component', () => {
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(job));
-      expect(comp.interviewsCollection).toContain(interview);
+      expect(comp.interviewsSharedCollection).toContain(interview);
     });
   });
 

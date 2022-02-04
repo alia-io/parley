@@ -78,7 +78,7 @@
             <option [ngValue]="null"></option>
             <option
               [ngValue]="interviewOption.id === editForm.get('interview')!.value?.id ? editForm.get('interview')!.value : interviewOption"
-              *ngFor="let interviewOption of interviewsCollection; trackBy: trackInterviewById"
+              *ngFor="let interviewOption of interviewsSharedCollection; trackBy: trackInterviewById"
             >
               {{ interviewOption.id }}
             </option>

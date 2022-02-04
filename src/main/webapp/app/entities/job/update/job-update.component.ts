@@ -20,7 +20,7 @@ import { InterviewService } from 'app/entities/interview/service/interview.servi
 export class JobUpdateComponent implements OnInit {
   isSaving = false;
 
-  interviewsCollection: IInterview[] = [];
+  interviewsSharedCollection: IInterview[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -102,19 +102,22 @@ export class JobUpdateComponent implements OnInit {
       interview: job.interview,
     });
 
-    this.interviewsCollection = this.interviewService.addInterviewToCollectionIfMissing(this.interviewsCollection, job.interview);
+    this.interviewsSharedCollection = this.interviewService.addInterviewToCollectionIfMissing(
+      this.interviewsSharedCollection,
+      job.interview
+    );
   }
 
   protected loadRelationshipsOptions(): void {
     this.interviewService
-      .query({ filter: 'job-is-null' })
+      .query()
       .pipe(map((res: HttpResponse<IInterview[]>) => res.body ?? []))
       .pipe(
         map((interviews: IInterview[]) =>
           this.interviewService.addInterviewToCollectionIfMissing(interviews, this.editForm.get('interview')!.value)
         )
       )
-      .subscribe((interviews: IInterview[]) => (this.interviewsCollection = interviews));
+      .subscribe((interviews: IInterview[]) => (this.interviewsSharedCollection = interviews));
   }
 
   protected createFromForm(): IJob {

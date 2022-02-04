@@ -14,17 +14,16 @@
       "relationshipName": "questions"
     },
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "job",
+      "otherEntityRelationshipName": "interview",
+      "relationshipName": "jobs"
+    },
+    {
       "relationshipType": "one-to-one",
       "otherEntityName": "candidate",
       "otherEntityRelationshipName": "interview",
       "relationshipName": "candidate",
-      "ownerSide": false
-    },
-    {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "job",
-      "otherEntityRelationshipName": "interview",
-      "relationshipName": "job",
       "ownerSide": false
     },
     {

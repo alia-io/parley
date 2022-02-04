@@ -8,10 +8,10 @@
     -->
     <changeSet id="20220123012434-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="interview_id"
-                                 baseTableName="job"
-                                 constraintName="fk_job__interview_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="interview"/>
+<!--        <addForeignKeyConstraint baseColumnNames="interview_id"-->
+<!--                                 baseTableName="job"-->
+<!--                                 constraintName="fk_job__interview_id"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 referencedTableName="interview"/>-->
     </changeSet>
 </databaseChangeLog>

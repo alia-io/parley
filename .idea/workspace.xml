@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parley.iml" beforeDir="false" afterPath="$PROJECT_DIR$/parley.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.jhipster/Interview.json" beforeDir="false" afterPath="$PROJECT_DIR$/.jhipster/Interview.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.jhipster/Job.json" beforeDir="false" afterPath="$PROJECT_DIR$/.jhipster/Job.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Candidate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Candidate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Interview.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Interview.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012434_added_entity_Job.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012434_added_entity_Job.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012434_added_entity_constraints_Job.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012434_added_entity_constraints_Job.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/interview.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/interview.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/job/update/job-update.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/job/update/job-update.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/job/update/job-update.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/job/update/job-update.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/job/update/job-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/job/update/job-update.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/config/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/config/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/bootstrap.yml" afterDir="false" />
     </list>
@@ -34,6 +45,22 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/PublicUserResource.java" />
       </list>
+    </option>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
     </option>
   </component>
   <component name="JsFlowSettings">
@@ -121,6 +148,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -185,17 +213,6 @@
       <window_info anchor="right" id="Bean Validation" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
     </layout>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewResource.java</url>
-          <line>165</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/com/syr/parley/GeneratedByJHipster.java" />
