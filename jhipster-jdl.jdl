@@ -42,7 +42,7 @@ entity Job {
     postedDate Instant,
     jobRole String,
     minimumQualifications String,
-    responsibilities String    
+    responsibilities String
 }
 
 
@@ -58,6 +58,7 @@ entity Candidate {
 relationship OneToMany {
   Interview{questions} to Question{interview},
   Question{attributes} to Attribute{questions}
+  Job{interview} to Interview{job}
 }
 
 relationship ManyToMany {
@@ -66,7 +67,6 @@ relationship ManyToMany {
 
 relationship OneToOne {
   Candidate{interview} to Interview{candidate},
-  Job{interview} to Interview{job}
 }
 
 
