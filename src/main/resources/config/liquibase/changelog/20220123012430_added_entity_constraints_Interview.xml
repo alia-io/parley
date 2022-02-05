@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Interview.
+    -->
+    <changeSet id="20220123012430-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="interview_id"
+                                 baseTableName="rel_interview__questions"
+                                 constraintName="fk_rel_interview__questions__interview_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="interview"/>
+
+        <addForeignKeyConstraint baseColumnNames="questions_id"
+                                 baseTableName="rel_interview__questions"
+                                 constraintName="fk_rel_interview__questions__questions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question"/>
+    </changeSet>
+</databaseChangeLog>

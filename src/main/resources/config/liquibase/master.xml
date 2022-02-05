@@ -22,8 +22,8 @@
     <include file="config/liquibase/changelog/20220123012434_added_entity_Job.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220123012435_added_entity_Candidate.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20220123012430_added_entity_constraints_Interview.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220123012431_added_entity_constraints_Question.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20220123012432_added_entity_constraints_Attribute.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220123012433_added_entity_constraints_Users.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220123012434_added_entity_constraints_Job.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220123012435_added_entity_constraints_Candidate.xml" relativeToChangelogFile="false"/>

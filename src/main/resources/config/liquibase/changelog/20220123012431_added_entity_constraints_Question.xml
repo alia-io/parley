@@ -8,10 +8,16 @@
     -->
     <changeSet id="20220123012431-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="interview_id"
-                                 baseTableName="question"
-                                 constraintName="fk_question__interview_id"
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="rel_question__attributes"
+                                 constraintName="fk_rel_question__attributes__question_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="interview"/>
+                                 referencedTableName="question"/>
+
+        <addForeignKeyConstraint baseColumnNames="attributes_id"
+                                 baseTableName="rel_question__attributes"
+                                 constraintName="fk_rel_question__attributes__attributes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="attribute"/>
     </changeSet>
 </databaseChangeLog>

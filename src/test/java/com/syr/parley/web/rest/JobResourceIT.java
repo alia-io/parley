@@ -2,6 +2,7 @@ package com.syr.parley.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,14 +11,20 @@ import com.syr.parley.domain.Job;
 import com.syr.parley.repository.JobRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link JobResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class JobResourceIT {
@@ -57,6 +65,9 @@ class JobResourceIT {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Mock
+    private JobRepository jobRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -162,6 +173,24 @@ class JobResourceIT {
             .andExpect(jsonPath("$.[*].jobRole").value(hasItem(DEFAULT_JOB_ROLE)))
             .andExpect(jsonPath("$.[*].minimumQualifications").value(hasItem(DEFAULT_MINIMUM_QUALIFICATIONS)))
             .andExpect(jsonPath("$.[*].responsibilities").value(hasItem(DEFAULT_RESPONSIBILITIES)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllJobsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(jobRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restJobMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(jobRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllJobsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(jobRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restJobMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(jobRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

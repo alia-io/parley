@@ -40,7 +40,7 @@ public class Users implements Serializable {
         joinColumns = @JoinColumn(name = "users_id"),
         inverseJoinColumns = @JoinColumn(name = "interview_id")
     )
-    @JsonIgnoreProperties(value = { "questions", "jobs", "candidate", "users" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questions", "candidate", "users", "jobs" }, allowSetters = true)
     private Set<Interview> interviews = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -146,11 +146,11 @@ public class UsersResource {
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of users in body.
      */
-    @GetMapping("/users")
-    public List<Users> getAllUsers(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        log.debug("REST request to get all Users");
-        return usersRepository.findAllWithEagerRelationships();
-    }
+    //    @GetMapping("/users")
+    //    public List<Users> getAllUsers(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    //        log.debug("REST request to get all Users");
+    //        return usersRepository.findAllWithEagerRelationships();
+    //    }
 
     /**
      * {@code GET  /users/:id} : get the "id" users.

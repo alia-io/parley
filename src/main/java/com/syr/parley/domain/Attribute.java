@@ -3,6 +3,8 @@ package com.syr.parley.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -27,9 +29,9 @@ public class Attribute implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "attributes", "interview" }, allowSetters = true)
-    private Question questions;
+    @ManyToMany(mappedBy = "attributes")
+    @JsonIgnoreProperties(value = { "attributes", "interviews" }, allowSetters = true)
+    private Set<Question> questions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -72,16 +74,34 @@ public class Attribute implements Serializable {
         this.description = description;
     }
 
-    public Question getQuestions() {
+    public Set<Question> getQuestions() {
         return this.questions;
     }
 
-    public void setQuestions(Question question) {
-        this.questions = question;
+    public void setQuestions(Set<Question> questions) {
+        if (this.questions != null) {
+            this.questions.forEach(i -> i.removeAttributes(this));
+        }
+        if (questions != null) {
+            questions.forEach(i -> i.addAttributes(this));
+        }
+        this.questions = questions;
     }
 
-    public Attribute questions(Question question) {
-        this.setQuestions(question);
+    public Attribute questions(Set<Question> questions) {
+        this.setQuestions(questions);
+        return this;
+    }
+
+    public Attribute addQuestions(Question question) {
+        this.questions.add(question);
+        question.getAttributes().add(this);
+        return this;
+    }
+
+    public Attribute removeQuestions(Question question) {
+        this.questions.remove(question);
+        question.getAttributes().remove(this);
         return this;
     }
 

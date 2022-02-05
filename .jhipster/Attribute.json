@@ -1,5 +1,9 @@
 {
-  "name": "Attribute",
+  "applications": "*",
+  "changelogDate": "20220123012432",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "attribute",
   "fields": [
     {
       "fieldName": "attributeName",
@@ -10,23 +14,20 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "The Attribute entity.",
+  "jpaMetamodelFiltering": false,
+  "name": "Attribute",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "question",
       "otherEntityRelationshipName": "attributes",
-      "relationshipName": "questions"
+      "ownerSide": false,
+      "relationshipName": "questions",
+      "relationshipType": "many-to-many"
     }
   ],
-  "javadoc": "The Attribute entity.",
-  "entityTableName": "attribute",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220123012432"
+  "service": "no"
 }

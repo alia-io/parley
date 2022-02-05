@@ -9,7 +9,7 @@ export interface IJob {
   jobRole?: string | null;
   minimumQualifications?: string | null;
   responsibilities?: string | null;
-  interview?: IInterview | null;
+  interviews?: IInterview[] | null;
 }
 
 export class Job implements IJob {
@@ -21,7 +21,7 @@ export class Job implements IJob {
     public jobRole?: string | null,
     public minimumQualifications?: string | null,
     public responsibilities?: string | null,
-    public interview?: IInterview | null
+    public interviews?: IInterview[] | null
   ) {}
 }
 

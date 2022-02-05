@@ -4,7 +4,7 @@ export interface IAttribute {
   id?: number;
   attributeName?: string | null;
   description?: string | null;
-  questions?: IQuestion | null;
+  questions?: IQuestion[] | null;
 }
 
 export class Attribute implements IAttribute {
@@ -12,7 +12,7 @@ export class Attribute implements IAttribute {
     public id?: number,
     public attributeName?: string | null,
     public description?: string | null,
-    public questions?: IQuestion | null
+    public questions?: IQuestion[] | null
   ) {}
 }
 

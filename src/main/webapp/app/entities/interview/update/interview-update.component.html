@@ -15,6 +15,18 @@
           <label class="form-control-label" for="field_details">Details</label>
           <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
         </div>
+
+        <div class="form-group">
+          <label for="field_questions">Questions</label>
+          <select class="form-control" id="field_questions" data-cy="questions" multiple name="questions" formControlName="questions">
+            <option
+              [ngValue]="getSelectedQuestion(questionOption, editForm.get('questions')!.value)"
+              *ngFor="let questionOption of questionsSharedCollection; trackBy: trackQuestionById"
+            >
+              {{ questionOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

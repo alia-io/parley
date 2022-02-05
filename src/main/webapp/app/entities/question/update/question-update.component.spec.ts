@@ -8,8 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { QuestionService } from '../service/question.service';
 import { IQuestion, Question } from '../question.model';
-import { IInterview } from 'app/entities/interview/interview.model';
-import { InterviewService } from 'app/entities/interview/service/interview.service';
+import { IAttribute } from 'app/entities/attribute/attribute.model';
+import { AttributeService } from 'app/entities/attribute/service/attribute.service';
 
 import { QuestionUpdateComponent } from './question-update.component';
 
@@ -18,7 +18,7 @@ describe('Question Management Update Component', () => {
   let fixture: ComponentFixture<QuestionUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let questionService: QuestionService;
-  let interviewService: InterviewService;
+  let attributeService: AttributeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,41 +40,41 @@ describe('Question Management Update Component', () => {
     fixture = TestBed.createComponent(QuestionUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     questionService = TestBed.inject(QuestionService);
-    interviewService = TestBed.inject(InterviewService);
+    attributeService = TestBed.inject(AttributeService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Interview query and add missing value', () => {
+    it('Should call Attribute query and add missing value', () => {
       const question: IQuestion = { id: 456 };
-      const interview: IInterview = { id: 90786 };
-      question.interview = interview;
+      const attributes: IAttribute[] = [{ id: 92612 }];
+      question.attributes = attributes;
 
-      const interviewCollection: IInterview[] = [{ id: 11298 }];
-      jest.spyOn(interviewService, 'query').mockReturnValue(of(new HttpResponse({ body: interviewCollection })));
-      const additionalInterviews = [interview];
-      const expectedCollection: IInterview[] = [...additionalInterviews, ...interviewCollection];
-      jest.spyOn(interviewService, 'addInterviewToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const attributeCollection: IAttribute[] = [{ id: 48893 }];
+      jest.spyOn(attributeService, 'query').mockReturnValue(of(new HttpResponse({ body: attributeCollection })));
+      const additionalAttributes = [...attributes];
+      const expectedCollection: IAttribute[] = [...additionalAttributes, ...attributeCollection];
+      jest.spyOn(attributeService, 'addAttributeToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ question });
       comp.ngOnInit();
 
-      expect(interviewService.query).toHaveBeenCalled();
-      expect(interviewService.addInterviewToCollectionIfMissing).toHaveBeenCalledWith(interviewCollection, ...additionalInterviews);
-      expect(comp.interviewsSharedCollection).toEqual(expectedCollection);
+      expect(attributeService.query).toHaveBeenCalled();
+      expect(attributeService.addAttributeToCollectionIfMissing).toHaveBeenCalledWith(attributeCollection, ...additionalAttributes);
+      expect(comp.attributesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const question: IQuestion = { id: 456 };
-      const interview: IInterview = { id: 70892 };
-      question.interview = interview;
+      const attributes: IAttribute = { id: 62662 };
+      question.attributes = [attributes];
 
       activatedRoute.data = of({ question });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(question));
-      expect(comp.interviewsSharedCollection).toContain(interview);
+      expect(comp.attributesSharedCollection).toContain(attributes);
     });
   });
 
@@ -143,11 +143,39 @@ describe('Question Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackInterviewById', () => {
-      it('Should return tracked Interview primary key', () => {
+    describe('trackAttributeById', () => {
+      it('Should return tracked Attribute primary key', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackInterviewById(0, entity);
+        const trackResult = comp.trackAttributeById(0, entity);
         expect(trackResult).toEqual(entity.id);
+      });
+    });
+  });
+
+  describe('Getting selected relationships', () => {
+    describe('getSelectedAttribute', () => {
+      it('Should return option if no Attribute is selected', () => {
+        const option = { id: 123 };
+        const result = comp.getSelectedAttribute(option);
+        expect(result === option).toEqual(true);
+      });
+
+      it('Should return selected Attribute for according option', () => {
+        const option = { id: 123 };
+        const selected = { id: 123 };
+        const selected2 = { id: 456 };
+        const result = comp.getSelectedAttribute(option, [selected2, selected]);
+        expect(result === selected).toEqual(true);
+        expect(result === selected2).toEqual(false);
+        expect(result === option).toEqual(false);
+      });
+
+      it('Should return option if this Attribute is not selected', () => {
+        const option = { id: 123 };
+        const selected = { id: 456 };
+        const result = comp.getSelectedAttribute(option, [selected]);
+        expect(result === option).toEqual(true);
+        expect(result === selected).toEqual(false);
       });
     });
   });

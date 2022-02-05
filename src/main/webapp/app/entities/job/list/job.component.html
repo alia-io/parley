@@ -55,9 +55,10 @@
           <td>{{ job.minimumQualifications }}</td>
           <td>{{ job.responsibilities }}</td>
           <td>
-            <div *ngIf="job.interview">
-              <a [routerLink]="['/interview', job.interview?.id, 'view']">{{ job.interview?.id }}</a>
-            </div>
+            <span *ngFor="let interview of job.interviews; let last = last">
+              <a class="form-control-static" [routerLink]="['/interview', interview.id, 'view']">{{ interview.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
           </td>
           <td class="text-right">
             <div class="btn-group">

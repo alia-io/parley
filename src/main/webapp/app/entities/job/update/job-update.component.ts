@@ -30,7 +30,7 @@ export class JobUpdateComponent implements OnInit {
     jobRole: [],
     minimumQualifications: [],
     responsibilities: [],
-    interview: [],
+    interviews: [],
   });
 
   constructor(
@@ -71,6 +71,17 @@ export class JobUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  getSelectedInterview(option: IInterview, selectedVals?: IInterview[]): IInterview {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IJob>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -99,12 +110,12 @@ export class JobUpdateComponent implements OnInit {
       jobRole: job.jobRole,
       minimumQualifications: job.minimumQualifications,
       responsibilities: job.responsibilities,
-      interview: job.interview,
+      interviews: job.interviews,
     });
 
     this.interviewsSharedCollection = this.interviewService.addInterviewToCollectionIfMissing(
       this.interviewsSharedCollection,
-      job.interview
+      ...(job.interviews ?? [])
     );
   }
 
@@ -114,7 +125,7 @@ export class JobUpdateComponent implements OnInit {
       .pipe(map((res: HttpResponse<IInterview[]>) => res.body ?? []))
       .pipe(
         map((interviews: IInterview[]) =>
-          this.interviewService.addInterviewToCollectionIfMissing(interviews, this.editForm.get('interview')!.value)
+          this.interviewService.addInterviewToCollectionIfMissing(interviews, ...(this.editForm.get('interviews')!.value ?? []))
         )
       )
       .subscribe((interviews: IInterview[]) => (this.interviewsSharedCollection = interviews));
@@ -130,7 +141,7 @@ export class JobUpdateComponent implements OnInit {
       jobRole: this.editForm.get(['jobRole'])!.value,
       minimumQualifications: this.editForm.get(['minimumQualifications'])!.value,
       responsibilities: this.editForm.get(['responsibilities'])!.value,
-      interview: this.editForm.get(['interview'])!.value,
+      interviews: this.editForm.get(['interviews'])!.value,
     };
   }
 }

@@ -1,5 +1,9 @@
 {
-  "name": "Candidate",
+  "applications": "*",
+  "changelogDate": "20220123012435",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "candidate",
   "fields": [
     {
       "fieldName": "firstName",
@@ -20,24 +24,20 @@
       "fieldValidateRulesMaxlength": "20"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "The Candidate entity.",
+  "jpaMetamodelFiltering": false,
+  "name": "Candidate",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-one",
       "otherEntityName": "interview",
       "otherEntityRelationshipName": "candidate",
+      "ownerSide": true,
       "relationshipName": "interview",
-      "ownerSide": true
+      "relationshipType": "one-to-one"
     }
   ],
-  "javadoc": "The Candidate entity.",
-  "entityTableName": "candidate",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220123012435"
+  "service": "no"
 }

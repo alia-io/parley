@@ -26,13 +26,14 @@ public class Interview implements Serializable {
     @Column(name = "details")
     private String details;
 
-    @OneToMany(mappedBy = "interview")
-    @JsonIgnoreProperties(value = { "attributes", "interview" }, allowSetters = true)
+    @ManyToMany
+    @JoinTable(
+        name = "rel_interview__questions",
+        joinColumns = @JoinColumn(name = "interview_id"),
+        inverseJoinColumns = @JoinColumn(name = "questions_id")
+    )
+    @JsonIgnoreProperties(value = { "attributes", "interviews" }, allowSetters = true)
     private Set<Question> questions = new HashSet<>();
-
-    @OneToMany(mappedBy = "interview")
-    @JsonIgnoreProperties(value = { "interview" }, allowSetters = true)
-    private Set<Job> jobs = new HashSet<>();
 
     @JsonIgnoreProperties(value = { "interview" }, allowSetters = true)
     @OneToOne(mappedBy = "interview")
@@ -41,6 +42,10 @@ public class Interview implements Serializable {
     @ManyToMany(mappedBy = "interviews")
     @JsonIgnoreProperties(value = { "interviews" }, allowSetters = true)
     private Set<Users> users = new HashSet<>();
+
+    @ManyToMany(mappedBy = "interviews")
+    @JsonIgnoreProperties(value = { "interviews" }, allowSetters = true)
+    private Set<Job> jobs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -75,12 +80,6 @@ public class Interview implements Serializable {
     }
 
     public void setQuestions(Set<Question> questions) {
-        if (this.questions != null) {
-            this.questions.forEach(i -> i.setInterview(null));
-        }
-        if (questions != null) {
-            questions.forEach(i -> i.setInterview(this));
-        }
         this.questions = questions;
     }
 
@@ -91,44 +90,13 @@ public class Interview implements Serializable {
 
     public Interview addQuestions(Question question) {
         this.questions.add(question);
-        question.setInterview(this);
+        question.getInterviews().add(this);
         return this;
     }
 
     public Interview removeQuestions(Question question) {
         this.questions.remove(question);
-        question.setInterview(null);
-        return this;
-    }
-
-    public Set<Job> getJobs() {
-        return this.jobs;
-    }
-
-    public void setJobs(Set<Job> jobs) {
-        if (this.jobs != null) {
-            this.jobs.forEach(i -> i.setInterview(null));
-        }
-        if (jobs != null) {
-            jobs.forEach(i -> i.setInterview(this));
-        }
-        this.jobs = jobs;
-    }
-
-    public Interview jobs(Set<Job> jobs) {
-        this.setJobs(jobs);
-        return this;
-    }
-
-    public Interview addJobs(Job job) {
-        this.jobs.add(job);
-        job.setInterview(this);
-        return this;
-    }
-
-    public Interview removeJobs(Job job) {
-        this.jobs.remove(job);
-        job.setInterview(null);
+        question.getInterviews().remove(this);
         return this;
     }
 
@@ -179,6 +147,37 @@ public class Interview implements Serializable {
     public Interview removeUsers(Users users) {
         this.users.remove(users);
         users.getInterviews().remove(this);
+        return this;
+    }
+
+    public Set<Job> getJobs() {
+        return this.jobs;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        if (this.jobs != null) {
+            this.jobs.forEach(i -> i.removeInterview(this));
+        }
+        if (jobs != null) {
+            jobs.forEach(i -> i.addInterview(this));
+        }
+        this.jobs = jobs;
+    }
+
+    public Interview jobs(Set<Job> jobs) {
+        this.setJobs(jobs);
+        return this;
+    }
+
+    public Interview addJob(Job job) {
+        this.jobs.add(job);
+        job.getInterviews().add(this);
+        return this;
+    }
+
+    public Interview removeJob(Job job) {
+        this.jobs.remove(job);
+        job.getInterviews().remove(this);
         return this;
     }
 

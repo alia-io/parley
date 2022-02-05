@@ -8,8 +8,6 @@ import { of, Subject, from } from 'rxjs';
 
 import { AttributeService } from '../service/attribute.service';
 import { IAttribute, Attribute } from '../attribute.model';
-import { IQuestion } from 'app/entities/question/question.model';
-import { QuestionService } from 'app/entities/question/service/question.service';
 
 import { AttributeUpdateComponent } from './attribute-update.component';
 
@@ -18,7 +16,6 @@ describe('Attribute Management Update Component', () => {
   let fixture: ComponentFixture<AttributeUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let attributeService: AttributeService;
-  let questionService: QuestionService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,41 +37,18 @@ describe('Attribute Management Update Component', () => {
     fixture = TestBed.createComponent(AttributeUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     attributeService = TestBed.inject(AttributeService);
-    questionService = TestBed.inject(QuestionService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Question query and add missing value', () => {
-      const attribute: IAttribute = { id: 456 };
-      const questions: IQuestion = { id: 10093 };
-      attribute.questions = questions;
-
-      const questionCollection: IQuestion[] = [{ id: 7040 }];
-      jest.spyOn(questionService, 'query').mockReturnValue(of(new HttpResponse({ body: questionCollection })));
-      const additionalQuestions = [questions];
-      const expectedCollection: IQuestion[] = [...additionalQuestions, ...questionCollection];
-      jest.spyOn(questionService, 'addQuestionToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ attribute });
-      comp.ngOnInit();
-
-      expect(questionService.query).toHaveBeenCalled();
-      expect(questionService.addQuestionToCollectionIfMissing).toHaveBeenCalledWith(questionCollection, ...additionalQuestions);
-      expect(comp.questionsSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const attribute: IAttribute = { id: 456 };
-      const questions: IQuestion = { id: 99830 };
-      attribute.questions = questions;
 
       activatedRoute.data = of({ attribute });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(attribute));
-      expect(comp.questionsSharedCollection).toContain(questions);
     });
   });
 
@@ -139,16 +113,6 @@ describe('Attribute Management Update Component', () => {
       expect(attributeService.update).toHaveBeenCalledWith(attribute);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Tracking relationships identifiers', () => {
-    describe('trackQuestionById', () => {
-      it('Should return tracked Question primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackQuestionById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
     });
   });
 });

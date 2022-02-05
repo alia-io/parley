@@ -22,12 +22,6 @@
         <dd>
           <span>{{ attribute.description }}</span>
         </dd>
-        <dt><span>Questions</span></dt>
-        <dd>
-          <div *ngIf="attribute.questions">
-            <a [routerLink]="['/question', attribute.questions?.id, 'view']">{{ attribute.questions?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

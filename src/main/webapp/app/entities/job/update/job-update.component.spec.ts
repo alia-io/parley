@@ -48,12 +48,12 @@ describe('Job Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Interview query and add missing value', () => {
       const job: IJob = { id: 456 };
-      const interview: IInterview = { id: 18581 };
-      job.interview = interview;
+      const interviews: IInterview[] = [{ id: 18581 }];
+      job.interviews = interviews;
 
       const interviewCollection: IInterview[] = [{ id: 8678 }];
       jest.spyOn(interviewService, 'query').mockReturnValue(of(new HttpResponse({ body: interviewCollection })));
-      const additionalInterviews = [interview];
+      const additionalInterviews = [...interviews];
       const expectedCollection: IInterview[] = [...additionalInterviews, ...interviewCollection];
       jest.spyOn(interviewService, 'addInterviewToCollectionIfMissing').mockReturnValue(expectedCollection);
 
@@ -67,14 +67,14 @@ describe('Job Management Update Component', () => {
 
     it('Should update editForm', () => {
       const job: IJob = { id: 456 };
-      const interview: IInterview = { id: 23312 };
-      job.interview = interview;
+      const interviews: IInterview = { id: 23312 };
+      job.interviews = [interviews];
 
       activatedRoute.data = of({ job });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(job));
-      expect(comp.interviewsSharedCollection).toContain(interview);
+      expect(comp.interviewsSharedCollection).toContain(interviews);
     });
   });
 
@@ -148,6 +148,34 @@ describe('Job Management Update Component', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackInterviewById(0, entity);
         expect(trackResult).toEqual(entity.id);
+      });
+    });
+  });
+
+  describe('Getting selected relationships', () => {
+    describe('getSelectedInterview', () => {
+      it('Should return option if no Interview is selected', () => {
+        const option = { id: 123 };
+        const result = comp.getSelectedInterview(option);
+        expect(result === option).toEqual(true);
+      });
+
+      it('Should return selected Interview for according option', () => {
+        const option = { id: 123 };
+        const selected = { id: 123 };
+        const selected2 = { id: 456 };
+        const result = comp.getSelectedInterview(option, [selected2, selected]);
+        expect(result === selected).toEqual(true);
+        expect(result === selected2).toEqual(false);
+        expect(result === option).toEqual(false);
+      });
+
+      it('Should return option if this Interview is not selected', () => {
+        const option = { id: 123 };
+        const selected = { id: 456 };
+        const result = comp.getSelectedInterview(option, [selected]);
+        expect(result === option).toEqual(true);
+        expect(result === selected).toEqual(false);
       });
     });
   });

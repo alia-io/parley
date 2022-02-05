@@ -151,12 +151,13 @@ public class JobResource {
     /**
      * {@code GET  /jobs} : get all the jobs.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of jobs in body.
      */
     @GetMapping("/jobs")
-    public List<Job> getAllJobs() {
+    public List<Job> getAllJobs(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Jobs");
-        return jobRepository.findAll();
+        return jobRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -168,7 +169,7 @@ public class JobResource {
     @GetMapping("/jobs/{id}")
     public ResponseEntity<Job> getJob(@PathVariable Long id) {
         log.debug("REST request to get Job : {}", id);
-        Optional<Job> job = jobRepository.findById(id);
+        Optional<Job> job = jobRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(job);
     }
 

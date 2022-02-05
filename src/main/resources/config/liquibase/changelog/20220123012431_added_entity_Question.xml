@@ -20,11 +20,22 @@
             <column name="question" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="interview_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
+    </changeSet>
+
+    <changeSet id="20220123012431-1-relations" author="jhipster">
+
+        <createTable tableName="rel_question__attributes">
+            <column name="attributes_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="question_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="question_id, attributes_id" tableName="rel_question__attributes"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

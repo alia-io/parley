@@ -35,7 +35,7 @@
           <th scope="col"><span>ID</span></th>
           <th scope="col"><span>Question Name</span></th>
           <th scope="col"><span>Question</span></th>
-          <th scope="col"><span>Interview</span></th>
+          <th scope="col"><span>Attributes</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -47,9 +47,10 @@
           <td>{{ question.questionName }}</td>
           <td>{{ question.question }}</td>
           <td>
-            <div *ngIf="question.interview">
-              <a [routerLink]="['/interview', question.interview?.id, 'view']">{{ question.interview?.id }}</a>
-            </div>
+            <span *ngFor="let attributes of question.attributes; let last = last">
+              <a class="form-control-static" [routerLink]="['/attribute', attributes.id, 'view']">{{ attributes.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
           </td>
           <td class="text-right">
             <div class="btn-group">

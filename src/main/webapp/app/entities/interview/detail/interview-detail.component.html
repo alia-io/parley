@@ -18,6 +18,13 @@
         <dd>
           <span>{{ interview.details }}</span>
         </dd>
+        <dt><span>Questions</span></dt>
+        <dd>
+          <span *ngFor="let questions of interview.questions; let last = last">
+            <a [routerLink]="['/question', questions?.id, 'view']">{{ questions.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

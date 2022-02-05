@@ -35,7 +35,6 @@
           <th scope="col"><span>ID</span></th>
           <th scope="col"><span>Attribute Name</span></th>
           <th scope="col"><span>Description</span></th>
-          <th scope="col"><span>Questions</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -46,11 +45,6 @@
           </td>
           <td>{{ attribute.attributeName }}</td>
           <td>{{ attribute.description }}</td>
-          <td>
-            <div *ngIf="attribute.questions">
-              <a [routerLink]="['/question', attribute.questions?.id, 'view']">{{ attribute.questions?.id }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

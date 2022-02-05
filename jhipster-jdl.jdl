@@ -55,14 +55,11 @@ entity Candidate {
 	email String required maxlength(20)
 }
 
-relationship OneToMany {
+relationship ManyToMany {
+  Users{interview} to Interview{users},
   Interview{questions} to Question{interview},
   Question{attributes} to Attribute{questions}
   Job{interview} to Interview{job}
-}
-
-relationship ManyToMany {
-  Users{interview} to Interview{users}
 }
 
 relationship OneToOne {

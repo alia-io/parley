@@ -32,12 +32,23 @@
             <column name="responsibilities" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="interview_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="job" columnName="posted_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20220123012434-1-relations" author="jhipster">
+
+        <createTable tableName="rel_job__interview">
+            <column name="interview_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="job_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="job_id, interview_id" tableName="rel_job__interview"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

@@ -1,5 +1,9 @@
 {
-  "name": "Job",
+  "applications": "*",
+  "changelogDate": "20220123012434",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "job",
   "fields": [
     {
       "fieldName": "jobName",
@@ -26,23 +30,20 @@
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "The Job entity.",
+  "jpaMetamodelFiltering": false,
+  "name": "Job",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-one",
       "otherEntityName": "interview",
-      "otherEntityRelationshipName": "jobs",
-      "relationshipName": "interview"
+      "otherEntityRelationshipName": "job",
+      "ownerSide": true,
+      "relationshipName": "interview",
+      "relationshipType": "many-to-many"
     }
   ],
-  "javadoc": "The Job entity.",
-  "entityTableName": "job",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220123012434"
+  "service": "no"
 }

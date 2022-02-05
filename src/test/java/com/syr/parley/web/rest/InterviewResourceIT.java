@@ -2,20 +2,27 @@ package com.syr.parley.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.syr.parley.IntegrationTest;
 import com.syr.parley.domain.Interview;
 import com.syr.parley.repository.InterviewRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link InterviewResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class InterviewResourceIT {
@@ -40,6 +48,9 @@ class InterviewResourceIT {
 
     @Autowired
     private InterviewRepository interviewRepository;
+
+    @Mock
+    private InterviewRepository interviewRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -123,6 +134,24 @@ class InterviewResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(interview.getId().intValue())))
             .andExpect(jsonPath("$.[*].details").value(hasItem(DEFAULT_DETAILS)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllInterviewsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(interviewRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restInterviewMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(interviewRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllInterviewsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(interviewRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restInterviewMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(interviewRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

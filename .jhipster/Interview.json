@@ -1,48 +1,50 @@
 {
-  "name": "Interview",
+  "applications": "*",
+  "changelogDate": "20220123012430",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "interview",
   "fields": [
     {
       "fieldName": "details",
       "fieldType": "String"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "The Interview entity.",
+  "jpaMetamodelFiltering": false,
+  "name": "Interview",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "one-to-many",
       "otherEntityName": "question",
       "otherEntityRelationshipName": "interview",
-      "relationshipName": "questions"
+      "ownerSide": true,
+      "relationshipName": "questions",
+      "relationshipType": "many-to-many"
     },
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "job",
-      "otherEntityRelationshipName": "interview",
-      "relationshipName": "jobs"
-    },
-    {
-      "relationshipType": "one-to-one",
       "otherEntityName": "candidate",
       "otherEntityRelationshipName": "interview",
+      "ownerSide": false,
       "relationshipName": "candidate",
-      "ownerSide": false
+      "relationshipType": "one-to-one"
     },
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "users",
       "otherEntityRelationshipName": "interview",
+      "ownerSide": false,
       "relationshipName": "users",
-      "ownerSide": false
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "job",
+      "otherEntityRelationshipName": "interview",
+      "ownerSide": false,
+      "relationshipName": "job",
+      "relationshipType": "many-to-many"
     }
   ],
-  "javadoc": "The Interview entity.",
-  "entityTableName": "interview",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220123012430"
+  "service": "no"
 }

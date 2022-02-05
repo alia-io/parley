@@ -1,5 +1,9 @@
 {
-  "name": "Users",
+  "applications": "*",
+  "changelogDate": "20220123012433",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "users",
   "fields": [
     {
       "fieldName": "firstName",
@@ -14,24 +18,20 @@
       "fieldValidateRulesMaxlength": "20"
     }
   ],
+  "fluentMethods": true,
+  "javadoc": "The Employee entity.",
+  "jpaMetamodelFiltering": false,
+  "name": "Users",
+  "pagination": "no",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipType": "many-to-many",
       "otherEntityName": "interview",
       "otherEntityRelationshipName": "users",
+      "ownerSide": true,
       "relationshipName": "interview",
-      "ownerSide": true
+      "relationshipType": "many-to-many"
     }
   ],
-  "javadoc": "The Employee entity.",
-  "entityTableName": "users",
-  "dto": "no",
-  "pagination": "no",
-  "service": "no",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "applications": "*",
-  "changelogDate": "20220123012433"
+  "service": "no"
 }

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -40,9 +42,14 @@ public class Job implements Serializable {
     @Column(name = "responsibilities")
     private String responsibilities;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "questions", "jobs", "candidate", "users" }, allowSetters = true)
-    private Interview interview;
+    @ManyToMany
+    @JoinTable(
+        name = "rel_job__interview",
+        joinColumns = @JoinColumn(name = "job_id"),
+        inverseJoinColumns = @JoinColumn(name = "interview_id")
+    )
+    @JsonIgnoreProperties(value = { "questions", "candidate", "users", "jobs" }, allowSetters = true)
+    private Set<Interview> interviews = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -137,16 +144,28 @@ public class Job implements Serializable {
         this.responsibilities = responsibilities;
     }
 
-    public Interview getInterview() {
-        return this.interview;
+    public Set<Interview> getInterviews() {
+        return this.interviews;
     }
 
-    public void setInterview(Interview interview) {
-        this.interview = interview;
+    public void setInterviews(Set<Interview> interviews) {
+        this.interviews = interviews;
     }
 
-    public Job interview(Interview interview) {
-        this.setInterview(interview);
+    public Job interviews(Set<Interview> interviews) {
+        this.setInterviews(interviews);
+        return this;
+    }
+
+    public Job addInterview(Interview interview) {
+        this.interviews.add(interview);
+        interview.getJobs().add(this);
+        return this;
+    }
+
+    public Job removeInterview(Interview interview) {
+        this.interviews.remove(interview);
+        interview.getJobs().remove(this);
         return this;
     }
 

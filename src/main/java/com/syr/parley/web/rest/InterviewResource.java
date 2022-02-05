@@ -142,11 +142,15 @@ public class InterviewResource {
     /**
      * {@code GET  /interviews} : get all the interviews.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of interviews in body.
      */
     @GetMapping("/interviews")
-    public List<Interview> getAllInterviews(@RequestParam(required = false) String filter) {
+    public List<Interview> getAllInterviews(
+        @RequestParam(required = false) String filter,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         if ("candidate-is-null".equals(filter)) {
             log.debug("REST request to get all Interviews where candidate is null");
             return StreamSupport
@@ -155,7 +159,7 @@ public class InterviewResource {
                 .collect(Collectors.toList());
         }
         log.debug("REST request to get all Interviews");
-        return interviewRepository.findAll();
+        return interviewRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -167,7 +171,7 @@ public class InterviewResource {
     @GetMapping("/interviews/{id}")
     public ResponseEntity<Interview> getInterview(@PathVariable Long id) {
         log.debug("REST request to get Interview : {}", id);
-        Optional<Interview> interview = interviewRepository.findById(id);
+        Optional<Interview> interview = interviewRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(interview);
     }
 

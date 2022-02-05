@@ -7,8 +7,8 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IQuestion, Question } from '../question.model';
 import { QuestionService } from '../service/question.service';
-import { IInterview } from 'app/entities/interview/interview.model';
-import { InterviewService } from 'app/entities/interview/service/interview.service';
+import { IAttribute } from 'app/entities/attribute/attribute.model';
+import { AttributeService } from 'app/entities/attribute/service/attribute.service';
 
 @Component({
   selector: 'jhi-question-update',
@@ -17,18 +17,18 @@ import { InterviewService } from 'app/entities/interview/service/interview.servi
 export class QuestionUpdateComponent implements OnInit {
   isSaving = false;
 
-  interviewsSharedCollection: IInterview[] = [];
+  attributesSharedCollection: IAttribute[] = [];
 
   editForm = this.fb.group({
     id: [],
     questionName: [],
     question: [],
-    interview: [],
+    attributes: [],
   });
 
   constructor(
     protected questionService: QuestionService,
-    protected interviewService: InterviewService,
+    protected attributeService: AttributeService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -55,8 +55,19 @@ export class QuestionUpdateComponent implements OnInit {
     }
   }
 
-  trackInterviewById(index: number, item: IInterview): number {
+  trackAttributeById(index: number, item: IAttribute): number {
     return item.id!;
+  }
+
+  getSelectedAttribute(option: IAttribute, selectedVals?: IAttribute[]): IAttribute {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IQuestion>>): void {
@@ -83,25 +94,25 @@ export class QuestionUpdateComponent implements OnInit {
       id: question.id,
       questionName: question.questionName,
       question: question.question,
-      interview: question.interview,
+      attributes: question.attributes,
     });
 
-    this.interviewsSharedCollection = this.interviewService.addInterviewToCollectionIfMissing(
-      this.interviewsSharedCollection,
-      question.interview
+    this.attributesSharedCollection = this.attributeService.addAttributeToCollectionIfMissing(
+      this.attributesSharedCollection,
+      ...(question.attributes ?? [])
     );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.interviewService
+    this.attributeService
       .query()
-      .pipe(map((res: HttpResponse<IInterview[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IAttribute[]>) => res.body ?? []))
       .pipe(
-        map((interviews: IInterview[]) =>
-          this.interviewService.addInterviewToCollectionIfMissing(interviews, this.editForm.get('interview')!.value)
+        map((attributes: IAttribute[]) =>
+          this.attributeService.addAttributeToCollectionIfMissing(attributes, ...(this.editForm.get('attributes')!.value ?? []))
         )
       )
-      .subscribe((interviews: IInterview[]) => (this.interviewsSharedCollection = interviews));
+      .subscribe((attributes: IAttribute[]) => (this.attributesSharedCollection = attributes));
   }
 
   protected createFromForm(): IQuestion {
@@ -110,7 +121,7 @@ export class QuestionUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       questionName: this.editForm.get(['questionName'])!.value,
       question: this.editForm.get(['question'])!.value,
-      interview: this.editForm.get(['interview'])!.value,
+      attributes: this.editForm.get(['attributes'])!.value,
     };
   }
 }

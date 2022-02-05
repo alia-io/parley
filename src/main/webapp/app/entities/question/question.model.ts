@@ -6,7 +6,7 @@ export interface IQuestion {
   questionName?: string | null;
   question?: string | null;
   attributes?: IAttribute[] | null;
-  interview?: IInterview | null;
+  interviews?: IInterview[] | null;
 }
 
 export class Question implements IQuestion {
@@ -15,7 +15,7 @@ export class Question implements IQuestion {
     public questionName?: string | null,
     public question?: string | null,
     public attributes?: IAttribute[] | null,
-    public interview?: IInterview | null
+    public interviews?: IInterview[] | null
   ) {}
 }
 

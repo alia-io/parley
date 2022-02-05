@@ -29,13 +29,18 @@ public class Question implements Serializable {
     @Column(name = "question")
     private String question;
 
-    @OneToMany(mappedBy = "questions")
+    @ManyToMany
+    @JoinTable(
+        name = "rel_question__attributes",
+        joinColumns = @JoinColumn(name = "question_id"),
+        inverseJoinColumns = @JoinColumn(name = "attributes_id")
+    )
     @JsonIgnoreProperties(value = { "questions" }, allowSetters = true)
     private Set<Attribute> attributes = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "questions", "jobs", "candidate", "users" }, allowSetters = true)
-    private Interview interview;
+    @ManyToMany(mappedBy = "questions")
+    @JsonIgnoreProperties(value = { "questions", "candidate", "users", "jobs" }, allowSetters = true)
+    private Set<Interview> interviews = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -83,12 +88,6 @@ public class Question implements Serializable {
     }
 
     public void setAttributes(Set<Attribute> attributes) {
-        if (this.attributes != null) {
-            this.attributes.forEach(i -> i.setQuestions(null));
-        }
-        if (attributes != null) {
-            attributes.forEach(i -> i.setQuestions(this));
-        }
         this.attributes = attributes;
     }
 
@@ -99,26 +98,44 @@ public class Question implements Serializable {
 
     public Question addAttributes(Attribute attribute) {
         this.attributes.add(attribute);
-        attribute.setQuestions(this);
+        attribute.getQuestions().add(this);
         return this;
     }
 
     public Question removeAttributes(Attribute attribute) {
         this.attributes.remove(attribute);
-        attribute.setQuestions(null);
+        attribute.getQuestions().remove(this);
         return this;
     }
 
-    public Interview getInterview() {
-        return this.interview;
+    public Set<Interview> getInterviews() {
+        return this.interviews;
     }
 
-    public void setInterview(Interview interview) {
-        this.interview = interview;
+    public void setInterviews(Set<Interview> interviews) {
+        if (this.interviews != null) {
+            this.interviews.forEach(i -> i.removeQuestions(this));
+        }
+        if (interviews != null) {
+            interviews.forEach(i -> i.addQuestions(this));
+        }
+        this.interviews = interviews;
     }
 
-    public Question interview(Interview interview) {
-        this.setInterview(interview);
+    public Question interviews(Set<Interview> interviews) {
+        this.setInterviews(interviews);
+        return this;
+    }
+
+    public Question addInterview(Interview interview) {
+        this.interviews.add(interview);
+        interview.getQuestions().add(this);
+        return this;
+    }
+
+    public Question removeInterview(Interview interview) {
+        this.interviews.remove(interview);
+        interview.getQuestions().remove(this);
         return this;
     }
 
