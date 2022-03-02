@@ -2,6 +2,9 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Interview;
 import com.syr.parley.repository.InterviewRepository;
+import com.syr.parley.service.InterviewService;
+import com.syr.parley.service.dto.InterviewDetailsDTO;
+import com.syr.parley.service.dto.NewInterviewDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +38,13 @@ public class InterviewResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final InterviewService interviewService;
+
     private final InterviewRepository interviewRepository;
 
-    public InterviewResource(InterviewRepository interviewRepository) {
+    @Autowired
+    public InterviewResource(InterviewService interviewService, InterviewRepository interviewRepository) {
+        this.interviewService = interviewService;
         this.interviewRepository = interviewRepository;
     }
 
@@ -58,6 +66,11 @@ public class InterviewResource {
             .created(new URI("/api/interviews/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/interviews")
+    public ResponseEntity<InterviewDetailsDTO> createInterview(@RequestBody NewInterviewDTO interview) throws URISyntaxException {
+        return interviewService.createInterview(interview);
     }
 
     /**
