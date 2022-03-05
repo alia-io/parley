@@ -29,4 +29,24 @@ public class InterviewDetailsDTO {
         this.userList = userList;
         this.questionList = questionList;
     }
+
+    public Interview getInterview() {
+        return interview;
+    }
+
+    public Candidate getCandidate() {
+        return candidate;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public ArrayList<Users> getUserList() {
+        return userList;
+    }
+
+    public ArrayList<QuestionDTO> getQuestionList() {
+        return questionList;
+    }
 }

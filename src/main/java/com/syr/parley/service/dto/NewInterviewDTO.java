@@ -15,6 +15,22 @@ public class NewInterviewDTO {
         // Empty constructor needed for Jackson.
     }
 
+    public NewInterviewDTO(
+        ArrayList<Long> userIdList,
+        Long jobId,
+        String interviewDetails,
+        String candidateFirstName,
+        String candidateLastName,
+        String candidateEmail
+    ) {
+        this.userIdList = userIdList;
+        this.jobId = jobId;
+        this.interviewDetails = interviewDetails;
+        this.candidateFirstName = candidateFirstName;
+        this.candidateLastName = candidateLastName;
+        this.candidateEmail = candidateEmail;
+    }
+
     public ArrayList<Long> getUserIdList() {
         return userIdList;
     }
