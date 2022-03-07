@@ -5,7 +5,6 @@ import com.syr.parley.repository.UsersRepository;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -25,9 +24,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class UsersResource {
+public class UsersController {
 
-    private final Logger log = LoggerFactory.getLogger(UsersResource.class);
+    private final Logger log = LoggerFactory.getLogger(UsersController.class);
 
     private static final String ENTITY_NAME = "users";
 
@@ -36,7 +35,7 @@ public class UsersResource {
 
     private final UsersRepository usersRepository;
 
-    public UsersResource(UsersRepository usersRepository) {
+    public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 

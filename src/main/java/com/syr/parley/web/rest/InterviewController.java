@@ -25,9 +25,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class InterviewResource {
+public class InterviewController {
 
-    private final Logger log = LoggerFactory.getLogger(InterviewResource.class);
+    private final Logger log = LoggerFactory.getLogger(InterviewController.class);
 
     private static final String ENTITY_NAME = "interview";
 
@@ -36,7 +36,7 @@ public class InterviewResource {
 
     private final InterviewRepository interviewRepository;
 
-    public InterviewResource(InterviewRepository interviewRepository) {
+    public InterviewController(InterviewRepository interviewRepository) {
         this.interviewRepository = interviewRepository;
     }
 

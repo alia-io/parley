@@ -1,6 +1,6 @@
 package com.syr.parley.web.rest;
 
-import static com.syr.parley.web.rest.AccountResourceIT.TEST_USER_LOGIN;
+import static com.syr.parley.web.rest.AccountControllerIT.TEST_USER_LOGIN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -14,7 +14,6 @@ import com.syr.parley.security.AuthoritiesConstants;
 import com.syr.parley.service.UserService;
 import com.syr.parley.service.dto.AdminUserDTO;
 import com.syr.parley.service.dto.PasswordChangeDTO;
-import com.syr.parley.service.dto.UserDTO;
 import com.syr.parley.web.rest.vm.KeyAndPasswordVM;
 import com.syr.parley.web.rest.vm.ManagedUserVM;
 import java.time.Instant;
@@ -30,12 +29,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link AccountResource} REST controller.
+ * Integration tests for the {@link AccountController} REST controller.
  */
 @AutoConfigureMockMvc
 @WithMockUser(value = TEST_USER_LOGIN)
 @IntegrationTest
-class AccountResourceIT {
+class AccountControllerIT {
 
     static final String TEST_USER_LOGIN = "test";
 

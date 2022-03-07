@@ -23,9 +23,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class AttributeResource {
+public class AttributeController {
 
-    private final Logger log = LoggerFactory.getLogger(AttributeResource.class);
+    private final Logger log = LoggerFactory.getLogger(AttributeController.class);
 
     private static final String ENTITY_NAME = "attribute";
 
@@ -34,7 +34,7 @@ public class AttributeResource {
 
     private final AttributeRepository attributeRepository;
 
-    public AttributeResource(AttributeRepository attributeRepository) {
+    public AttributeController(AttributeRepository attributeRepository) {
         this.attributeRepository = attributeRepository;
     }
 

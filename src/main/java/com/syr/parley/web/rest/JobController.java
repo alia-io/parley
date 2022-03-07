@@ -23,9 +23,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class JobResource {
+public class JobController {
 
-    private final Logger log = LoggerFactory.getLogger(JobResource.class);
+    private final Logger log = LoggerFactory.getLogger(JobController.class);
 
     private static final String ENTITY_NAME = "job";
 
@@ -34,7 +34,7 @@ public class JobResource {
 
     private final JobRepository jobRepository;
 
-    public JobResource(JobRepository jobRepository) {
+    public JobController(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
     }
 

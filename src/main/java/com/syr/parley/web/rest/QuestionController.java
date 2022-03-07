@@ -23,9 +23,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class QuestionResource {
+public class QuestionController {
 
-    private final Logger log = LoggerFactory.getLogger(QuestionResource.class);
+    private final Logger log = LoggerFactory.getLogger(QuestionController.class);
 
     private static final String ENTITY_NAME = "question";
 
@@ -34,7 +34,7 @@ public class QuestionResource {
 
     private final QuestionRepository questionRepository;
 
-    public QuestionResource(QuestionRepository questionRepository) {
+    public QuestionController(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 
