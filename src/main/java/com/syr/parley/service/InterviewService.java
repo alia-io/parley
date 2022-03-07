@@ -55,13 +55,16 @@ public class InterviewService {
     }
 
     public ResponseEntity<InterviewDetailsDTO> createInterview(NewInterviewDTO newInterviewDTO) throws URISyntaxException {
+        // create the new interview
         Interview interview = new Interview();
         interview.setDetails(newInterviewDTO.getInterviewDetails());
         interview = interviewRepository.save(interview);
 
+        // set the job for the interview
         Job job = jobRepository.getById(newInterviewDTO.getJobId());
         interview.addJob(job);
 
+        // create and set the list of users (interviewers) for the interview
         ArrayList<Users> usersList = new ArrayList<>();
         if (newInterviewDTO.getUserIdList() != null) {
             for (Long userId : newInterviewDTO.getUserIdList()) {
@@ -74,6 +77,7 @@ public class InterviewService {
             }
         }
 
+        // set the candidate for the interview
         Candidate candidate = new Candidate();
         candidate.setFirstName(newInterviewDTO.getCandidateFirstName());
         candidate.setLastName(newInterviewDTO.getCandidateLastName());
@@ -82,6 +86,7 @@ public class InterviewService {
         candidate = candidateRepository.save(candidate);
         interview.setCandidate(candidate);
 
+        // save and send back interview details
         interview = interviewRepository.save(interview);
         InterviewDetailsDTO interviewDetailsDTO = new InterviewDetailsDTO(interview, candidate, job, usersList, null);
         return ResponseEntity
