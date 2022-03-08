@@ -1,7 +1,7 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Attribute;
-import com.syr.parley.repository.AttributeRepository;
+import com.syr.parley.service.AttributeService;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,19 +24,20 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class AttributeResource {
+public class AttributeController {
 
-    private final Logger log = LoggerFactory.getLogger(AttributeResource.class);
+    private final Logger log = LoggerFactory.getLogger(AttributeController.class);
 
     private static final String ENTITY_NAME = "attribute";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final AttributeRepository attributeRepository;
+    private final AttributeService attributeService;
 
-    public AttributeResource(AttributeRepository attributeRepository) {
-        this.attributeRepository = attributeRepository;
+    @Autowired
+    public AttributeController(AttributeService attributeService) {
+        this.attributeService = attributeService;
     }
 
     /**
@@ -51,7 +53,7 @@ public class AttributeResource {
         if (attribute.getId() != null) {
             throw new BadRequestAlertException("A new attribute cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Attribute result = attributeRepository.save(attribute);
+        Attribute result = attributeService.createAttribute(attribute);
         return ResponseEntity
             .created(new URI("/api/attributes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -81,11 +83,11 @@ public class AttributeResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!attributeRepository.existsById(id)) {
+        if (attributeService.getAttributeById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Attribute result = attributeRepository.save(attribute);
+        Attribute result = attributeService.createAttribute(attribute);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, attribute.getId().toString()))
@@ -116,24 +118,11 @@ public class AttributeResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!attributeRepository.existsById(id)) {
+        if (attributeService.getAttributeById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Attribute> result = attributeRepository
-            .findById(attribute.getId())
-            .map(existingAttribute -> {
-                if (attribute.getAttributeName() != null) {
-                    existingAttribute.setAttributeName(attribute.getAttributeName());
-                }
-                if (attribute.getDescription() != null) {
-                    existingAttribute.setDescription(attribute.getDescription());
-                }
-
-                return existingAttribute;
-            })
-            .map(attributeRepository::save);
-
+        Optional<Attribute> result = attributeService.updateAttribute(attribute);
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, attribute.getId().toString())
@@ -148,7 +137,7 @@ public class AttributeResource {
     @GetMapping("/attributes")
     public List<Attribute> getAllAttributes() {
         log.debug("REST request to get all Attributes");
-        return attributeRepository.findAll();
+        return attributeService.getAllAttributes();
     }
 
     /**
@@ -160,7 +149,7 @@ public class AttributeResource {
     @GetMapping("/attributes/{id}")
     public ResponseEntity<Attribute> getAttribute(@PathVariable Long id) {
         log.debug("REST request to get Attribute : {}", id);
-        Optional<Attribute> attribute = attributeRepository.findById(id);
+        Optional<Attribute> attribute = attributeService.getAttributeById(id);
         return ResponseUtil.wrapOrNotFound(attribute);
     }
 
@@ -173,7 +162,7 @@ public class AttributeResource {
     @DeleteMapping("/attributes/{id}")
     public ResponseEntity<Void> deleteAttribute(@PathVariable Long id) {
         log.debug("REST request to delete Attribute : {}", id);
-        attributeRepository.deleteById(id);
+        attributeService.deleteAttribute(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

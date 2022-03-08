@@ -1,4 +1,4 @@
-package com.syr.parley.service;
+package com.syr.parley.service.exception;
 
 public class InvalidPasswordException extends RuntimeException {
 

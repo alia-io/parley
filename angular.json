@@ -108,6 +108,7 @@
   },
   "defaultProject": "parley",
   "cli": {
+    "analytics": "ea4b075a-5516-4218-899d-f0635cc434e1",
     "cache": {
       "enabled": true,
       "path": "./target/",

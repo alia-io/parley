@@ -12,7 +12,6 @@ import com.syr.parley.domain.User;
 import com.syr.parley.repository.UserRepository;
 import com.syr.parley.security.AuthoritiesConstants;
 import com.syr.parley.service.dto.AdminUserDTO;
-import com.syr.parley.service.dto.UserDTO;
 import com.syr.parley.service.mapper.UserMapper;
 import com.syr.parley.web.rest.vm.ManagedUserVM;
 import java.time.Instant;
@@ -30,12 +29,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link UserResource} REST controller.
+ * Integration tests for the {@link UserController} REST controller.
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 @IntegrationTest
-class UserResourceIT {
+class UserControllerIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";
     private static final String UPDATED_LOGIN = "jhipster";

@@ -1,11 +1,10 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Users;
-import com.syr.parley.repository.UsersRepository;
+import com.syr.parley.service.UsersService;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -25,19 +24,19 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class UsersResource {
+public class UsersController {
 
-    private final Logger log = LoggerFactory.getLogger(UsersResource.class);
+    private final Logger log = LoggerFactory.getLogger(UsersController.class);
 
     private static final String ENTITY_NAME = "users";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final UsersRepository usersRepository;
+    private final UsersService usersService;
 
-    public UsersResource(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UsersController(UsersService usersService) {
+        this.usersService = usersService;
     }
 
     /**
@@ -53,7 +52,7 @@ public class UsersResource {
         if (users.getId() != null) {
             throw new BadRequestAlertException("A new users cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Users result = usersRepository.save(users);
+        Users result = usersService.createUsers(users);
         return ResponseEntity
             .created(new URI("/api/users/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -81,11 +80,11 @@ public class UsersResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!usersRepository.existsById(id)) {
+        if (usersService.getUsersById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Users result = usersRepository.save(users);
+        Users result = usersService.createUsers(users);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, users.getId().toString()))
@@ -116,24 +115,11 @@ public class UsersResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!usersRepository.existsById(id)) {
+        if (usersService.getUsersById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Users> result = usersRepository
-            .findById(users.getId())
-            .map(existingUsers -> {
-                if (users.getFirstName() != null) {
-                    existingUsers.setFirstName(users.getFirstName());
-                }
-                if (users.getLastName() != null) {
-                    existingUsers.setLastName(users.getLastName());
-                }
-
-                return existingUsers;
-            })
-            .map(usersRepository::save);
-
+        Optional<Users> result = usersService.updateUsers(users);
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, users.getId().toString())
@@ -149,7 +135,7 @@ public class UsersResource {
     //    @GetMapping("/users")
     //    public List<Users> getAllUsers(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
     //        log.debug("REST request to get all Users");
-    //        return usersRepository.findAllWithEagerRelationships();
+    //        return usersService.getAllUsers();
     //    }
 
     /**
@@ -161,7 +147,7 @@ public class UsersResource {
     @GetMapping("/users/{id}")
     public ResponseEntity<Users> getUsers(@PathVariable Long id) {
         log.debug("REST request to get Users : {}", id);
-        Optional<Users> users = usersRepository.findOneWithEagerRelationships(id);
+        Optional<Users> users = usersService.getUsersByIdWithRelationships(id);
         return ResponseUtil.wrapOrNotFound(users);
     }
 
@@ -174,7 +160,7 @@ public class UsersResource {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUsers(@PathVariable Long id) {
         log.debug("REST request to delete Users : {}", id);
-        usersRepository.deleteById(id);
+        usersService.deleteUsers(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

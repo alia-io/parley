@@ -22,12 +22,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link AttributeResource} REST controller.
+ * Integration tests for the {@link AttributeController} REST controller.
  */
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-class AttributeResourceIT {
+class AttributeControllerIT {
 
     private static final String DEFAULT_ATTRIBUTE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_ATTRIBUTE_NAME = "BBBBBBBBBB";

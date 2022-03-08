@@ -9,6 +9,9 @@ import com.syr.parley.security.AuthoritiesConstants;
 import com.syr.parley.security.SecurityUtils;
 import com.syr.parley.service.dto.AdminUserDTO;
 import com.syr.parley.service.dto.UserDTO;
+import com.syr.parley.service.exception.EmailAlreadyUsedException;
+import com.syr.parley.service.exception.InvalidPasswordException;
+import com.syr.parley.service.exception.UsernameAlreadyUsedException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -163,6 +166,14 @@ public class UserService {
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
+    }
+
+    public Optional<User> getUserByEmail(String userEmail) {
+        return userRepository.findOneByEmailIgnoreCase(userEmail);
+    }
+
+    public Optional<User> getUserByLogin(String userLogin) {
+        return userRepository.findOneByLogin(userLogin);
     }
 
     /**

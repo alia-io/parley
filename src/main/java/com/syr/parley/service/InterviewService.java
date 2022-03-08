@@ -1,93 +1,76 @@
 package com.syr.parley.service;
 
-import com.syr.parley.domain.*;
-import com.syr.parley.repository.*;
-import com.syr.parley.service.dto.InterviewDetailsDTO;
-import com.syr.parley.service.dto.NewInterviewDTO;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import javax.transaction.Transactional;
+import com.syr.parley.domain.Interview;
+import com.syr.parley.repository.InterviewRepository;
+import com.syr.parley.web.rest.InterviewController;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import tech.jhipster.web.util.HeaderUtil;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @Transactional
 public class InterviewService {
 
-    @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    private final Logger log = LoggerFactory.getLogger(InterviewController.class);
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
-
-    private static final String ENTITY_NAME = "interview";
-
-    private final UserRepository userRepository;
-    private final UsersRepository usersRepository;
     private final InterviewRepository interviewRepository;
-    private final JobRepository jobRepository;
-    private final CandidateRepository candidateRepository;
-    private final QuestionRepository questionRepository;
-    private final AttributeRepository attributeRepository;
 
     @Autowired
-    public InterviewService(
-        UserRepository userRepository,
-        UsersRepository usersRepository,
-        InterviewRepository interviewRepository,
-        JobRepository jobRepository,
-        CandidateRepository candidateRepository,
-        QuestionRepository questionRepository,
-        AttributeRepository attributeRepository
-    ) {
-        this.userRepository = userRepository;
-        this.usersRepository = usersRepository;
+    public InterviewService(InterviewRepository interviewRepository) {
         this.interviewRepository = interviewRepository;
-        this.jobRepository = jobRepository;
-        this.candidateRepository = candidateRepository;
-        this.questionRepository = questionRepository;
-        this.attributeRepository = attributeRepository;
     }
 
-    public InterviewDetailsDTO createInterview(NewInterviewDTO newInterviewDTO) throws URISyntaxException {
-        // create the new interview
-        Interview interview = new Interview();
-        interview.setDetails(newInterviewDTO.getInterviewDetails());
-        interview = interviewRepository.save(interview);
+    public Interview createInterview(Interview interview) {
+        return interviewRepository.save(interview);
+    }
 
-        // set the job for the interview
-        Job job = jobRepository.getById(newInterviewDTO.getJobId());
-        interview.addJob(job);
+    public Optional<Interview> getInterviewById(Long id) {
+        return interviewRepository.findById(id);
+    }
 
-        // create and set the list of users (interviewers) for the interview
-        ArrayList<Users> usersList = new ArrayList<>();
-        if (newInterviewDTO.getUserIdList() != null) {
-            for (Long userId : newInterviewDTO.getUserIdList()) {
-                User user = userRepository.getById(userId);
-                Users users = new Users();
-                users.setFirstName(user.getFirstName());
-                users.setLastName(user.getLastName());
-                users.addInterview(interview);
-                usersList.add(usersRepository.save(users));
-            }
+    public Optional<Interview> getInterviewByIdWithRelationships(Long id) {
+        return interviewRepository.findOneWithEagerRelationships(id);
+    }
+
+    /**
+     * Partial updates given fields of an existing interview, field will ignore if it is null
+     *
+     * @param interview to update.
+     * @return updated interview.
+     */
+    public Optional<Interview> updateInterview(Interview interview) {
+        return interviewRepository
+            .findById(interview.getId())
+            .map(existingInterview -> {
+                if (interview.getDetails() != null) {
+                    existingInterview.setDetails(interview.getDetails());
+                }
+
+                return existingInterview;
+            })
+            .map(interviewRepository::save);
+    }
+
+    public List<Interview> getAllInterviews(@RequestParam(required = false) String filter) {
+        if ("candidate-is-null".equals(filter)) {
+            log.debug("REST request to get all Interviews where candidate is null");
+            return StreamSupport
+                .stream(interviewRepository.findAll().spliterator(), false)
+                .filter(interview -> interview.getCandidate() == null)
+                .collect(Collectors.toList());
         }
+        log.debug("REST request to get all Interviews");
+        return interviewRepository.findAllWithEagerRelationships();
+    }
 
-        // set the candidate for the interview
-        Candidate candidate = new Candidate();
-        candidate.setFirstName(newInterviewDTO.getCandidateFirstName());
-        candidate.setLastName(newInterviewDTO.getCandidateLastName());
-        candidate.setEmail(newInterviewDTO.getCandidateEmail());
-        candidate.setInterview(interview);
-        candidate = candidateRepository.save(candidate);
-        interview.setCandidate(candidate);
-
-        // save and send back interview details
-        interview = interviewRepository.save(interview);
-        return new InterviewDetailsDTO(interview, candidate, job, usersList, null);
+    public void deleteInterview(Long id) {
+        interviewRepository.deleteById(id);
     }
 }
