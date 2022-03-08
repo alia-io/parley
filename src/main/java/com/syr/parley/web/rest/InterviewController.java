@@ -1,17 +1,16 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Interview;
-import com.syr.parley.repository.InterviewRepository;
+import com.syr.parley.service.InterviewService;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +24,20 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class InterviewResource {
+public class InterviewController {
 
-    private final Logger log = LoggerFactory.getLogger(InterviewResource.class);
+    private final Logger log = LoggerFactory.getLogger(InterviewController.class);
 
     private static final String ENTITY_NAME = "interview";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final InterviewRepository interviewRepository;
+    private final InterviewService interviewService;
 
-    public InterviewResource(InterviewRepository interviewRepository) {
-        this.interviewRepository = interviewRepository;
+    @Autowired
+    public InterviewController(InterviewService interviewService) {
+        this.interviewService = interviewService;
     }
 
     /**
@@ -53,7 +53,7 @@ public class InterviewResource {
         if (interview.getId() != null) {
             throw new BadRequestAlertException("A new interview cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Interview result = interviewRepository.save(interview);
+        Interview result = interviewService.createInterview(interview);
         return ResponseEntity
             .created(new URI("/api/interviews/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -83,11 +83,11 @@ public class InterviewResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!interviewRepository.existsById(id)) {
+        if (interviewService.getInterviewById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Interview result = interviewRepository.save(interview);
+        Interview result = interviewService.createInterview(interview);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, interview.getId().toString()))
@@ -118,21 +118,11 @@ public class InterviewResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!interviewRepository.existsById(id)) {
+        if (interviewService.getInterviewById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Interview> result = interviewRepository
-            .findById(interview.getId())
-            .map(existingInterview -> {
-                if (interview.getDetails() != null) {
-                    existingInterview.setDetails(interview.getDetails());
-                }
-
-                return existingInterview;
-            })
-            .map(interviewRepository::save);
-
+        Optional<Interview> result = interviewService.updateInterview(interview);
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, interview.getId().toString())
@@ -151,15 +141,7 @@ public class InterviewResource {
         @RequestParam(required = false) String filter,
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
-        if ("candidate-is-null".equals(filter)) {
-            log.debug("REST request to get all Interviews where candidate is null");
-            return StreamSupport
-                .stream(interviewRepository.findAll().spliterator(), false)
-                .filter(interview -> interview.getCandidate() == null)
-                .collect(Collectors.toList());
-        }
-        log.debug("REST request to get all Interviews");
-        return interviewRepository.findAllWithEagerRelationships();
+        return interviewService.getAllInterviews(filter);
     }
 
     /**
@@ -171,7 +153,7 @@ public class InterviewResource {
     @GetMapping("/interviews/{id}")
     public ResponseEntity<Interview> getInterview(@PathVariable Long id) {
         log.debug("REST request to get Interview : {}", id);
-        Optional<Interview> interview = interviewRepository.findOneWithEagerRelationships(id);
+        Optional<Interview> interview = interviewService.getInterviewByIdWithRelationships(id);
         return ResponseUtil.wrapOrNotFound(interview);
     }
 
@@ -184,7 +166,7 @@ public class InterviewResource {
     @DeleteMapping("/interviews/{id}")
     public ResponseEntity<Void> deleteInterview(@PathVariable Long id) {
         log.debug("REST request to delete Interview : {}", id);
-        interviewRepository.deleteById(id);
+        interviewService.deleteInterview(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

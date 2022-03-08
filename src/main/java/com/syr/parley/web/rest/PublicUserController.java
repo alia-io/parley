@@ -18,17 +18,17 @@ import tech.jhipster.web.util.PaginationUtil;
 
 @RestController
 @RequestMapping("/api")
-public class PublicUserResource {
+public class PublicUserController {
 
     private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(
         Arrays.asList("id", "login", "firstName", "lastName", "email", "activated", "langKey")
     );
 
-    private final Logger log = LoggerFactory.getLogger(PublicUserResource.class);
+    private final Logger log = LoggerFactory.getLogger(PublicUserController.class);
 
     private final UserService userService;
 
-    public PublicUserResource(UserService userService) {
+    public PublicUserController(UserService userService) {
         this.userService = userService;
     }
 

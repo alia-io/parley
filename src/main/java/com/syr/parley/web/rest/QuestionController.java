@@ -1,7 +1,7 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Question;
-import com.syr.parley.repository.QuestionRepository;
+import com.syr.parley.service.QuestionService;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,19 +24,20 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class QuestionResource {
+public class QuestionController {
 
-    private final Logger log = LoggerFactory.getLogger(QuestionResource.class);
+    private final Logger log = LoggerFactory.getLogger(QuestionController.class);
 
     private static final String ENTITY_NAME = "question";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
-    public QuestionResource(QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
+    @Autowired
+    public QuestionController(QuestionService questionService) {
+        this.questionService = questionService;
     }
 
     /**
@@ -51,7 +53,7 @@ public class QuestionResource {
         if (question.getId() != null) {
             throw new BadRequestAlertException("A new question cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Question result = questionRepository.save(question);
+        Question result = questionService.createQuestion(question);
         return ResponseEntity
             .created(new URI("/api/questions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -81,11 +83,11 @@ public class QuestionResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!questionRepository.existsById(id)) {
+        if (questionService.getQuestionById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Question result = questionRepository.save(question);
+        Question result = questionService.createQuestion(question);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, question.getId().toString()))
@@ -116,24 +118,11 @@ public class QuestionResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!questionRepository.existsById(id)) {
+        if (questionService.getQuestionById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Question> result = questionRepository
-            .findById(question.getId())
-            .map(existingQuestion -> {
-                if (question.getQuestionName() != null) {
-                    existingQuestion.setQuestionName(question.getQuestionName());
-                }
-                if (question.getQuestion() != null) {
-                    existingQuestion.setQuestion(question.getQuestion());
-                }
-
-                return existingQuestion;
-            })
-            .map(questionRepository::save);
-
+        Optional<Question> result = questionService.updateQuestion(question);
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, question.getId().toString())
@@ -149,7 +138,7 @@ public class QuestionResource {
     @GetMapping("/questions")
     public List<Question> getAllQuestions(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Questions");
-        return questionRepository.findAllWithEagerRelationships();
+        return questionService.getAllQuestions();
     }
 
     /**
@@ -161,7 +150,7 @@ public class QuestionResource {
     @GetMapping("/questions/{id}")
     public ResponseEntity<Question> getQuestion(@PathVariable Long id) {
         log.debug("REST request to get Question : {}", id);
-        Optional<Question> question = questionRepository.findOneWithEagerRelationships(id);
+        Optional<Question> question = questionService.getQuestionByIdWithRelationships(id);
         return ResponseUtil.wrapOrNotFound(question);
     }
 
@@ -174,7 +163,7 @@ public class QuestionResource {
     @DeleteMapping("/questions/{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long id) {
         log.debug("REST request to delete Question : {}", id);
-        questionRepository.deleteById(id);
+        questionService.deleteQuestion(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

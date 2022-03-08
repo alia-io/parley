@@ -1,7 +1,7 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Candidate;
-import com.syr.parley.repository.CandidateRepository;
+import com.syr.parley.service.CandidateService;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +26,20 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class CandidateResource {
+public class CandidateController {
 
-    private final Logger log = LoggerFactory.getLogger(CandidateResource.class);
+    private final Logger log = LoggerFactory.getLogger(CandidateController.class);
 
     private static final String ENTITY_NAME = "candidate";
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final CandidateRepository candidateRepository;
+    private final CandidateService candidateService;
 
-    public CandidateResource(CandidateRepository candidateRepository) {
-        this.candidateRepository = candidateRepository;
+    @Autowired
+    public CandidateController(CandidateService candidateService) {
+        this.candidateService = candidateService;
     }
 
     /**
@@ -53,7 +55,7 @@ public class CandidateResource {
         if (candidate.getId() != null) {
             throw new BadRequestAlertException("A new candidate cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Candidate result = candidateRepository.save(candidate);
+        Candidate result = candidateService.createCandidate(candidate);
         return ResponseEntity
             .created(new URI("/api/candidates/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -83,11 +85,11 @@ public class CandidateResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!candidateRepository.existsById(id)) {
+        if (candidateService.getCandidateById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Candidate result = candidateRepository.save(candidate);
+        Candidate result = candidateService.createCandidate(candidate);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, candidate.getId().toString()))
@@ -118,27 +120,11 @@ public class CandidateResource {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!candidateRepository.existsById(id)) {
+        if (candidateService.getCandidateById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Candidate> result = candidateRepository
-            .findById(candidate.getId())
-            .map(existingCandidate -> {
-                if (candidate.getFirstName() != null) {
-                    existingCandidate.setFirstName(candidate.getFirstName());
-                }
-                if (candidate.getLastName() != null) {
-                    existingCandidate.setLastName(candidate.getLastName());
-                }
-                if (candidate.getEmail() != null) {
-                    existingCandidate.setEmail(candidate.getEmail());
-                }
-
-                return existingCandidate;
-            })
-            .map(candidateRepository::save);
-
+        Optional<Candidate> result = candidateService.updateCandidate(candidate);
         return ResponseUtil.wrapOrNotFound(
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, candidate.getId().toString())
@@ -153,7 +139,7 @@ public class CandidateResource {
     @GetMapping("/candidates")
     public List<Candidate> getAllCandidates() {
         log.debug("REST request to get all Candidates");
-        return candidateRepository.findAll();
+        return candidateService.getAllCandidates();
     }
 
     /**
@@ -165,7 +151,7 @@ public class CandidateResource {
     @GetMapping("/candidates/{id}")
     public ResponseEntity<Candidate> getCandidate(@PathVariable Long id) {
         log.debug("REST request to get Candidate : {}", id);
-        Optional<Candidate> candidate = candidateRepository.findById(id);
+        Optional<Candidate> candidate = candidateService.getCandidateById(id);
         return ResponseUtil.wrapOrNotFound(candidate);
     }
 
@@ -178,7 +164,7 @@ public class CandidateResource {
     @DeleteMapping("/candidates/{id}")
     public ResponseEntity<Void> deleteCandidate(@PathVariable Long id) {
         log.debug("REST request to delete Candidate : {}", id);
-        candidateRepository.deleteById(id);
+        candidateService.deleteCandidate(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

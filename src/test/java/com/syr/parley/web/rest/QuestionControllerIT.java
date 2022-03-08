@@ -22,20 +22,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link QuestionResource} REST controller.
+ * Integration tests for the {@link QuestionController} REST controller.
  */
 @IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
-class QuestionResourceIT {
+class QuestionControllerIT {
 
     private static final String DEFAULT_QUESTION_NAME = "AAAAAAAAAA";
     private static final String UPDATED_QUESTION_NAME = "BBBBBBBBBB";
