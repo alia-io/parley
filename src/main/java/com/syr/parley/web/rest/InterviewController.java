@@ -29,9 +29,9 @@ import tech.jhipster.web.util.ResponseUtil;
 @RestController
 @RequestMapping("/api")
 @Transactional
-public class InterviewResource {
+public class InterviewController {
 
-    private final Logger log = LoggerFactory.getLogger(InterviewResource.class);
+    private final Logger log = LoggerFactory.getLogger(InterviewController.class);
 
     private static final String ENTITY_NAME = "interview";
 
@@ -43,7 +43,7 @@ public class InterviewResource {
     private final InterviewRepository interviewRepository;
 
     @Autowired
-    public InterviewResource(InterviewService interviewService, InterviewRepository interviewRepository) {
+    public InterviewController(InterviewService interviewService, InterviewRepository interviewRepository) {
         this.interviewService = interviewService;
         this.interviewRepository = interviewRepository;
     }
@@ -70,7 +70,18 @@ public class InterviewResource {
 
     @PostMapping("/interviews")
     public ResponseEntity<InterviewDetailsDTO> createInterview(@RequestBody NewInterviewDTO interview) throws URISyntaxException {
-        return interviewService.createInterview(interview);
+        InterviewDetailsDTO interviewDetailsDTO = interviewService.createInterview(interview);
+        return ResponseEntity
+            .created(new URI("/api/interviews/" + interviewDetailsDTO.getInterview().getId()))
+            .headers(
+                HeaderUtil.createEntityCreationAlert(
+                    applicationName,
+                    false,
+                    ENTITY_NAME,
+                    interviewDetailsDTO.getInterview().getId().toString()
+                )
+            )
+            .body(interviewDetailsDTO);
     }
 
     /**

@@ -54,7 +54,7 @@ public class InterviewService {
         this.attributeRepository = attributeRepository;
     }
 
-    public ResponseEntity<InterviewDetailsDTO> createInterview(NewInterviewDTO newInterviewDTO) throws URISyntaxException {
+    public InterviewDetailsDTO createInterview(NewInterviewDTO newInterviewDTO) throws URISyntaxException {
         // create the new interview
         Interview interview = new Interview();
         interview.setDetails(newInterviewDTO.getInterviewDetails());
@@ -88,10 +88,6 @@ public class InterviewService {
 
         // save and send back interview details
         interview = interviewRepository.save(interview);
-        InterviewDetailsDTO interviewDetailsDTO = new InterviewDetailsDTO(interview, candidate, job, usersList, null);
-        return ResponseEntity
-            .created(new URI("/api/interviews/" + interview.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, interview.getId().toString()))
-            .body(interviewDetailsDTO);
+        return new InterviewDetailsDTO(interview, candidate, job, usersList, null);
     }
 }
