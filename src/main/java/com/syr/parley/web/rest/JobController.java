@@ -1,7 +1,7 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Job;
-import com.syr.parley.repository.JobRepository;
+import com.syr.parley.service.JobService;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -32,10 +32,10 @@ public class JobController {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final JobRepository jobRepository;
+    private final JobService jobService;
 
-    public JobController(JobRepository jobRepository) {
-        this.jobRepository = jobRepository;
+    public JobController(JobService jobService) {
+        this.jobService = jobService;
     }
 
     /**
@@ -51,7 +51,7 @@ public class JobController {
         if (job.getId() != null) {
             throw new BadRequestAlertException("A new job cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Job result = jobRepository.save(job);
+        Job result = jobService.createJob(job);
         return ResponseEntity
             .created(new URI("/api/jobs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -79,11 +79,11 @@ public class JobController {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!jobRepository.existsById(id)) {
+        if (jobService.getJobById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Job result = jobRepository.save(job);
+        Job result = jobService.createJob(job);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, job.getId().toString()))
@@ -112,35 +112,11 @@ public class JobController {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!jobRepository.existsById(id)) {
+        if (jobService.getJobById(id).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Job> result = jobRepository
-            .findById(job.getId())
-            .map(existingJob -> {
-                if (job.getJobName() != null) {
-                    existingJob.setJobName(job.getJobName());
-                }
-                if (job.getJobDescription() != null) {
-                    existingJob.setJobDescription(job.getJobDescription());
-                }
-                if (job.getPostedDate() != null) {
-                    existingJob.setPostedDate(job.getPostedDate());
-                }
-                if (job.getJobRole() != null) {
-                    existingJob.setJobRole(job.getJobRole());
-                }
-                if (job.getMinimumQualifications() != null) {
-                    existingJob.setMinimumQualifications(job.getMinimumQualifications());
-                }
-                if (job.getResponsibilities() != null) {
-                    existingJob.setResponsibilities(job.getResponsibilities());
-                }
-
-                return existingJob;
-            })
-            .map(jobRepository::save);
+        Optional<Job> result = jobService.updateJob(job);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -157,7 +133,7 @@ public class JobController {
     @GetMapping("/jobs")
     public List<Job> getAllJobs(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Jobs");
-        return jobRepository.findAllWithEagerRelationships();
+        return jobService.getAllJobs();
     }
 
     /**
@@ -169,7 +145,7 @@ public class JobController {
     @GetMapping("/jobs/{id}")
     public ResponseEntity<Job> getJob(@PathVariable Long id) {
         log.debug("REST request to get Job : {}", id);
-        Optional<Job> job = jobRepository.findOneWithEagerRelationships(id);
+        Optional<Job> job = jobService.getJobByIdWithRelationships(id);
         return ResponseUtil.wrapOrNotFound(job);
     }
 
@@ -182,7 +158,7 @@ public class JobController {
     @DeleteMapping("/jobs/{id}")
     public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
         log.debug("REST request to delete Job : {}", id);
-        jobRepository.deleteById(id);
+        jobService.deleteJob(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))

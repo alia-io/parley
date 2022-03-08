@@ -2,7 +2,6 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.config.Constants;
 import com.syr.parley.domain.User;
-import com.syr.parley.repository.UserRepository;
 import com.syr.parley.security.AuthoritiesConstants;
 import com.syr.parley.service.MailService;
 import com.syr.parley.service.UserService;
@@ -18,6 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -83,13 +83,11 @@ public class UserController {
 
     private final UserService userService;
 
-    private final UserRepository userRepository;
-
     private final MailService mailService;
 
-    public UserController(UserService userService, UserRepository userRepository, MailService mailService) {
+    @Autowired
+    public UserController(UserService userService, MailService mailService) {
         this.userService = userService;
-        this.userRepository = userRepository;
         this.mailService = mailService;
     }
 
@@ -113,9 +111,9 @@ public class UserController {
         if (userDTO.getId() != null) {
             throw new BadRequestAlertException("A new user cannot already have an ID", "userManagement", "idexists");
             // Lowercase the user login before comparing with database
-        } else if (userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).isPresent()) {
+        } else if (userService.getUserByLogin(userDTO.getLogin().toLowerCase()).isPresent()) {
             throw new LoginAlreadyUsedException();
-        } else if (userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).isPresent()) {
+        } else if (userService.getUserByEmail(userDTO.getEmail()).isPresent()) {
             throw new EmailAlreadyUsedException();
         } else {
             User newUser = userService.createUser(userDTO);
@@ -141,11 +139,11 @@ public class UserController {
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<AdminUserDTO> updateUser(@Valid @RequestBody AdminUserDTO userDTO) {
         log.debug("REST request to update User : {}", userDTO);
-        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        Optional<User> existingUser = userService.getUserByEmail(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
             throw new EmailAlreadyUsedException();
         }
-        existingUser = userRepository.findOneByLogin(userDTO.getLogin().toLowerCase());
+        existingUser = userService.getUserByLogin(userDTO.getLogin().toLowerCase());
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(userDTO.getId()))) {
             throw new LoginAlreadyUsedException();
         }

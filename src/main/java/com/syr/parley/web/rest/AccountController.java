@@ -1,7 +1,6 @@
 package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.User;
-import com.syr.parley.repository.UserRepository;
 import com.syr.parley.security.SecurityUtils;
 import com.syr.parley.service.MailService;
 import com.syr.parley.service.UserService;
@@ -16,6 +15,7 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,23 +26,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class AccountController {
 
-    private static class AccountResourceException extends RuntimeException {
+    private static class AccountControllerException extends RuntimeException {
 
-        private AccountResourceException(String message) {
+        private AccountControllerException(String message) {
             super(message);
         }
     }
 
     private final Logger log = LoggerFactory.getLogger(AccountController.class);
 
-    private final UserRepository userRepository;
-
     private final UserService userService;
 
     private final MailService mailService;
 
-    public AccountController(UserRepository userRepository, UserService userService, MailService mailService) {
-        this.userRepository = userRepository;
+    @Autowired
+    public AccountController(UserService userService, MailService mailService) {
         this.userService = userService;
         this.mailService = mailService;
     }
@@ -75,7 +73,7 @@ public class AccountController {
     public void activateAccount(@RequestParam(value = "key") String key) {
         Optional<User> user = userService.activateRegistration(key);
         if (!user.isPresent()) {
-            throw new AccountResourceException("No user was found for this activation key");
+            throw new AccountControllerException("No user was found for this activation key");
         }
     }
 
@@ -102,7 +100,7 @@ public class AccountController {
         return userService
             .getUserWithAuthorities()
             .map(AdminUserDTO::new)
-            .orElseThrow(() -> new AccountResourceException("User could not be found"));
+            .orElseThrow(() -> new AccountControllerException("User could not be found"));
     }
 
     /**
@@ -116,14 +114,14 @@ public class AccountController {
     public void saveAccount(@Valid @RequestBody AdminUserDTO userDTO) {
         String userLogin = SecurityUtils
             .getCurrentUserLogin()
-            .orElseThrow(() -> new AccountResourceException("Current user login not found"));
-        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+            .orElseThrow(() -> new AccountControllerException("Current user login not found"));
+        Optional<User> existingUser = userService.getUserByEmail(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
             throw new EmailAlreadyUsedException();
         }
-        Optional<User> user = userRepository.findOneByLogin(userLogin);
+        Optional<User> user = userService.getUserByLogin(userLogin);
         if (!user.isPresent()) {
-            throw new AccountResourceException("User could not be found");
+            throw new AccountControllerException("User could not be found");
         }
         userService.updateUser(
             userDTO.getFirstName(),
@@ -180,7 +178,7 @@ public class AccountController {
         Optional<User> user = userService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey());
 
         if (!user.isPresent()) {
-            throw new AccountResourceException("No user was found for this reset key");
+            throw new AccountControllerException("No user was found for this reset key");
         }
     }
 
