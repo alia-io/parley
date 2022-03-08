@@ -20,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.class)
@@ -119,7 +118,7 @@ public class InterviewServiceTest {
         when(candidateRepository.save(any(Candidate.class))).thenReturn(candidate);
 
         // call method to test (createInterview in InterviewService)
-        ResponseEntity<InterviewDetailsDTO> interviewDetailsDTO = interviewService.createInterview(newInterviewDTO);
+        InterviewDetailsDTO interviewDetailsDTO = interviewService.createInterviewWithRelationships(newInterviewDTO);
 
         // test saved Users
         verify(usersRepository, times(2)).save(usersCaptor.capture());
@@ -136,6 +135,6 @@ public class InterviewServiceTest {
         assertThat(interviewCaptor.getValue().getUsers().size()).isEqualTo(usersList.size());
 
         // test saved Job
-        assertThat(interviewDetailsDTO.getBody().getJob().getId()).isEqualTo(jobId);
+        assertThat(interviewDetailsDTO.getJob().getId()).isEqualTo(jobId);
     }
 }
