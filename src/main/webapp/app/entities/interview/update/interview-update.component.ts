@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { IInterview, Interview } from '../interview.model';
+import { IInterview, Interview, UserDisplayDTO } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
 import { IQuestion } from 'app/entities/question/question.model';
 import { QuestionService } from 'app/entities/question/service/question.service';
@@ -16,6 +16,7 @@ import { QuestionService } from 'app/entities/question/service/question.service'
 })
 export class InterviewUpdateComponent implements OnInit {
   isSaving = false;
+  userList: UserDisplayDTO[] = [];
 
   questionsSharedCollection: IQuestion[] = [];
 
@@ -38,6 +39,11 @@ export class InterviewUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+
+    this.interviewService
+      .getUserList()
+      .pipe(take(1))
+      .subscribe(user => (this.userList = user));
   }
 
   previousState(): void {

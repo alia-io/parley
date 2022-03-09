@@ -26,3 +26,17 @@ export class Interview implements IInterview {
 export function getInterviewIdentifier(interview: IInterview): number | undefined {
   return interview.id;
 }
+
+export interface UserDisplayDTO {
+  id: number;
+  name: string;
+}
+
+export interface NewInterviewDTO {
+  userIdList?: number[];
+  jobId: number;
+  interviewDetails?: string;
+  candidateFirstName?: string;
+  candidateLastName?: string;
+  candidateEmail?: string;
+}

@@ -4,6 +4,7 @@ import com.syr.parley.domain.*;
 import com.syr.parley.repository.*;
 import com.syr.parley.service.dto.InterviewDetailsDTO;
 import com.syr.parley.service.dto.NewInterviewDTO;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.InterviewController;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,5 +133,9 @@ public class InterviewService {
 
     public void deleteInterview(Long id) {
         interviewRepository.deleteById(id);
+    }
+
+    public List<UserDisplayDTO> getAllUser() {
+        return userRepository.findAll().stream().map(UserDisplayDTO::new).collect(Collectors.toList());
     }
 }

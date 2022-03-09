@@ -4,6 +4,7 @@ import com.syr.parley.domain.Interview;
 import com.syr.parley.service.InterviewService;
 import com.syr.parley.service.dto.InterviewDetailsDTO;
 import com.syr.parley.service.dto.NewInterviewDTO;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -197,5 +198,10 @@ public class InterviewController {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/interviews/user_list")
+    public List<UserDisplayDTO> getAllUser() {
+        return interviewService.getAllUser();
     }
 }

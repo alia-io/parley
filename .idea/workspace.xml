@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/InterviewDetailsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/NewInterviewDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/syr/parley/service/InterviewServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/UserDisplayDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parley.iml" beforeDir="false" afterPath="$PROJECT_DIR$/parley.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/interview.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/interview.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/service/interview.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/service/interview.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/config/bootstrap.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/config/bootstrap.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,22 +178,26 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.syr.parley.service.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InterviewServiceTest">
+  <component name="RunManager" selected="JavaScript Debug.Angular Application">
     <configuration name="ExceptionTranslatorIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="parley" />
       <extension name="coverage">
@@ -284,15 +293,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.InterviewServiceTest" />
-        <item itemvalue="JUnit.InterviewControllerIT" />
-        <item itemvalue="JUnit.JobControllerIT" />
-        <item itemvalue="JUnit.ExceptionTranslatorIT" />
-        <item itemvalue="JUnit.UserControllerIT" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -309,6 +309,7 @@
       <workItem from="1642900449190" duration="935000" />
       <workItem from="1644089907483" duration="3000" />
       <workItem from="1644089931922" duration="1048000" />
+      <workItem from="1646789282619" duration="1910000" />
     </task>
     <servers />
   </component>

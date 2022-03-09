@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IInterview, getInterviewIdentifier } from '../interview.model';
+import { IInterview, getInterviewIdentifier, UserDisplayDTO } from '../interview.model';
 
 export type EntityResponseType = HttpResponse<IInterview>;
 export type EntityArrayResponseType = HttpResponse<IInterview[]>;
@@ -63,5 +63,9 @@ export class InterviewService {
       return [...interviewsToAdd, ...interviewCollection];
     }
     return interviewCollection;
+  }
+
+  getUserList(): Observable<UserDisplayDTO[]> {
+    return this.http.get<UserDisplayDTO[]>(`${this.resourceUrl}/user_list`);
   }
 }
