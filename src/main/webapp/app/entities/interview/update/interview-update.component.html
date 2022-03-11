@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-interview-heading" data-cy="InterviewCreateUpdateHeading">Create or edit a Interview</h2>
+      <h2 id="jhi-interview-heading" data-cy="InterviewCreateUpdateHeading">Create or Update an Interview</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
@@ -10,35 +10,42 @@
           <label class="form-control-label" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
+        <br />
 
-        <div class="form-group">
-          <label class="form-control-label" for="field_details">Details</label>
-          <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
-        </div>
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Job</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let job of jobs" [value]="job.id">{{ job.jobName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        <div class="form-group">
-          <label for="interviewers">Interviewers</label><br />
-          <mat-form-field id="interviewers" appearance="outline">
-            <mat-label>Select Interviewers</mat-label>
-            <mat-select [formControl]="users" multiple>
-              <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Candidate First Name</mat-label>
+          <input matInput />
+        </mat-form-field>
 
-        <!--<div class="form-group">
-          <label for="field_questions">Questions</label>
-          <select class="form-control" id="field_questions" data-cy="questions" multiple name="questions" formControlName="questions">
-            <option
-              [ngValue]="getSelectedQuestion(questionOption, editForm.get('questions')!.value)"
-              *ngFor="let questionOption of questionsSharedCollection; trackBy: trackQuestionById"
-            >
-              {{ questionOption.id }}
-            </option>
-          </select>
-        </div>-->
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Candidate Last Name</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Candidate Email</mat-label>
+          <input matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Interviewers</mat-label>
+          <mat-select multiple>
+            <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Interview Details</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
       </div>
-      <br />
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
