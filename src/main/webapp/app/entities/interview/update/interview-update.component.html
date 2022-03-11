@@ -16,7 +16,12 @@
           <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
         </div>
 
-        <div class="form-group">
+        <label for="interviewers">Interviewers</label><br />
+        <select multiple id="interviewers">
+          <option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</option>
+        </select>
+
+        <!--<div class="form-group">
           <label for="field_questions">Questions</label>
           <select class="form-control" id="field_questions" data-cy="questions" multiple name="questions" formControlName="questions">
             <option
@@ -26,8 +31,9 @@
               {{ questionOption.id }}
             </option>
           </select>
-        </div>
+        </div>-->
       </div>
+      <br />
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">

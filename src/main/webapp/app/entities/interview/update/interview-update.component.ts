@@ -9,6 +9,8 @@ import { IInterview, Interview, UserDisplayDTO } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
 import { IQuestion } from 'app/entities/question/question.model';
 import { QuestionService } from 'app/entities/question/service/question.service';
+import { JobService } from '../../job/service/job.service';
+import { IJob } from '../../job/job.model';
 
 @Component({
   selector: 'jhi-interview-update',
@@ -16,8 +18,10 @@ import { QuestionService } from 'app/entities/question/service/question.service'
 })
 export class InterviewUpdateComponent implements OnInit {
   isSaving = false;
-  userList: UserDisplayDTO[] = [];
 
+  jobs?: IJob[];
+
+  userList: UserDisplayDTO[] = [];
   questionsSharedCollection: IQuestion[] = [];
 
   editForm = this.fb.group({
@@ -28,6 +32,7 @@ export class InterviewUpdateComponent implements OnInit {
 
   constructor(
     protected interviewService: InterviewService,
+    protected jobService: JobService,
     protected questionService: QuestionService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
@@ -44,6 +49,10 @@ export class InterviewUpdateComponent implements OnInit {
       .getUserList()
       .pipe(take(1))
       .subscribe(user => (this.userList = user));
+
+    this.jobService.query().subscribe({
+      next: (res: HttpResponse<IJob[]>) => (this.jobs = res.body ?? []),
+    });
   }
 
   previousState(): void {
