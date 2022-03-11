@@ -5,13 +5,14 @@ import com.syr.parley.domain.Interview;
 import com.syr.parley.domain.Job;
 import com.syr.parley.domain.Users;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class InterviewDetailsDTO {
 
     private Interview interview;
     private Candidate candidate;
     private Job job;
-    private ArrayList<Users> userList;
+    private Set<Users> userList;
     private ArrayList<QuestionDTO> questionList;
 
     public InterviewDetailsDTO() {}
@@ -20,7 +21,7 @@ public class InterviewDetailsDTO {
         Interview interview,
         Candidate candidate,
         Job job,
-        ArrayList<Users> userList,
+        Set<Users> userList,
         ArrayList<QuestionDTO> questionList
     ) {
         this.interview = interview;
@@ -42,7 +43,7 @@ public class InterviewDetailsDTO {
         this.job = job;
     }
 
-    public void setUserList(ArrayList<Users> userList) {
+    public void setUserList(Set<Users> userList) {
         this.userList = userList;
     }
 
@@ -62,7 +63,7 @@ public class InterviewDetailsDTO {
         return job;
     }
 
-    public ArrayList<Users> getUserList() {
+    public Set<Users> getUserList() {
         return userList;
     }
 

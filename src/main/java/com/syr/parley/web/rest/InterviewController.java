@@ -2,6 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Interview;
 import com.syr.parley.service.InterviewService;
+import com.syr.parley.service.dto.InterviewDetailsDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -127,6 +128,11 @@ public class InterviewController {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, interview.getId().toString())
         );
+    }
+
+    @GetMapping("/interviews/details/{id}")
+    public InterviewDetailsDTO getInterviewDetailsById(@PathVariable Long id) {
+        return interviewService.getInterviewDetailsById(id);
     }
 
     /**
