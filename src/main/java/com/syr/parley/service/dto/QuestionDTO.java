@@ -2,17 +2,16 @@ package com.syr.parley.service.dto;
 
 import com.syr.parley.domain.Attribute;
 import com.syr.parley.domain.Question;
-
-import java.util.ArrayList;
+import java.util.Set;
 
 public class QuestionDTO {
 
     private Question question;
-    private ArrayList<Attribute> attributes;
+    private Set<Attribute> attributes;
 
     public QuestionDTO() {}
 
-    public QuestionDTO(Question question, ArrayList<Attribute> attributes) {
+    public QuestionDTO(Question question, Set<Attribute> attributes) {
         this.question = question;
         this.attributes = attributes;
     }
@@ -25,11 +24,11 @@ public class QuestionDTO {
         this.question = question;
     }
 
-    public ArrayList<Attribute> getAttributes() {
+    public Set<Attribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(ArrayList<Attribute> attributes) {
+    public void setAttributes(Set<Attribute> attributes) {
         this.attributes = attributes;
     }
 }
