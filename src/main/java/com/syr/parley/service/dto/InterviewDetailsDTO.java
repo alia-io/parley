@@ -75,10 +75,6 @@ public class InterviewDetailsDTO {
         return usersList;
     }
 
-    public void setUsersList(ArrayList<UsersDTO> usersList) {
-        this.usersList = usersList;
-    }
-
     public ArrayList<QuestionAttributesDTO> getQuestionList() {
         return questionList;
     }
