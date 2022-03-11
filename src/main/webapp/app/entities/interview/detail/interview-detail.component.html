@@ -18,6 +18,42 @@
         <dd>
           <span>{{ interview.details }}</span>
         </dd>
+
+        <!--"Span" values are currently, need to get job information to include in spans NEED TO UPDATE-->
+        <dt><span>Job</span></dt>
+        <dd>
+          <span></span>
+        </dd>
+        <dt><span>Job Role</span></dt>
+        <dd>
+          <span></span>
+        </dd>
+        <dt><span>Job Description</span></dt>
+        <dd>
+          <span></span>
+        </dd>
+        <dt><span>Job Qualifications</span></dt>
+        <dd>
+          <span></span>
+        </dd>
+        <dt><span>Job Responsibilities</span></dt>
+        <dd>
+          <span></span>
+        </dd>
+
+        <dt><span>Candidate</span></dt>
+        <dd>
+          <!--Will use "interview.candidate.firstName" and "interview.candidate.lastName"-->
+          <!--Need to implement how to check for NULL or undefined-->
+          <span></span>
+        </dd>
+        <dt><span>Candidate Email</span></dt>
+        <dd>
+          <!--Will use "interview.candidate.email"-->
+          <!--Need to implement how to check for NULL or undefined-->
+          <span></span>
+        </dd>
+
         <dt><span>Questions</span></dt>
         <dd>
           <span *ngFor="let questions of interview.questions; let last = last">
@@ -34,6 +70,12 @@
       <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
+
+      <!--Will change route to "New Question" page when available-->
+      <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-danger">
+        <fa-icon icon="plus"></fa-icon>&nbsp;<span>Add Question</span>
+      </button>
     </div>
   </div>
 </div>
+
