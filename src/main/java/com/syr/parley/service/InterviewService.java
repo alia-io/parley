@@ -2,9 +2,7 @@ package com.syr.parley.service;
 
 import com.syr.parley.domain.*;
 import com.syr.parley.repository.*;
-import com.syr.parley.service.dto.InterviewDetailsDTO;
-import com.syr.parley.service.dto.NewInterviewDTO;
-import com.syr.parley.service.dto.UserDisplayDTO;
+import com.syr.parley.service.dto.*;
 import com.syr.parley.web.rest.InterviewController;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -98,9 +96,20 @@ public class InterviewService {
         return interviewRepository.findOneWithEagerRelationships(id);
     }
 
-    public Optional<Interview> getInterviewDetailsById(Long id) {
-        Optional<Interview> interview = interviewRepository.findOneWithEagerRelationships(id);
-        return null;
+    public InterviewDetailsDTO getInterviewDetailsById(Long id) {
+        InterviewDetailsDTO interviewDetailsDTO = new InterviewDetailsDTO();
+        Interview interview = interviewRepository.findOneWithEagerRelationships(id).orElse(null);
+
+        if (interview != null) {
+            interviewDetailsDTO.setInterview(interview);
+            interviewDetailsDTO.setCandidate(interview.getCandidate());
+            interview.getJobs().stream().findFirst().ifPresent(interviewDetailsDTO::setJob);
+            interviewDetailsDTO.setUserList(interview.getUsers());
+            ArrayList<QuestionDTO> questionList = new ArrayList<>();
+            interview.getQuestions().forEach(question -> questionList.add(new QuestionDTO(question, question.getAttributes())));
+            interviewDetailsDTO.setQuestionList(questionList);
+        }
+        return interviewDetailsDTO;
     }
 
     /**

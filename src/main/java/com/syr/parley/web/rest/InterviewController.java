@@ -144,6 +144,11 @@ public class InterviewController {
         );
     }
 
+    @GetMapping("/interviews/details/{id}")
+    public InterviewDetailsDTO getInterviewDetailsById(@PathVariable Long id) {
+        return interviewService.getInterviewDetailsById(id);
+    }
+
     /**
      * {@code GET  /interviews} : get all the interviews.
      *
