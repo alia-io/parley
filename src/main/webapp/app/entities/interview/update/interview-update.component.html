@@ -16,10 +16,21 @@
           <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
         </div>
 
-        <label for="interviewers">Interviewers</label><br />
-        <select multiple id="interviewers">
-          <option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</option>
-        </select>
+        <div class="form-group">
+          <label for="interviewers">Interviewers</label><br />
+          <select multiple id="interviewers">
+            <option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Interviewers</mat-label>
+            <mat-select [formControl]="users" multiple>
+              <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
         <!--<div class="form-group">
           <label for="field_questions">Questions</label>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -18,9 +18,8 @@ import { IJob } from '../../job/job.model';
 })
 export class InterviewUpdateComponent implements OnInit {
   isSaving = false;
-
   jobs?: IJob[];
-
+  users = new FormControl();
   userList: UserDisplayDTO[] = [];
   questionsSharedCollection: IQuestion[] = [];
 
