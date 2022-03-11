@@ -39,6 +39,11 @@ public class InterviewService {
         return interviewRepository.findOneWithEagerRelationships(id);
     }
 
+    public Optional<Interview> getInterviewDetailsById(Long id) {
+        Optional<Interview> interview = interviewRepository.findOneWithEagerRelationships(id);
+        return null;
+    }
+
     /**
      * Partial updates given fields of an existing interview, field will ignore if it is null
      *
