@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IInterview, getInterviewIdentifier } from '../interview.model';
+import { IInterview, getInterviewIdentifier, UserDisplayDTO, NewInterviewDTO } from '../interview.model';
 
 export type EntityResponseType = HttpResponse<IInterview>;
 export type EntityArrayResponseType = HttpResponse<IInterview[]>;
@@ -18,6 +18,10 @@ export class InterviewService {
 
   create(interview: IInterview): Observable<EntityResponseType> {
     return this.http.post<IInterview>(this.resourceUrl, interview, { observe: 'response' });
+  }
+
+  createInterview(newInterview: NewInterviewDTO): void {
+    this.http.post<NewInterviewDTO>(`${this.resourceUrl}/new`, newInterview).pipe(take(1)).subscribe();
   }
 
   update(interview: IInterview): Observable<EntityResponseType> {
@@ -63,5 +67,9 @@ export class InterviewService {
       return [...interviewsToAdd, ...interviewCollection];
     }
     return interviewCollection;
+  }
+
+  getUserList(): Observable<UserDisplayDTO[]> {
+    return this.http.get<UserDisplayDTO[]>(`${this.resourceUrl}/user_list`);
   }
 }
