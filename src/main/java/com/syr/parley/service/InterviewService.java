@@ -6,9 +6,7 @@ import com.syr.parley.service.dto.InterviewDetailsDTO;
 import com.syr.parley.service.dto.NewInterviewDTO;
 import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.InterviewController;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
@@ -66,7 +64,7 @@ public class InterviewService {
         interview.addJob(job);
 
         // create and set the list of users (interviewers) for the interview
-        ArrayList<Users> usersList = new ArrayList<>();
+        Set<Users> usersList = new HashSet<>();
         if (newInterviewDTO.getUserIdList() != null) {
             for (Long userId : newInterviewDTO.getUserIdList()) {
                 User user = userRepository.getById(userId);
