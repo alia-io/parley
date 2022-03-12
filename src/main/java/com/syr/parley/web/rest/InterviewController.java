@@ -3,6 +3,8 @@ package com.syr.parley.web.rest;
 import com.syr.parley.domain.Interview;
 import com.syr.parley.service.InterviewService;
 import com.syr.parley.service.dto.InterviewDetailsDTO;
+import com.syr.parley.service.dto.NewInterviewDTO;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -59,6 +61,18 @@ public class InterviewController {
             .created(new URI("/api/interviews/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * {@code POST  /interviews-relationships} : Create a new interview with all details from the form.
+     *
+     * @param interview the NewInterviewDTO containing the info needed to create the new interview, users, candidate, and all mappings.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new interview, users, candidate, and all related entities
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/interviews/new")
+    public InterviewDetailsDTO createInterviewWithRelationships(@RequestBody NewInterviewDTO interview) throws URISyntaxException {
+        return interviewService.createInterviewWithRelationships(interview);
     }
 
     /**
@@ -177,5 +191,10 @@ public class InterviewController {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/interviews/user_list")
+    public List<UserDisplayDTO> getAllUser() {
+        return interviewService.getAllUser();
     }
 }

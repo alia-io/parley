@@ -10,9 +10,10 @@ import { FormatMediumDatePipe } from './date/format-medium-date.pipe';
 import { SortByDirective } from './sort/sort-by.directive';
 import { SortDirective } from './sort/sort.directive';
 import { ItemCountComponent } from './pagination/item-count.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
-  imports: [SharedLibsModule],
+  imports: [SharedLibsModule, MaterialModule],
   declarations: [
     AlertComponent,
     AlertErrorComponent,
@@ -35,6 +36,7 @@ import { ItemCountComponent } from './pagination/item-count.component';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    MaterialModule,
   ],
 })
 export class SharedModule {}
