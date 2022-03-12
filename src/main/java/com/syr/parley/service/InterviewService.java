@@ -1,8 +1,12 @@
 package com.syr.parley.service;
 
-import com.syr.parley.domain.Interview;
-import com.syr.parley.repository.InterviewRepository;
+import com.syr.parley.domain.*;
+import com.syr.parley.repository.*;
+import com.syr.parley.service.dto.InterviewDetailsDTO;
+import com.syr.parley.service.dto.NewInterviewDTO;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.InterviewController;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,15 +24,72 @@ public class InterviewService {
 
     private final Logger log = LoggerFactory.getLogger(InterviewController.class);
 
+    private final UserRepository userRepository;
+    private final UsersRepository usersRepository;
     private final InterviewRepository interviewRepository;
+    private final JobRepository jobRepository;
+    private final CandidateRepository candidateRepository;
+    private final QuestionRepository questionRepository;
+    private final AttributeRepository attributeRepository;
 
     @Autowired
-    public InterviewService(InterviewRepository interviewRepository) {
+    public InterviewService(
+        UserRepository userRepository,
+        UsersRepository usersRepository,
+        InterviewRepository interviewRepository,
+        JobRepository jobRepository,
+        CandidateRepository candidateRepository,
+        QuestionRepository questionRepository,
+        AttributeRepository attributeRepository
+    ) {
+        this.userRepository = userRepository;
+        this.usersRepository = usersRepository;
         this.interviewRepository = interviewRepository;
+        this.jobRepository = jobRepository;
+        this.candidateRepository = candidateRepository;
+        this.questionRepository = questionRepository;
+        this.attributeRepository = attributeRepository;
     }
 
     public Interview createInterview(Interview interview) {
         return interviewRepository.save(interview);
+    }
+
+    public InterviewDetailsDTO createInterviewWithRelationships(NewInterviewDTO newInterviewDTO) {
+        // create the new interview
+        Interview interview = new Interview();
+        interview.setDetails(newInterviewDTO.getInterviewDetails());
+        interview = interviewRepository.save(interview);
+
+        // set the job for the interview
+        Job job = jobRepository.getById(newInterviewDTO.getJobId());
+        interview.addJob(job);
+
+        // create and set the list of users (interviewers) for the interview
+        ArrayList<Users> usersList = new ArrayList<>();
+        if (newInterviewDTO.getUserIdList() != null) {
+            for (Long userId : newInterviewDTO.getUserIdList()) {
+                User user = userRepository.getById(userId);
+                Users users = new Users();
+                users.setFirstName(user.getFirstName());
+                users.setLastName(user.getLastName());
+                users.addInterview(interview);
+                usersList.add(usersRepository.save(users));
+            }
+        }
+
+        // set the candidate for the interview
+        Candidate candidate = new Candidate();
+        candidate.setFirstName(newInterviewDTO.getCandidateFirstName());
+        candidate.setLastName(newInterviewDTO.getCandidateLastName());
+        candidate.setEmail(newInterviewDTO.getCandidateEmail());
+        candidate.setInterview(interview);
+        candidate = candidateRepository.save(candidate);
+        interview.setCandidate(candidate);
+
+        // save and send back interview details
+        interview = interviewRepository.save(interview);
+        return new InterviewDetailsDTO(interview, candidate, job, usersList, null);
     }
 
     public Optional<Interview> getInterviewById(Long id) {
@@ -72,5 +133,9 @@ public class InterviewService {
 
     public void deleteInterview(Long id) {
         interviewRepository.deleteById(id);
+    }
+
+    public List<UserDisplayDTO> getAllUser() {
+        return userRepository.findAll().stream().map(UserDisplayDTO::new).collect(Collectors.toList());
     }
 }
