@@ -1,49 +1,44 @@
 <div class="row justify-content-center">
   <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <form name="editForm" role="form" [formGroup]="interviewForm" (ngSubmit)="interviewSubmit()">
       <h2 id="jhi-interview-heading" data-cy="InterviewCreateUpdateHeading">Create or Update an Interview</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
         <br />
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Job</mat-label>
-          <mat-select>
+          <mat-select formControlName="jobId">
             <mat-option *ngFor="let job of jobs" [value]="job.id">{{ job.jobName }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Candidate First Name</mat-label>
-          <input matInput />
+          <input matInput formControlName="candidateFirstName" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Candidate Last Name</mat-label>
-          <input matInput />
+          <input matInput formControlName="candidateLastName" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Candidate Email</mat-label>
-          <input matInput />
+          <input matInput formControlName="candidateEmail" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Interviewers</mat-label>
-          <mat-select multiple>
+          <mat-select formControlName="userIdList" multiple>
             <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Interview Details</mat-label>
-          <textarea matInput></textarea>
+          <textarea matInput formControlName="interviewDetails"></textarea>
         </mat-form-field>
       </div>
 
@@ -56,7 +51,7 @@
           type="submit"
           id="save-entity"
           data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
+          [disabled]="interviewForm.invalid || isSaving"
           class="btn btn-primary"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>

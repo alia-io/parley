@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { IInterview, Interview, UserDisplayDTO } from '../interview.model';
+import { IInterview, UserDisplayDTO } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
 import { IQuestion } from 'app/entities/question/question.model';
 import { QuestionService } from 'app/entities/question/service/question.service';
@@ -21,6 +21,7 @@ export class InterviewUpdateComponent implements OnInit {
   jobs?: IJob[];
   userList: UserDisplayDTO[] = [];
   questionsSharedCollection: IQuestion[] = [];
+  interviewForm: FormGroup;
 
   editForm = this.fb.group({
     id: [],
@@ -33,16 +34,20 @@ export class InterviewUpdateComponent implements OnInit {
     protected jobService: JobService,
     protected questionService: QuestionService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+    protected fb: FormBuilder,
+    protected router: Router
+  ) {
+    this.interviewForm = this.fb.group({
+      userIdList: ['', Validators.required],
+      jobId: ['', Validators.required],
+      interviewDetails: [''],
+      candidateFirstName: ['', Validators.required],
+      candidateLastName: ['', Validators.required],
+      candidateEmail: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ interview }) => {
-      this.updateForm(interview);
-
-      this.loadRelationshipsOptions();
-    });
-
     this.interviewService
       .getUserList()
       .pipe(take(1))
@@ -57,7 +62,7 @@ export class InterviewUpdateComponent implements OnInit {
     window.history.back();
   }
 
-  save(): void {
+  /*save(): void {
     this.isSaving = true;
     const interview = this.createFromForm();
     if (interview.id !== undefined) {
@@ -65,7 +70,7 @@ export class InterviewUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.interviewService.create(interview));
     }
-  }
+  }*/
 
   trackQuestionById(index: number, item: IQuestion): number {
     return item.id!;
@@ -80,6 +85,11 @@ export class InterviewUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  interviewSubmit(): void {
+    this.interviewService.createInterview(this.interviewForm.value);
+    this.onSaveSuccess();
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IInterview>>): void {
@@ -101,7 +111,7 @@ export class InterviewUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  protected updateForm(interview: IInterview): void {
+  /*protected updateForm(interview: IInterview): void {
     this.editForm.patchValue({
       id: interview.id,
       details: interview.details,
@@ -112,7 +122,7 @@ export class InterviewUpdateComponent implements OnInit {
       this.questionsSharedCollection,
       ...(interview.questions ?? [])
     );
-  }
+  }*/
 
   protected loadRelationshipsOptions(): void {
     this.questionService
@@ -124,14 +134,5 @@ export class InterviewUpdateComponent implements OnInit {
         )
       )
       .subscribe((questions: IQuestion[]) => (this.questionsSharedCollection = questions));
-  }
-
-  protected createFromForm(): IInterview {
-    return {
-      ...new Interview(),
-      id: this.editForm.get(['id'])!.value,
-      details: this.editForm.get(['details'])!.value,
-      questions: this.editForm.get(['questions'])!.value,
-    };
   }
 }

@@ -70,21 +70,9 @@ public class InterviewController {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new interview, users, candidate, and all related entities
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/interviews-relationships")
-    public ResponseEntity<InterviewDetailsDTO> createInterviewWithRelationships(@RequestBody NewInterviewDTO interview)
-        throws URISyntaxException {
-        InterviewDetailsDTO interviewDetailsDTO = interviewService.createInterviewWithRelationships(interview);
-        return ResponseEntity
-            .created(new URI("/api/interviews/" + interviewDetailsDTO.getInterview().getId()))
-            .headers(
-                HeaderUtil.createEntityCreationAlert(
-                    applicationName,
-                    false,
-                    ENTITY_NAME,
-                    interviewDetailsDTO.getInterview().getId().toString()
-                )
-            )
-            .body(interviewDetailsDTO);
+    @PostMapping("/interviews/new")
+    public InterviewDetailsDTO createInterviewWithRelationships(@RequestBody NewInterviewDTO interview) throws URISyntaxException {
+        return interviewService.createInterviewWithRelationships(interview);
     }
 
     /**
