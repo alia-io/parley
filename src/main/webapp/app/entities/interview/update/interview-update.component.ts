@@ -62,16 +62,6 @@ export class InterviewUpdateComponent implements OnInit {
     window.history.back();
   }
 
-  /*save(): void {
-    this.isSaving = true;
-    const interview = this.createFromForm();
-    if (interview.id !== undefined) {
-      this.subscribeToSaveResponse(this.interviewService.update(interview));
-    } else {
-      this.subscribeToSaveResponse(this.interviewService.create(interview));
-    }
-  }*/
-
   trackQuestionById(index: number, item: IQuestion): number {
     return item.id!;
   }
@@ -110,19 +100,6 @@ export class InterviewUpdateComponent implements OnInit {
   protected onSaveFinalize(): void {
     this.isSaving = false;
   }
-
-  /*protected updateForm(interview: IInterview): void {
-    this.editForm.patchValue({
-      id: interview.id,
-      details: interview.details,
-      questions: interview.questions,
-    });
-
-    this.questionsSharedCollection = this.questionService.addQuestionToCollectionIfMissing(
-      this.questionsSharedCollection,
-      ...(interview.questions ?? [])
-    );
-  }*/
 
   protected loadRelationshipsOptions(): void {
     this.questionService
