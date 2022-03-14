@@ -40,3 +40,11 @@ export interface NewInterviewDTO {
   candidateLastName?: string;
   candidateEmail?: string;
 }
+
+export interface InterviewDetailsDTO {
+  interview?: Interview;
+  candidate?: Candidate;
+  job?: Job;
+  userList?: Users[];
+  questionList?: Question[];
+}
