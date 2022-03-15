@@ -2,6 +2,7 @@ import { IQuestion } from 'app/entities/question/question.model';
 import { ICandidate } from 'app/entities/candidate/candidate.model';
 import { IUsers } from 'app/entities/users/users.model';
 import { IJob } from 'app/entities/job/job.model';
+import { IAttribute } from '../attribute/attribute.model';
 
 export interface IInterview {
   id?: number;
@@ -42,9 +43,9 @@ export interface NewInterviewDTO {
 }
 
 export interface InterviewDetailsDTO {
-  interview?: Interview;
-  candidate?: Candidate;
-  job?: Job;
-  userList?: Users[];
-  questionList?: Question[];
+  interview: IInterview;
+  candidate: ICandidate;
+  job: IJob;
+  userList: IUsers[];
+  questionList: QuestionDTO[];
 }
