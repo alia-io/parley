@@ -31,6 +31,30 @@ public class NewInterviewDTO {
         this.candidateEmail = candidateEmail;
     }
 
+    public void setUserIdList(ArrayList<Long> userIdList) {
+        this.userIdList = userIdList;
+    }
+
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    public void setInterviewDetails(String interviewDetails) {
+        this.interviewDetails = interviewDetails;
+    }
+
+    public void setCandidateFirstName(String candidateFirstName) {
+        this.candidateFirstName = candidateFirstName;
+    }
+
+    public void setCandidateLastName(String candidateLastName) {
+        this.candidateLastName = candidateLastName;
+    }
+
+    public void setCandidateEmail(String candidateEmail) {
+        this.candidateEmail = candidateEmail;
+    }
+
     public ArrayList<Long> getUserIdList() {
         return userIdList;
     }

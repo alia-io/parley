@@ -15,4 +15,20 @@ public class QuestionDTO {
         this.question = question;
         this.attributes = attributes;
     }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public ArrayList<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(ArrayList<Attribute> attributes) {
+        this.attributes = attributes;
+    }
 }

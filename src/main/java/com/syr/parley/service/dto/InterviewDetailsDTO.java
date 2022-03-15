@@ -31,6 +31,26 @@ public class InterviewDetailsDTO {
         this.questionList = questionList;
     }
 
+    public void setInterview(Interview interview) {
+        this.interview = interview;
+    }
+
+    public void setCandidate(Candidate candidate) {
+        this.candidate = candidate;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public void setUserList(Set<Users> userList) {
+        this.userList = userList;
+    }
+
+    public void setQuestionList(ArrayList<QuestionDTO> questionList) {
+        this.questionList = questionList;
+    }
+
     public Interview getInterview() {
         return interview;
     }
