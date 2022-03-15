@@ -78,8 +78,13 @@ export class InterviewUpdateComponent implements OnInit {
   }
 
   interviewSubmit(): void {
-    this.interviewService.createInterview(this.interviewForm.value);
-    this.onSaveSuccess();
+    this.interviewService
+      .createInterview(this.interviewForm.value)
+      .pipe(take(1))
+      .subscribe(interviewDetailsDTO => {
+        //console.log(interviewDetailsDTO.interview.id);
+        this.router.navigateByUrl(`interview/${Number(interviewDetailsDTO.interview.id)}/view`);
+      });
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IInterview>>): void {
