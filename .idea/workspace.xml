@@ -6,12 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/InterviewDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/InterviewDetailsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/InterviewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/route/interview-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/route/interview-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/interview.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/interview.model.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/service/interview.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/service/interview.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,14 +201,9 @@
       <recent name="com.syr.parley.service.exception" />
     </key>
   </component>
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.ParleyApp">
+  <component name="RunManager" selected="JavaScript Debug.Angular Application">
     <configuration name="ParleyApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.syr.parley.ParleyApp" />
-=======
-  <component name="RunManager" selected="JavaScript Debug.Angular Application">
-    <configuration name="InterviewControllerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
->>>>>>> new interview submit routes to interview details page
       <module name="parley" />
       <extension name="coverage">
         <pattern>
@@ -299,14 +296,6 @@
       <envs />
       <method v="2" />
     </configuration>
-<<<<<<< HEAD
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.ParleyApp" />
-      </list>
-    </recent_temporary>
-=======
->>>>>>> new interview submit routes to interview details page
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
