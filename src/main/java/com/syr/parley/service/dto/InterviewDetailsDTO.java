@@ -2,8 +2,6 @@ package com.syr.parley.service.dto;
 
 import com.syr.parley.domain.*;
 import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Set;
 
 public class InterviewDetailsDTO {
 
