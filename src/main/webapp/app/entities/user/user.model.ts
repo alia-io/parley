@@ -10,3 +10,8 @@ export class User implements IUser {
 export function getUserIdentifier(user: IUser): number | undefined {
   return user.id;
 }
+
+export interface UserDisplayDTO {
+  id?: number;
+  name?: string | null;
+}

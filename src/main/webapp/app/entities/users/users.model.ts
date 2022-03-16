@@ -14,3 +14,9 @@ export class Users implements IUsers {
 export function getUsersIdentifier(users: IUsers): number | undefined {
   return users.id;
 }
+
+export interface UsersDTO {
+  id?: number;
+  firstName?: string | null;
+  lastName?: string | null;
+}
