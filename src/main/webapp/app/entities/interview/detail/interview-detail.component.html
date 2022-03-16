@@ -53,7 +53,7 @@
         <dt><span>Interviewers</span></dt>
         <dd>
           <span *ngFor="let user of interviewDetails.userList; let last = last">
-            <a [routerLink]="['/question', user.id, 'view']">{{ user.id }}</a
+            <a>{{ user.firstName }} {{ user.lastName }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
@@ -61,7 +61,7 @@
         <dt><span>Questions</span></dt>
         <dd>
           <span *ngFor="let question of interviewDetails.questionList; let last = last">
-            <a [routerLink]="['/question', question.question?.id, 'view']">{{ question.question?.id }}</a
+            <a>{{ question.question?.questionName }}: {{ question.question?.question }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
