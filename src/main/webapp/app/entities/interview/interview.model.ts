@@ -2,7 +2,6 @@ import { IQuestion, QuestionAttributesDTO } from 'app/entities/question/question
 import { CandidateDTO, ICandidate } from 'app/entities/candidate/candidate.model';
 import { IUsers, UsersDTO } from 'app/entities/users/users.model';
 import { IJob, JobDTO } from 'app/entities/job/job.model';
-import { IAttribute } from '../attribute/attribute.model';
 
 export interface IInterview {
   id?: number;
