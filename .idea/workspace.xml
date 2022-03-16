@@ -195,7 +195,7 @@
       <recent name="com.syr.parley.service.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.Angular Application">
+  <component name="RunManager" selected="Application.ParleyApp">
     <configuration name="ParleyApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.syr.parley.ParleyApp" />
       <module name="parley" />
