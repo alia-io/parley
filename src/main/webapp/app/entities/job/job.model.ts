@@ -28,3 +28,13 @@ export class Job implements IJob {
 export function getJobIdentifier(job: IJob): number | undefined {
   return job.id;
 }
+
+export interface JobDTO {
+  id?: number;
+  jobName?: string | null;
+  jobDescription?: string | null;
+  postedDate?: dayjs.Dayjs | null;
+  jobRole?: string | null;
+  minimumQualifications?: string | null;
+  responsibilities?: string | null;
+}

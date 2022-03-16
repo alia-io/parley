@@ -89,7 +89,7 @@ public class InterviewService {
 
         // save and send back interview details
         interview = interviewRepository.save(interview);
-        return new InterviewDetailsDTO(interview, candidate, job, usersList, null);
+        return new InterviewDetailsDTO(interview);
     }
 
     public Optional<Interview> getInterviewById(Long id) {
@@ -101,19 +101,7 @@ public class InterviewService {
     }
 
     public InterviewDetailsDTO getInterviewDetailsById(Long id) {
-        InterviewDetailsDTO interviewDetailsDTO = new InterviewDetailsDTO();
-        Interview interview = interviewRepository.findOneWithEagerRelationships(id).orElse(null);
-
-        if (interview != null) {
-            interviewDetailsDTO.setInterview(interview);
-            interviewDetailsDTO.setCandidate(interview.getCandidate());
-            interview.getJobs().stream().findFirst().ifPresent(interviewDetailsDTO::setJob);
-            interviewDetailsDTO.setUserList(interview.getUsers());
-            ArrayList<QuestionDTO> questionList = new ArrayList<>();
-            interview.getQuestions().forEach(question -> questionList.add(new QuestionDTO(question, question.getAttributes())));
-            interviewDetailsDTO.setQuestionList(questionList);
-        }
-        return interviewDetailsDTO;
+        return new InterviewDetailsDTO(Objects.requireNonNull(interviewRepository.findOneWithEagerRelationships(id).orElse(null)));
     }
 
     /**

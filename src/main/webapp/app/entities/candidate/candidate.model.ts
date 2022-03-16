@@ -21,3 +21,10 @@ export class Candidate implements ICandidate {
 export function getCandidateIdentifier(candidate: ICandidate): number | undefined {
   return candidate.id;
 }
+
+export interface CandidateDTO {
+  id?: number;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+}

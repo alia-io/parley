@@ -1,4 +1,4 @@
-import { IAttribute } from 'app/entities/attribute/attribute.model';
+import { AttributeDTO, IAttribute } from 'app/entities/attribute/attribute.model';
 import { IInterview } from 'app/entities/interview/interview.model';
 
 export interface IQuestion {
@@ -21,4 +21,15 @@ export class Question implements IQuestion {
 
 export function getQuestionIdentifier(question: IQuestion): number | undefined {
   return question.id;
+}
+
+export interface QuestionDTO {
+  id?: number;
+  questionName?: string | null;
+  question?: string | null;
+}
+
+export interface QuestionAttributesDTO {
+  question?: QuestionDTO | null;
+  attributeList?: AttributeDTO[] | null;
 }

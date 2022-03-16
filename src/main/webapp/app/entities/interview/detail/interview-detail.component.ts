@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { InterviewDetailsDTO } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
@@ -13,12 +13,10 @@ export class InterviewDetailComponent implements OnInit {
   interviewDetails!: Observable<InterviewDetailsDTO>;
   private interviewId!: number;
 
-  constructor(protected interviewService: InterviewService, protected activatedRoute: ActivatedRoute, protected router: Router) {}
+  constructor(protected interviewService: InterviewService, protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(take(1)).subscribe(paramMap => (this.interviewId = Number(paramMap.get('id'))));
-    console.log('LOG: interview id = ', this.interviewId);
-
     this.interviewService.getInterviewDetails(this.interviewId).pipe(take(1)).subscribe();
   }
 

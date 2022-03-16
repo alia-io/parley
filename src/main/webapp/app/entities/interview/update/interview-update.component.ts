@@ -5,12 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
-import { IInterview, UserDisplayDTO } from '../interview.model';
+import { IInterview } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
 import { IQuestion } from 'app/entities/question/question.model';
 import { QuestionService } from 'app/entities/question/service/question.service';
 import { JobService } from '../../job/service/job.service';
 import { IJob } from '../../job/job.model';
+import { UserDisplayDTO } from '../../user/user.model';
 
 @Component({
   selector: 'jhi-interview-update',
@@ -82,7 +83,7 @@ export class InterviewUpdateComponent implements OnInit {
       .createInterview(this.interviewForm.value)
       .pipe(take(1))
       .subscribe(interviewDetailsDTO => {
-        this.router.navigateByUrl(`interview/${Number(interviewDetailsDTO.interview.id)}/view`);
+        this.router.navigateByUrl(`interview/${Number(interviewDetailsDTO.interview?.id)}/view`);
       });
   }
 
