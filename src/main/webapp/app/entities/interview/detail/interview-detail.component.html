@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="col-8">
-    <div *ngIf="interview">
+    <div *ngIf="interviewDetails">
       <h2 data-cy="interviewDetailsHeading"><span>Interview</span></h2>
 
       <hr />
@@ -10,14 +10,14 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
-        <dd>
-          <span>{{ interview.id }}</span>
-        </dd>
-        <dt><span>Details</span></dt>
-        <dd>
-          <span>{{ interview.details }}</span>
-        </dd>
+        <!--        <dt><span>ID</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ interviewDetails.interview.id }}</span>-->
+        <!--        </dd>-->
+        <!--        <dt><span>Details</span></dt>-->
+        <!--        <dd>-->
+        <!--          <span>{{ interviewDetails.interview.details }}</span>-->
+        <!--        </dd>-->
 
         <!--"Span" values are currently, need to get job information to include in spans NEED TO UPDATE-->
         <dt><span>Job</span></dt>
@@ -55,27 +55,26 @@
         </dd>
 
         <dt><span>Questions</span></dt>
-        <dd>
+        <!--<dd>
           <span *ngFor="let questions of interview.questions; let last = last">
             <a [routerLink]="['/question', questions?.id, 'view']">{{ questions.id }}</a
             >{{ last ? '' : ', ' }}
           </span>
-        </dd>
+        </dd>-->
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
-      </button>
+      <!--      <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-primary">-->
+      <!--        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>-->
+      <!--      </button>-->
 
-      <!--Will change route to "New Question" page when available-->
-      <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-danger">
-        <fa-icon icon="plus"></fa-icon>&nbsp;<span>Add Question</span>
-      </button>
+      <!--      &lt;!&ndash;Will change route to "New Question" page when available&ndash;&gt;-->
+      <!--      <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-danger">-->
+      <!--        <fa-icon icon="plus"></fa-icon>&nbsp;<span>Add Question</span>-->
+      <!--      </button>-->
     </div>
   </div>
 </div>
-

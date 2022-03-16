@@ -144,8 +144,11 @@ public class InterviewController {
         );
     }
 
-    @GetMapping("/interviews/details/{id}")
+    @GetMapping("/interviews/{id}/details")
     public InterviewDetailsDTO getInterviewDetailsById(@PathVariable Long id) {
+        InterviewDetailsDTO interviewDetailsDTO = interviewService.getInterviewDetailsById(id);
+        System.out.println("hi");
+        System.out.println(interviewDetailsDTO);
         return interviewService.getInterviewDetailsById(id);
     }
 

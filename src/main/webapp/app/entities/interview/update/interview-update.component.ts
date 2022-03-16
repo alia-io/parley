@@ -82,7 +82,6 @@ export class InterviewUpdateComponent implements OnInit {
       .createInterview(this.interviewForm.value)
       .pipe(take(1))
       .subscribe(interviewDetailsDTO => {
-        //console.log(interviewDetailsDTO.interview.id);
         this.router.navigateByUrl(`interview/${Number(interviewDetailsDTO.interview.id)}/view`);
       });
   }

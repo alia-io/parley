@@ -16,9 +16,9 @@ const interviewRoute: Routes = [
   {
     path: ':id/view',
     component: InterviewDetailComponent,
-    resolve: {
-      interview: InterviewRoutingResolveService,
-    },
+    // resolve: {
+    //   interview: InterviewRoutingResolveService,
+    // },
     canActivate: [UserRouteAccessService],
   },
   {
