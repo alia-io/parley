@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { InterviewDetailsDTO } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
-import { Observable, take } from 'rxjs';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'jhi-interview-detail',
