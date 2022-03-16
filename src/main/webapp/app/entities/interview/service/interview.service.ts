@@ -36,6 +36,10 @@ export class InterviewService {
     });
   }
 
+  getInterviewDetails(id: number): Observable<InterviewDetailsDTO> {
+    return this.http.get<InterviewDetailsDTO>(`${this.resourceUrl}/${id}/details`);
+  }
+
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IInterview>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
