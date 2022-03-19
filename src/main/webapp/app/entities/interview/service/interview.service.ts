@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IInterview, getInterviewIdentifier, UserDisplayDTO, NewInterviewDTO } from '../interview.model';
-
+import { IInterview, getInterviewIdentifier, NewInterviewDTO, InterviewDetailsDTO } from '../interview.model';
+import { UserDisplayDTO } from '../../user/user.model';
+import { UsersDTO } from '../../users/users.model';
 export type EntityResponseType = HttpResponse<IInterview>;
 export type EntityArrayResponseType = HttpResponse<IInterview[]>;
 
@@ -20,8 +21,8 @@ export class InterviewService {
     return this.http.post<IInterview>(this.resourceUrl, interview, { observe: 'response' });
   }
 
-  createInterview(newInterview: NewInterviewDTO): void {
-    this.http.post<NewInterviewDTO>(`${this.resourceUrl}/new`, newInterview).pipe(take(1)).subscribe();
+  createInterview(newInterview: NewInterviewDTO): Observable<InterviewDetailsDTO> {
+    return this.http.post<InterviewDetailsDTO>(`${this.resourceUrl}/new`, newInterview);
   }
 
   update(interview: IInterview): Observable<EntityResponseType> {
@@ -34,6 +35,14 @@ export class InterviewService {
     return this.http.patch<IInterview>(`${this.resourceUrl}/${getInterviewIdentifier(interview) as number}`, interview, {
       observe: 'response',
     });
+  }
+
+  getInterviewDetails(id: number): Observable<InterviewDetailsDTO> {
+    return this.http.get<InterviewDetailsDTO>(`${this.resourceUrl}/${id}/details`);
+  }
+
+  getInterviewUsersList(id: number): Observable<UsersDTO[]> {
+    return this.http.get<UsersDTO[]>(`${this.resourceUrl}/${id}/users`);
   }
 
   find(id: number): Observable<EntityResponseType> {

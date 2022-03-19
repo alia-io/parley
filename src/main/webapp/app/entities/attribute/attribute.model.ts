@@ -19,3 +19,9 @@ export class Attribute implements IAttribute {
 export function getAttributeIdentifier(attribute: IAttribute): number | undefined {
   return attribute.id;
 }
+
+export interface AttributeDTO {
+  id?: number;
+  attributeName?: string | null;
+  description?: string | null;
+}

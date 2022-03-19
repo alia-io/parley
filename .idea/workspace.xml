@@ -7,17 +7,22 @@
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionAttributesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionAttributesDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="TypeScript File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -191,18 +196,16 @@
       <recent name="com.syr.parley.service.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.InterviewControllerIT">
-    <configuration name="InterviewControllerIT" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.ParleyApp">
+    <configuration name="ParleyApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.syr.parley.ParleyApp" />
       <module name="parley" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.syr.parley.web.rest.*" />
+          <option name="PATTERN" value="com.syr.parley.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.syr.parley.web.rest" />
-      <option name="MAIN_CLASS_NAME" value="com.syr.parley.web.rest.InterviewControllerIT" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -290,8 +293,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.InterviewControllerIT" />
-        <item itemvalue="JUnit.InterviewServiceTest.createInterviewTest" />
+        <item itemvalue="Application.ParleyApp" />
       </list>
     </recent_temporary>
   </component>
@@ -311,6 +313,7 @@
       <workItem from="1644089907483" duration="3000" />
       <workItem from="1644089931922" duration="1048000" />
       <workItem from="1646789282619" duration="1910000" />
+      <workItem from="1647388962247" duration="6484000" />
     </task>
     <servers />
   </component>
@@ -363,6 +366,13 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="interview.candidate.interview.jobs" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/com/syr/parley/GeneratedByJHipster.java" />

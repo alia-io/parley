@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
   <div class="col-8">
-    <div *ngIf="interview">
+    <div *ngIf="interviewDetails">
       <h2 data-cy="interviewDetailsHeading"><span>Interview</span></h2>
 
       <hr />
@@ -10,29 +10,74 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
+
+        <dt><span>Interview Details</span></dt>
         <dd>
-          <span>{{ interview.id }}</span>
+          <span>{{ interviewDetails.interview?.details }}</span>
         </dd>
-        <dt><span>Details</span></dt>
+
+        <dt><span>Job</span></dt>
         <dd>
-          <span>{{ interview.details }}</span>
+          <span>{{ interviewDetails.job?.jobName }}</span>
         </dd>
+        <dt><span>Job Role</span></dt>
+        <dd>
+          <span>{{ interviewDetails.job?.jobRole }}</span>
+        </dd>
+        <dt><span>Job Description</span></dt>
+        <dd>
+          <span>{{ interviewDetails.job?.jobDescription }}</span>
+        </dd>
+        <dt><span>Job Qualifications</span></dt>
+        <dd>
+          <span>{{ interviewDetails.job?.minimumQualifications }}</span>
+        </dd>
+        <dt><span>Job Responsibilities</span></dt>
+        <dd>
+          <span>{{ interviewDetails.job?.responsibilities }}</span>
+        </dd>
+
+        <dt><span>Candidate</span></dt>
+        <dd>
+          <span>{{ interviewDetails.candidate?.firstName }} {{ interviewDetails.candidate?.lastName }}</span>
+        </dd>
+        <dt><span>Candidate Email</span></dt>
+        <dd>
+          <span>{{ interviewDetails.candidate?.email }}</span>
+        </dd>
+
+        <ng-container *ngFor="let user of usersList; let first = first">
+          <dt><span></span>{{ first ? 'Interviewers' : '' }}</dt>
+          <dd>
+            <span>
+              <a>{{ user.firstName }} {{ user.lastName }}</a>
+            </span>
+          </dd>
+        </ng-container>
+
+        <!-- TODO: will probably need to redo this when questions are added -->
         <dt><span>Questions</span></dt>
         <dd>
-          <span *ngFor="let questions of interview.questions; let last = last">
-            <a [routerLink]="['/question', questions?.id, 'view']">{{ questions.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <template *ngFor="let question of interviewDetails.questionList; let last = last">
+            <span>
+              <a>{{ question.question?.questionName }}: {{ question.question?.question }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </template>
         </dd>
       </dl>
 
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+      <button type="submit" [routerLink]="['/interview']" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/interview', interview.id, 'edit']" class="btn btn-primary">
+      <button type="button" [routerLink]="['/interview', interviewDetails.interview?.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+
+      <!--Will change route to "New Question" page when available-->
+      <button type="button" [routerLink]="['/interview', interviewDetails.interview?.id, 'edit']" class="btn btn-danger">
+        <fa-icon icon="plus"></fa-icon>&nbsp;<span>Add Question</span>
       </button>
     </div>
   </div>

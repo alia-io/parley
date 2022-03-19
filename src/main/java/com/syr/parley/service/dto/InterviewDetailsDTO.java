@@ -1,53 +1,89 @@
 package com.syr.parley.service.dto;
 
-import com.syr.parley.domain.Candidate;
-import com.syr.parley.domain.Interview;
-import com.syr.parley.domain.Job;
-import com.syr.parley.domain.Users;
+import com.syr.parley.domain.*;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class InterviewDetailsDTO {
 
-    private Interview interview;
-    private Candidate candidate;
-    private Job job;
-    private Set<Users> userList;
-    private ArrayList<QuestionDTO> questionList;
+    private InterviewDTO interview;
+    private CandidateDTO candidate;
+    private JobDTO job;
+    private ArrayList<UsersDTO> usersList = new ArrayList<>();
+    private ArrayList<QuestionAttributesDTO> questionList = new ArrayList<>();
 
     public InterviewDetailsDTO() {}
 
-    public InterviewDetailsDTO(
-        Interview interview,
-        Candidate candidate,
-        Job job,
-        Set<Users> userList,
-        ArrayList<QuestionDTO> questionList
-    ) {
-        this.interview = interview;
-        this.candidate = candidate;
-        this.job = job;
-        this.userList = userList;
-        this.questionList = questionList;
+    public InterviewDetailsDTO(Interview interview) {
+        this.interview = new InterviewDTO(interview.getId(), interview.getDetails());
+
+        if (interview.getCandidate() != null) {
+            this.candidate =
+                new CandidateDTO(
+                    interview.getCandidate().getId(),
+                    interview.getCandidate().getFirstName(),
+                    interview.getCandidate().getLastName(),
+                    interview.getCandidate().getEmail()
+                );
+        }
+
+        interview
+            .getJobs()
+            .stream()
+            .findFirst()
+            .ifPresent(jobEntity ->
+                this.job =
+                    new JobDTO(
+                        jobEntity.getId(),
+                        jobEntity.getJobName(),
+                        jobEntity.getJobDescription(),
+                        jobEntity.getPostedDate(),
+                        jobEntity.getJobRole(),
+                        jobEntity.getMinimumQualifications(),
+                        jobEntity.getResponsibilities()
+                    )
+            );
+
+        interview.getUsers().forEach(users -> this.usersList.add(new UsersDTO(users.getId(), users.getFirstName(), users.getLastName())));
+        interview.getQuestions().forEach(question -> this.questionList.add(new QuestionAttributesDTO(question)));
     }
 
-    public Interview getInterview() {
+    public InterviewDTO getInterview() {
         return interview;
     }
 
-    public Candidate getCandidate() {
+    public void setInterview(InterviewDTO interview) {
+        this.interview = interview;
+    }
+
+    public CandidateDTO getCandidate() {
         return candidate;
     }
 
-    public Job getJob() {
+    public void setCandidate(CandidateDTO candidate) {
+        this.candidate = candidate;
+    }
+
+    public JobDTO getJob() {
         return job;
     }
 
-    public Set<Users> getUserList() {
-        return userList;
+    public void setJob(JobDTO job) {
+        this.job = job;
     }
 
-    public ArrayList<QuestionDTO> getQuestionList() {
+    public ArrayList<UsersDTO> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(ArrayList<UsersDTO> usersList) {
+        this.usersList = usersList;
+    }
+
+    public ArrayList<QuestionAttributesDTO> getQuestionList() {
         return questionList;
+    }
+
+    public void setQuestionList(ArrayList<QuestionAttributesDTO> questionList) {
+        this.questionList = questionList;
     }
 }

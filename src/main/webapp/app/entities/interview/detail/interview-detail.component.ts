@@ -1,21 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IInterview } from '../interview.model';
+import { InterviewDetailsDTO } from '../interview.model';
+import { InterviewService } from '../service/interview.service';
+import { take } from 'rxjs';
+import { UsersDTO } from '../../users/users.model';
 
 @Component({
   selector: 'jhi-interview-detail',
   templateUrl: './interview-detail.component.html',
 })
 export class InterviewDetailComponent implements OnInit {
-  interview: IInterview | null = null;
+  interviewDetails!: InterviewDetailsDTO;
+  usersList!: UsersDTO[];
+  private interviewId!: number;
 
-  constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(protected interviewService: InterviewService, protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ interview }) => {
-      this.interview = interview;
-    });
+    this.activatedRoute.paramMap.pipe(take(1)).subscribe(paramMap => (this.interviewId = Number(paramMap.get('id'))));
+    this.interviewService
+      .getInterviewDetails(this.interviewId)
+      .pipe(take(1))
+      .subscribe(interview => (this.interviewDetails = interview));
+    this.interviewService
+      .getInterviewUsersList(this.interviewId)
+      .pipe(take(1))
+      .subscribe(users => (this.usersList = users));
   }
 
   previousState(): void {

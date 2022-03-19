@@ -5,6 +5,7 @@ import com.syr.parley.service.InterviewService;
 import com.syr.parley.service.dto.InterviewDetailsDTO;
 import com.syr.parley.service.dto.NewInterviewDTO;
 import com.syr.parley.service.dto.UserDisplayDTO;
+import com.syr.parley.service.dto.UsersDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -142,6 +143,19 @@ public class InterviewController {
             result,
             HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, interview.getId().toString())
         );
+    }
+
+    @GetMapping("/interviews/{id}/details")
+    public InterviewDetailsDTO getInterviewDetailsById(@PathVariable Long id) {
+        InterviewDetailsDTO interviewDetailsDTO = interviewService.getInterviewDetailsById(id);
+        System.out.println("hi");
+        System.out.println(interviewDetailsDTO);
+        return interviewService.getInterviewDetailsById(id);
+    }
+
+    @GetMapping("/interviews/{id}/users")
+    public List<UsersDTO> getAllUsersByInterviewId(@PathVariable Long id) {
+        return interviewService.getAllUsersByInterviewId(id);
     }
 
     /**

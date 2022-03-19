@@ -1,7 +1,7 @@
-import { IQuestion } from 'app/entities/question/question.model';
-import { ICandidate } from 'app/entities/candidate/candidate.model';
-import { IUsers } from 'app/entities/users/users.model';
-import { IJob } from 'app/entities/job/job.model';
+import { IQuestion, QuestionAttributesDTO } from 'app/entities/question/question.model';
+import { CandidateDTO, ICandidate } from 'app/entities/candidate/candidate.model';
+import { IUsers, UsersDTO } from 'app/entities/users/users.model';
+import { IJob, JobDTO } from 'app/entities/job/job.model';
 
 export interface IInterview {
   id?: number;
@@ -27,16 +27,24 @@ export function getInterviewIdentifier(interview: IInterview): number | undefine
   return interview.id;
 }
 
-export interface UserDisplayDTO {
-  id: number;
-  name: string;
+export interface InterviewDTO {
+  id?: number;
+  details?: string | null;
 }
 
 export interface NewInterviewDTO {
-  userIdList?: number[];
-  jobId: number;
-  interviewDetails?: string;
-  candidateFirstName?: string;
-  candidateLastName?: string;
-  candidateEmail?: string;
+  userIdList?: number[] | null;
+  jobId?: number | null;
+  interviewDetails?: string | null;
+  candidateFirstName?: string | null;
+  candidateLastName?: string | null;
+  candidateEmail?: string | null;
+}
+
+export interface InterviewDetailsDTO {
+  interview?: InterviewDTO | null;
+  candidate?: CandidateDTO | null;
+  job?: JobDTO | null;
+  userList?: UsersDTO[] | null;
+  questionList?: QuestionAttributesDTO[] | null;
 }
