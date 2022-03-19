@@ -9,29 +9,12 @@
 
       <jhi-alert></jhi-alert>
 
-      <!--    <mat-list>-->
-
-      <!--      <mat-label>Interview Details</mat-label>-->
-      <!--      <mat-list-item>-->
-      <!--        <div>{{ interviewDetails.interview?.details }}</div>-->
-      <!--      </mat-list-item>-->
-      <!--      <mat-divider></mat-divider>-->
-
-      <!--      <mat-label>Interviewers</mat-label>-->
-      <!--      <mat-list-item *ngFor="let user of interviewDetails.userList">-->
-      <!--        <div>{{ user.firstName }}</div>-->
-      <!--      </mat-list-item>-->
-      <!--      <mat-divider></mat-divider>-->
-
-      <!--    </mat-list>-->
-
       <dl class="row-md jh-entity-details">
         <dt><span>Interview Details</span></dt>
         <dd>
           <span>{{ interviewDetails.interview?.details }}</span>
         </dd>
 
-        <!--"Span" values are currently, need to get job information to include in spans NEED TO UPDATE-->
         <dt><span>Job</span></dt>
         <dd>
           <span>{{ interviewDetails.job?.jobName }}</span>
@@ -55,14 +38,10 @@
 
         <dt><span>Candidate</span></dt>
         <dd>
-          <!--Will use "interview.candidate.firstName" and "interview.candidate.lastName"-->
-          <!--Need to implement how to check for NULL or undefined-->
           <span>{{ interviewDetails.candidate?.firstName }} {{ interviewDetails.candidate?.lastName }}</span>
         </dd>
         <dt><span>Candidate Email</span></dt>
         <dd>
-          <!--Will use "interview.candidate.email"-->
-          <!--Need to implement how to check for NULL or undefined-->
           <span>{{ interviewDetails.candidate?.email }}</span>
         </dd>
 
@@ -75,6 +54,7 @@
           </dd>
         </ng-container>
 
+        <!-- TODO: will probably need to redo this when questions are added -->
         <dt><span>Questions</span></dt>
         <dd>
           <template *ngFor="let question of interviewDetails.questionList; let last = last">
