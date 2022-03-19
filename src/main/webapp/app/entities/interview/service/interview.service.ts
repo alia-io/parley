@@ -7,6 +7,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { IInterview, getInterviewIdentifier, NewInterviewDTO, InterviewDetailsDTO } from '../interview.model';
 import { UserDisplayDTO } from '../../user/user.model';
+import { UsersDTO } from '../../users/users.model';
 
 export type EntityResponseType = HttpResponse<IInterview>;
 export type EntityArrayResponseType = HttpResponse<IInterview[]>;
@@ -39,6 +40,10 @@ export class InterviewService {
 
   getInterviewDetails(id: number): Observable<InterviewDetailsDTO> {
     return this.http.get<InterviewDetailsDTO>(`${this.resourceUrl}/${id}/details`);
+  }
+
+  getInterviewUsersList(id: number): Observable<UsersDTO[]> {
+    return this.http.get<UsersDTO[]>(`${this.resourceUrl}/${id}/users`);
   }
 
   find(id: number): Observable<EntityResponseType> {
