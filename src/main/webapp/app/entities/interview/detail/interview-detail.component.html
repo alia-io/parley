@@ -9,6 +9,22 @@
 
       <jhi-alert></jhi-alert>
 
+      <!--    <mat-list>-->
+
+      <!--      <mat-label>Interview Details</mat-label>-->
+      <!--      <mat-list-item>-->
+      <!--        <div>{{ interviewDetails.interview?.details }}</div>-->
+      <!--      </mat-list-item>-->
+      <!--      <mat-divider></mat-divider>-->
+
+      <!--      <mat-label>Interviewers</mat-label>-->
+      <!--      <mat-list-item *ngFor="let user of interviewDetails.userList">-->
+      <!--        <div>{{ user.firstName }}</div>-->
+      <!--      </mat-list-item>-->
+      <!--      <mat-divider></mat-divider>-->
+
+      <!--    </mat-list>-->
+
       <dl class="row-md jh-entity-details">
         <dt><span>Interview Details</span></dt>
         <dd>
@@ -50,20 +66,23 @@
           <span>{{ interviewDetails.candidate?.email }}</span>
         </dd>
 
-        <dt><span>Interviewers</span></dt>
-        <dd>
-          <span *ngFor="let user of interviewDetails.userList; let last = last">
-            <a>{{ user.firstName }} {{ user.lastName }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
-        </dd>
+        <ng-container *ngFor="let user of usersList; let first = first">
+          <dt><span></span>{{ first ? 'Interviewers' : '' }}</dt>
+          <dd>
+            <span>
+              <a>{{ user.firstName }} {{ user.lastName }}</a>
+            </span>
+          </dd>
+        </ng-container>
 
         <dt><span>Questions</span></dt>
         <dd>
-          <span *ngFor="let question of interviewDetails.questionList; let last = last">
-            <a>{{ question.question?.questionName }}: {{ question.question?.question }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <template *ngFor="let question of interviewDetails.questionList; let last = last">
+            <span>
+              <a>{{ question.question?.questionName }}: {{ question.question?.question }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </template>
         </dd>
       </dl>
 

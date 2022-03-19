@@ -100,6 +100,16 @@ public class InterviewService {
         return new InterviewDetailsDTO(Objects.requireNonNull(interviewRepository.findOneWithEagerRelationships(id).orElse(null)));
     }
 
+    public List<UsersDTO> getAllUsersByInterviewId(Long id) {
+        Interview interview = interviewRepository.findOneWithEagerRelationships(id).orElse(null);
+        assert interview != null;
+        ArrayList<UsersDTO> usersList = new ArrayList<>();
+        for (Users users : interview.getUsers()) {
+            usersList.add(new UsersDTO(users.getId(), users.getFirstName(), users.getLastName()));
+        }
+        return usersList;
+    }
+
     /**
      * Partial updates given fields of an existing interview, field will ignore if it is null
      *
