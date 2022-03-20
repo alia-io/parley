@@ -63,9 +63,4 @@ public class PublicUserController {
     public List<String> getAuthorities() {
         return userService.getAuthorities();
     }
-
-    @GetMapping("/users/user_list")
-    public List<UserDisplayDTO> getAllUserDisplayNames() {
-        return userService.getAllUserDisplayNames();
-    }
 }

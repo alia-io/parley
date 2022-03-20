@@ -1,33 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IUsers } from '../users.model';
 import { UsersService } from '../service/users.service';
 import { UsersDeleteDialogComponent } from '../delete/users-delete-dialog.component';
+import { UserDisplayDTO } from '../../user/user.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'jhi-users',
   templateUrl: './users.component.html',
 })
 export class UsersComponent implements OnInit {
-  users?: IUsers[];
+  users?: UserDisplayDTO[];
   isLoading = false;
 
   constructor(protected usersService: UsersService, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.isLoading = true;
-
-    this.usersService.query().subscribe({
-      next: (res: HttpResponse<IUsers[]>) => {
+    this.usersService
+      .getUserDisplayList()
+      .pipe(take(1))
+      .subscribe(userList => {
+        this.users = userList;
         this.isLoading = false;
-        this.users = res.body ?? [];
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
+      });
   }
 
   ngOnInit(): void {
@@ -38,9 +36,9 @@ export class UsersComponent implements OnInit {
     return item.id!;
   }
 
-  delete(users: IUsers): void {
+  delete(id: number): void {
     const modalRef = this.modalService.open(UsersDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.users = users;
+    modalRef.componentInstance.usersId = id;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {

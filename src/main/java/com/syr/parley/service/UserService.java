@@ -273,10 +273,6 @@ public class UserService {
         return userRepository.findAllByIdNotNullAndActivatedIsTrue(pageable).map(UserDTO::new);
     }
 
-    public List<UserDisplayDTO> getAllUserDisplayNames() {
-        return userRepository.findAll().stream().map(UserDisplayDTO::new).collect(Collectors.toList());
-    }
-
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneWithAuthoritiesByLogin(login);

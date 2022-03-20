@@ -12,6 +12,6 @@ export function getUserIdentifier(user: IUser): number | undefined {
 }
 
 export interface UserDisplayDTO {
-  id?: number;
+  id: number;
   name?: string | null;
 }
