@@ -4,10 +4,6 @@
       <ng-container *ngIf="interviewExists">
         <!--create-->
         <h2 data-cy="InterviewCreateUpdateHeading">Update an Interview</h2>
-        <ng-container *ngFor="let user of interviewDetails.userList; let last = last">
-          <span>{{ user.id }}</span
-          >{{ last ? '' : ', ' }}
-        </ng-container>
       </ng-container>
 
       <ng-container *ngIf="!interviewExists">
@@ -81,8 +77,8 @@
           </ng-container>
           <ng-container *ngIf="interviewExists">
             <!--update-->
-            <mat-select formControlName="userIdList" multiple>
-              <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</mat-option>
+            <mat-select formControlName="userIdList" multiple [(ngModel)]="interviewSelectedUsers" [compareWith]="usersCompare">
+              <mat-option *ngFor="let user of userList" [value]="user">{{ user.firstName }} {{ user.lastName }}</mat-option>
             </mat-select>
           </ng-container>
         </mat-form-field>

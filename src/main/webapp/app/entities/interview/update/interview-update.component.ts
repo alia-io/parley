@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { QuestionService } from 'app/entities/question/service/question.service'
 import { JobService } from '../../job/service/job.service';
 import { IJob } from '../../job/job.model';
 import { UsersService } from '../../users/service/users.service';
-import { UsersDisplayDTO } from '../../users/users.model';
+import { UsersDTO } from '../../users/users.model';
 
 @Component({
   selector: 'jhi-interview-update',
@@ -24,10 +24,9 @@ export class InterviewUpdateComponent implements OnInit {
   interviewId!: number;
   interviewDetails!: InterviewDetailsDTO;
   interviewQuestions!: QuestionAttributesDTO[];
-  interviewSelectedUsers: number[] = [];
-  usersForm!: FormControl;
+  interviewSelectedUsers!: UsersDTO[];
   jobs?: IJob[];
-  userList: UsersDisplayDTO[] = [];
+  userList!: UsersDTO[];
   questionsSharedCollection: IQuestion[] = [];
   interviewForm: FormGroup;
 
@@ -57,10 +56,17 @@ export class InterviewUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.preloadData();
+  }
+
+  preloadData(): void {
     this.usersService
       .getUserDisplayList()
       .pipe(take(1))
-      .subscribe(user => (this.userList = user));
+      .subscribe(user => {
+        this.userList = user;
+        user.map(u => this.userList.push({ id: u.id, firstName: u.firstName, lastName: u.lastName }));
+      });
 
     this.jobService.query().subscribe({
       next: (res: HttpResponse<IJob[]>) => (this.jobs = res.body ?? []),
@@ -75,8 +81,7 @@ export class InterviewUpdateComponent implements OnInit {
         .pipe(take(1))
         .subscribe(interview => {
           this.interviewDetails = interview;
-          interview.userList.forEach(u => this.interviewSelectedUsers.push(u.id));
-          this.usersForm = new FormControl(this.interviewSelectedUsers);
+          this.interviewSelectedUsers = interview.userList;
         });
       this.questionService
         .getQuestionsByInterview(this.interviewId)
@@ -116,6 +121,10 @@ export class InterviewUpdateComponent implements OnInit {
     } else {
       // TODO: update
     }
+  }
+
+  usersCompare(u1: UsersDTO, u2: UsersDTO): boolean {
+    return u1 && u2 ? u1.id === u2.id : u1 === u2;
   }
 
   protected updateForm(interview: IInterview): void {

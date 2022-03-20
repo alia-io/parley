@@ -17,13 +17,13 @@ export function getUsersIdentifier(users: IUsers): number | undefined {
 
 export interface UsersDTO {
   id: number;
-  firstName?: string | null;
-  lastName?: string | null;
+  firstName: string;
+  lastName: string;
 }
 
 export interface UsersDisplayDTO {
   id: number;
-  firstName?: string | null;
-  lastName?: string | null;
+  firstName: string;
+  lastName: string;
   interviewIds?: number[] | null;
 }
