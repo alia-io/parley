@@ -35,13 +35,13 @@ export class InterviewComponent implements OnInit {
   }
 
   delete(id: number): void {
-    // const modalRef = this.modalService.open(InterviewDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    // modalRef.componentInstance.interview = interview;
-    // // unsubscribe not needed because closed completes on modal close
-    // modalRef.closed.subscribe(reason => {
-    //   if (reason === 'deleted') {
-    //     this.loadAll();
-    //   }
-    // });
+    const modalRef = this.modalService.open(InterviewDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.interviewId = id;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'deleted') {
+        this.loadAll();
+      }
+    });
   }
 }

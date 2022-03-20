@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IInterview } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
 
 @Component({
   templateUrl: './interview-delete-dialog.component.html',
 })
 export class InterviewDeleteDialogComponent {
-  interview?: IInterview;
+  interviewId?: number;
 
   constructor(protected interviewService: InterviewService, protected activeModal: NgbActiveModal) {}
 
