@@ -34,6 +34,10 @@ public class Users implements Serializable {
     @Column(name = "last_name", length = 20, nullable = false)
     private String lastName;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany
     @JoinTable(
         name = "rel_users__interview",
@@ -107,6 +111,14 @@ public class Users implements Serializable {
         this.interviews.remove(interview);
         interview.getUsers().remove(this);
         return this;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

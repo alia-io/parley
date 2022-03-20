@@ -79,6 +79,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Users> users = new HashSet<>();
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -192,6 +195,25 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Users> users) {
+        this.users = users;
+    }
+
+    public User addUsers(Users users) {
+        this.users.add(users);
+        users.setUser(this);
+        return this;
+    }
+
+    public Users removeUsers(Users users) {
+        this.users.remove(users);
+        return users;
     }
 
     @Override
