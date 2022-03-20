@@ -38,7 +38,7 @@
         <dd>
           <span>{{ job.responsibilities }}</span>
         </dd>
-        <dt><span>Interview</span></dt>
+        <dt><span>Interviews</span></dt>
         <dd>
           <span *ngFor="let interview of job.interviews; let last = last">
             <a [routerLink]="['/interview', interview?.id, 'view']">{{ interview.id }}</a

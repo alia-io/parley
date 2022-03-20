@@ -1,4 +1,4 @@
-import { AttributeDTO, IAttribute } from 'app/entities/attribute/attribute.model';
+import { IAttribute } from 'app/entities/attribute/attribute.model';
 import { IInterview } from 'app/entities/interview/interview.model';
 
 export interface IQuestion {
@@ -30,6 +30,13 @@ export interface QuestionDTO {
 }
 
 export interface QuestionAttributesDTO {
-  question?: QuestionDTO | null;
-  attributeList?: AttributeDTO[] | null;
+  questionName: string;
+  question: string;
+  attributes: AttributeDTO[];
+}
+
+export interface AttributeDTO {
+  id: number;
+  attributeName: string;
+  description: string;
 }

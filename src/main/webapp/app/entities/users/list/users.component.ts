@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IUsers } from '../users.model';
+import { UsersDisplayDTO } from '../users.model';
 import { UsersService } from '../service/users.service';
 import { UsersDeleteDialogComponent } from '../delete/users-delete-dialog.component';
-import { UserDisplayDTO } from '../../user/user.model';
 import { take } from 'rxjs';
 
 @Component({
@@ -12,8 +11,9 @@ import { take } from 'rxjs';
   templateUrl: './users.component.html',
 })
 export class UsersComponent implements OnInit {
-  users?: UserDisplayDTO[];
+  users?: UsersDisplayDTO[];
   isLoading = false;
+  noUsersHaveInterviews = true;
 
   constructor(protected usersService: UsersService, protected modalService: NgbModal) {}
 
@@ -24,6 +24,12 @@ export class UsersComponent implements OnInit {
       .pipe(take(1))
       .subscribe(userList => {
         this.users = userList;
+        for (const user of userList) {
+          if (user.interviewIds!.length > 0) {
+            this.noUsersHaveInterviews = false;
+            break;
+          }
+        }
         this.isLoading = false;
       });
   }
@@ -32,8 +38,8 @@ export class UsersComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: IUsers): number {
-    return item.id!;
+  trackId(index: number, item: UsersDisplayDTO): number {
+    return item.id;
   }
 
   delete(id: number): void {

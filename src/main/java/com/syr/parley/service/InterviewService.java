@@ -62,15 +62,22 @@ public class InterviewService {
         interview.addJob(job);
 
         // create and set the list of users (interviewers) for the interview
-        Set<Users> usersList = new HashSet<>();
         if (newInterviewDTO.getUserIdList() != null) {
             for (Long userId : newInterviewDTO.getUserIdList()) {
-                User user = userRepository.getById(userId);
-                Users users = new Users();
-                users.setFirstName(user.getFirstName());
-                users.setLastName(user.getLastName());
+                Optional<Users> usersOptional = usersRepository.findOneByUserId(userId);
+                Users users;
+                if (usersOptional.isEmpty()) {
+                    User user = userRepository.getById(userId);
+                    users = new Users();
+                    users.setFirstName(user.getFirstName());
+                    users.setLastName(user.getLastName());
+                    users.setUser(user);
+                } else {
+                    users = usersOptional.get();
+                }
                 users.addInterview(interview);
-                usersList.add(usersRepository.save(users));
+                users = usersRepository.save(users);
+                interview.addUsers(users);
             }
         }
 

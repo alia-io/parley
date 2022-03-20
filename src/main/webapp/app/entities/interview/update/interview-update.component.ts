@@ -11,8 +11,8 @@ import { IQuestion } from 'app/entities/question/question.model';
 import { QuestionService } from 'app/entities/question/service/question.service';
 import { JobService } from '../../job/service/job.service';
 import { IJob } from '../../job/job.model';
-import { UserDisplayDTO } from '../../user/user.model';
 import { UsersService } from '../../users/service/users.service';
+import { UsersDisplayDTO } from '../../users/users.model';
 
 @Component({
   selector: 'jhi-interview-update',
@@ -21,7 +21,7 @@ import { UsersService } from '../../users/service/users.service';
 export class InterviewUpdateComponent implements OnInit {
   isSaving = false;
   jobs?: IJob[];
-  userList: UserDisplayDTO[] = [];
+  userList: UsersDisplayDTO[] = [];
   questionsSharedCollection: IQuestion[] = [];
   interviewForm: FormGroup;
 

@@ -1,37 +1,44 @@
 package com.syr.parley.service.dto;
 
-import com.syr.parley.domain.Question;
-import java.util.ArrayList;
+import java.util.List;
+import lombok.*;
 
+@Data
 public class QuestionAttributesDTO {
 
-    private QuestionDTO question;
-    private ArrayList<AttributeDTO> attributes = new ArrayList<>();
+    private String questionName;
+    private String question;
+    private List<AttributeDTO> attributes;
 
     public QuestionAttributesDTO() {}
 
-    public QuestionAttributesDTO(Question question) {
-        this.question = new QuestionDTO(question.getId(), question.getQuestionName(), question.getQuestion());
-        if (question.getAttributes() != null) question
-            .getAttributes()
-            .forEach(attribute ->
-                attributes.add(new AttributeDTO(attribute.getId(), attribute.getAttributeName(), attribute.getDescription()))
-            );
+    public QuestionAttributesDTO(String questionName, String question, List<AttributeDTO> attributes) {
+        this.questionName = questionName;
+        this.question = question;
+        this.attributes = attributes;
     }
 
-    public QuestionDTO getQuestion() {
+    public String getQuestionName() {
+        return questionName;
+    }
+
+    public void setQuestionName(String questionName) {
+        this.questionName = questionName;
+    }
+
+    public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(QuestionDTO question) {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
-    public ArrayList<AttributeDTO> getAttributes() {
+    public List<AttributeDTO> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(ArrayList<AttributeDTO> attributes) {
+    public void setAttributes(List<AttributeDTO> attributes) {
         this.attributes = attributes;
     }
 }

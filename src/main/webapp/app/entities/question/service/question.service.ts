@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IQuestion, getQuestionIdentifier } from '../question.model';
+import { IQuestion, getQuestionIdentifier, QuestionAttributesDTO } from '../question.model';
 
 export type EntityResponseType = HttpResponse<IQuestion>;
 export type EntityArrayResponseType = HttpResponse<IQuestion[]>;
@@ -41,6 +41,10 @@ export class QuestionService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getQuestionsByInterview(interviewId: number): Observable<QuestionAttributesDTO[]> {
+    return this.http.get<QuestionAttributesDTO[]>(`${this.resourceUrl}/${interviewId}/interview`);
   }
 
   addQuestionToCollectionIfMissing(questionCollection: IQuestion[], ...questionsToCheck: (IQuestion | null | undefined)[]): IQuestion[] {

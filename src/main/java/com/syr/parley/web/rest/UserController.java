@@ -6,7 +6,6 @@ import com.syr.parley.security.AuthoritiesConstants;
 import com.syr.parley.service.MailService;
 import com.syr.parley.service.UserService;
 import com.syr.parley.service.dto.AdminUserDTO;
-import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import com.syr.parley.web.rest.errors.EmailAlreadyUsedException;
 import com.syr.parley.web.rest.errors.LoginAlreadyUsedException;

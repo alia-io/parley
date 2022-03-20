@@ -14,4 +14,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="interview"/>
     </changeSet>
+
+    <changeSet id="20220320" author="Alifa-Stith">
+        <addColumn tableName="users">
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="fk_user_id" references="jhi_user(id)"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -20,3 +20,10 @@ export interface UsersDTO {
   firstName?: string | null;
   lastName?: string | null;
 }
+
+export interface UsersDisplayDTO {
+  id: number;
+  firstName?: string | null;
+  lastName?: string | null;
+  interviewIds?: number[] | null;
+}

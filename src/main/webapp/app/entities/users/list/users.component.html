@@ -7,16 +7,6 @@
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span>Refresh List</span>
       </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-users"
-        [routerLink]="['/users/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Users </span>
-      </button>
     </div>
   </h2>
 
@@ -28,48 +18,40 @@
     <span>No users found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="users && users.length > 0">
+  <div class="alert alert-warning" *ngIf="noUsersHaveInterviews">
+    <span>No users found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="users && users.length > 0 && !noUsersHaveInterviews">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span>ID</span></th>
-          <th scope="col"><span>Name</span></th>
-          <!--          <th scope="col"><span>First Name</span></th>-->
-          <!--          <th scope="col"><span>Last Name</span></th>-->
-          <!--          <th scope="col"><span>Interview</span></th>-->
+          <th scope="col"><span>First Name</span></th>
+          <th scope="col"><span>Last Name</span></th>
+          <th scope="col"><span>Interviews</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let users of users; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/users', users.id, 'view']">{{ users.id }}</a>
-          </td>
-          <td>{{ users.name }}</td>
-          <!--          <td>-->
-          <!--            <span *ngFor="let interview of users.interviews; let last = last">-->
-          <!--              <a class="form-control-static" [routerLink]="['/interview', interview.id, 'view']">{{ interview.id }}</a-->
-          <!--              >{{ last ? '' : ', ' }}-->
-          <!--            </span>-->
-          <!--          </td>-->
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/users', users.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
-              </button>
-
-              <button type="submit" [routerLink]="['/users', users.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(users.id)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
-            </div>
-          </td>
+        <tr *ngFor="let user of users; trackBy: trackId" data-cy="entityTable">
+          <ng-container *ngIf="user.interviewIds!.length > 0">
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>
+              <span *ngFor="let interview of user.interviewIds; let last = last">
+                <a class="form-control-static" [routerLink]="['/interview', interview, 'view']">{{ interview }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            </td>
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['/users', user.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </div>
+            </td>
+          </ng-container>
         </tr>
       </tbody>
     </table>

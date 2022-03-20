@@ -9,7 +9,6 @@ import com.syr.parley.security.AuthoritiesConstants;
 import com.syr.parley.security.SecurityUtils;
 import com.syr.parley.service.dto.AdminUserDTO;
 import com.syr.parley.service.dto.UserDTO;
-import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.service.exception.EmailAlreadyUsedException;
 import com.syr.parley.service.exception.InvalidPasswordException;
 import com.syr.parley.service.exception.UsernameAlreadyUsedException;

@@ -2,7 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Users;
 import com.syr.parley.service.UsersService;
-import com.syr.parley.service.dto.UserDisplayDTO;
+import com.syr.parley.service.dto.UsersDisplayDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -170,7 +170,7 @@ public class UsersController {
     }
 
     @GetMapping("/users/user_list")
-    public List<UserDisplayDTO> getAllUserDisplayNames() {
-        return usersService.getAllUserDisplayNames();
+    public List<UsersDisplayDTO> getAllPublicUsers() {
+        return usersService.getAllPublicUsers();
     }
 }

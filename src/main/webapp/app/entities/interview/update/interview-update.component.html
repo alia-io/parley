@@ -32,7 +32,7 @@
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Interviewers</mat-label>
           <mat-select formControlName="userIdList" multiple>
-            <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.name }}</mat-option>
+            <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</mat-option>
           </mat-select>
         </mat-form-field>
 

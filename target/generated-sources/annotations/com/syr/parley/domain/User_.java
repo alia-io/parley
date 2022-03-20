@@ -15,6 +15,7 @@ public abstract class User_ extends com.syr.parley.domain.AbstractAuditingEntity
 	public static volatile SingularAttribute<User, String> login;
 	public static volatile SingularAttribute<User, String> activationKey;
 	public static volatile SingularAttribute<User, String> resetKey;
+	public static volatile SetAttribute<User, Users> users;
 	public static volatile SetAttribute<User, Authority> authorities;
 	public static volatile SingularAttribute<User, String> firstName;
 	public static volatile SingularAttribute<User, String> password;
@@ -29,6 +30,7 @@ public abstract class User_ extends com.syr.parley.domain.AbstractAuditingEntity
 	public static final String LOGIN = "login";
 	public static final String ACTIVATION_KEY = "activationKey";
 	public static final String RESET_KEY = "resetKey";
+	public static final String USERS = "users";
 	public static final String AUTHORITIES = "authorities";
 	public static final String FIRST_NAME = "firstName";
 	public static final String PASSWORD = "password";
