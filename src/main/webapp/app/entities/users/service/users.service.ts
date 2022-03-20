@@ -6,6 +6,7 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IUsers, getUsersIdentifier } from '../users.model';
+import { UserDisplayDTO } from '../../user/user.model';
 
 export type EntityResponseType = HttpResponse<IUsers>;
 export type EntityArrayResponseType = HttpResponse<IUsers[]>;
@@ -30,6 +31,10 @@ export class UsersService {
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IUsers>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getUserDisplayList(): Observable<UserDisplayDTO[]> {
+    return this.http.get<UserDisplayDTO[]>(`${this.resourceUrl}/user_list`);
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

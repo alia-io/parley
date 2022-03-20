@@ -6,7 +6,6 @@ import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IInterview, getInterviewIdentifier, NewInterviewDTO, InterviewDetailsDTO, InterviewSummaryDTO } from '../interview.model';
-import { UserDisplayDTO } from '../../user/user.model';
 import { UsersDTO } from '../../users/users.model';
 export type EntityResponseType = HttpResponse<IInterview>;
 export type EntityArrayResponseType = HttpResponse<IInterview[]>;
@@ -80,9 +79,5 @@ export class InterviewService {
       return [...interviewsToAdd, ...interviewCollection];
     }
     return interviewCollection;
-  }
-
-  getUserList(): Observable<UserDisplayDTO[]> {
-    return this.http.get<UserDisplayDTO[]>(`${this.resourceUrl}/user_list`);
   }
 }

@@ -2,9 +2,11 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Users;
 import com.syr.parley.service.UsersService;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -165,5 +167,10 @@ public class UsersController {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/users/user_list")
+    public List<UserDisplayDTO> getAllUserDisplayNames() {
+        return usersService.getAllUserDisplayNames();
     }
 }

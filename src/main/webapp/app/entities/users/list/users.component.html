@@ -33,9 +33,10 @@
       <thead>
         <tr>
           <th scope="col"><span>ID</span></th>
-          <th scope="col"><span>First Name</span></th>
-          <th scope="col"><span>Last Name</span></th>
-          <th scope="col"><span>Interview</span></th>
+          <th scope="col"><span>Name</span></th>
+          <!--          <th scope="col"><span>First Name</span></th>-->
+          <!--          <th scope="col"><span>Last Name</span></th>-->
+          <!--          <th scope="col"><span>Interview</span></th>-->
           <th scope="col"></th>
         </tr>
       </thead>
@@ -44,14 +45,13 @@
           <td>
             <a [routerLink]="['/users', users.id, 'view']">{{ users.id }}</a>
           </td>
-          <td>{{ users.firstName }}</td>
-          <td>{{ users.lastName }}</td>
-          <td>
-            <span *ngFor="let interview of users.interviews; let last = last">
-              <a class="form-control-static" [routerLink]="['/interview', interview.id, 'view']">{{ interview.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
-          </td>
+          <td>{{ users.name }}</td>
+          <!--          <td>-->
+          <!--            <span *ngFor="let interview of users.interviews; let last = last">-->
+          <!--              <a class="form-control-static" [routerLink]="['/interview', interview.id, 'view']">{{ interview.id }}</a-->
+          <!--              >{{ last ? '' : ', ' }}-->
+          <!--            </span>-->
+          <!--          </td>-->
           <td class="text-right">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/users', users.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
@@ -64,7 +64,7 @@
                 <span class="d-none d-md-inline">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(users)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button type="submit" (click)="delete(users.id)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline">Delete</span>
               </button>

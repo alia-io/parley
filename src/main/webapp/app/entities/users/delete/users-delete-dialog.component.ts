@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IUsers } from '../users.model';
 import { UsersService } from '../service/users.service';
 
 @Component({
   templateUrl: './users-delete-dialog.component.html',
 })
 export class UsersDeleteDialogComponent {
-  users?: IUsers;
+  usersId?: number;
 
   constructor(protected usersService: UsersService, protected activeModal: NgbActiveModal) {}
 

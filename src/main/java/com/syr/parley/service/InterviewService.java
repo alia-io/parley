@@ -157,8 +157,4 @@ public class InterviewService {
         interview.getUsers().forEach(usersRepository::delete);
         interviewRepository.delete(interview);
     }
-
-    public List<UserDisplayDTO> getAllUser() {
-        return userRepository.findAll().stream().map(UserDisplayDTO::new).collect(Collectors.toList());
-    }
 }

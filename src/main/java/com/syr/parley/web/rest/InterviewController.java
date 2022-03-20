@@ -200,9 +200,4 @@ public class InterviewController {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
-
-    @GetMapping("/interviews/user_list")
-    public List<UserDisplayDTO> getAllUser() {
-        return interviewService.getAllUser();
-    }
 }

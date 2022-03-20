@@ -2,6 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.service.UserService;
 import com.syr.parley.service.dto.UserDTO;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import java.util.*;
 import java.util.Collections;
 import org.slf4j.Logger;
