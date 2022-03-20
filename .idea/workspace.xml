@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012435_added_entity_constraints_Candidate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012435_added_entity_constraints_Candidate.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/com/syr/parley/domain/User_.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/com/syr/parley/domain/User_.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

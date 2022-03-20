@@ -69,6 +69,7 @@ public class InterviewService {
                 Users users = new Users();
                 users.setFirstName(user.getFirstName());
                 users.setLastName(user.getLastName());
+                users.setUser(user);
                 users.addInterview(interview);
                 usersList.add(usersRepository.save(users));
             }
