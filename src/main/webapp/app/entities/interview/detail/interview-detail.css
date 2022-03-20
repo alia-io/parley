@@ -1,0 +1,10 @@
+.question-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.q-row {
+  display: flex;
+  flex-direction: row;
+}

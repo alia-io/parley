@@ -9,7 +9,6 @@ public class QuestionDTO {
     public QuestionDTO() {}
 
     public QuestionDTO(Long id, String questionName, String question) {
-        this.id = id;
         this.questionName = questionName;
         this.question = question;
     }

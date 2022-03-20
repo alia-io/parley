@@ -1,24 +1,27 @@
 package com.syr.parley.service.dto;
 
+import lombok.Data;
+
+@Data
 public class AttributeDTO {
 
-    private Long id;
+    private long id;
     private String attributeName;
     private String description;
 
     public AttributeDTO() {}
 
-    public AttributeDTO(Long id, String attributeName, String description) {
+    public AttributeDTO(long id, String attributeName, String description) {
         this.id = id;
         this.attributeName = attributeName;
         this.description = description;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

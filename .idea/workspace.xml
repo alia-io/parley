@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/UsersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/PublicUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/PublicUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/service/interview.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/service/interview.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/user/user.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/user/user.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/user/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/user/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/users/delete/users-delete-dialog.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/users/delete/users-delete-dialog.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/users/delete/users-delete-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/users/delete/users-delete-dialog.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/users/list/users.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/users/list/users.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/users/list/users.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/users/list/users.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/users/service/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/users/service/users.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/QuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/AttributeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/AttributeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/InterviewDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/InterviewDetailsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionAttributesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionAttributesDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/dto/QuestionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/QuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/attribute/attribute.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/attribute/attribute.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/question/question.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/question/question.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/question/service/question.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/question/service/question.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -380,6 +379,10 @@
         <watch expression="interview.candidate.interview.jobs" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/com/syr/parley/GeneratedByJHipster.java" />

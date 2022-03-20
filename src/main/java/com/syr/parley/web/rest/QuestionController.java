@@ -2,6 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Question;
 import com.syr.parley.service.QuestionService;
+import com.syr.parley.service.dto.QuestionAttributesDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -41,57 +42,14 @@ public class QuestionController {
     }
 
     /**
-     * {@code POST  /questions} : Create a new question.
+     * {@code POST  /questions{interviewId}} : Create a new question.
      *
-     * @param question the question to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new question, or with status {@code 400 (Bad Request)} if the question has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @param questionAttributesDTO the question to create.
+     * @return newly created questionAttributesDTO
      */
-    @PostMapping("/questions")
-    public ResponseEntity<Question> createQuestion(@RequestBody Question question) throws URISyntaxException {
-        log.debug("REST request to save Question : {}", question);
-        if (question.getId() != null) {
-            throw new BadRequestAlertException("A new question cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Question result = questionService.createQuestion(question);
-        return ResponseEntity
-            .created(new URI("/api/questions/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
-    }
-
-    /**
-     * {@code PUT  /questions/:id} : Updates an existing question.
-     *
-     * @param id the id of the question to save.
-     * @param question the question to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated question,
-     * or with status {@code 400 (Bad Request)} if the question is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the question couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PutMapping("/questions/{id}")
-    public ResponseEntity<Question> updateQuestion(
-        @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody Question question
-    ) throws URISyntaxException {
-        log.debug("REST request to update Question : {}, {}", id, question);
-        if (question.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        if (!Objects.equals(id, question.getId())) {
-            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
-        }
-
-        if (questionService.getQuestionById(id).isEmpty()) {
-            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
-        }
-
-        Question result = questionService.createQuestion(question);
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, question.getId().toString()))
-            .body(result);
+    @PostMapping("/questions/{interviewId}")
+    public QuestionAttributesDTO createQuestion(@PathVariable Long interviewId, @RequestBody QuestionAttributesDTO questionAttributesDTO) {
+        return questionService.createQuestion(interviewId, questionAttributesDTO);
     }
 
     /**
@@ -168,5 +126,10 @@ public class QuestionController {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/questions/{interviewId}/interview")
+    public List<QuestionAttributesDTO> getAllQuestionsByInterview(@PathVariable Long interviewId) {
+        return questionService.getQuestionsByInterview(interviewId);
     }
 }

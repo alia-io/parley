@@ -44,7 +44,6 @@ public class InterviewDetailsDTO {
             );
 
         interview.getUsers().forEach(users -> this.usersList.add(new UsersDTO(users.getId(), users.getFirstName(), users.getLastName())));
-        interview.getQuestions().forEach(question -> this.questionList.add(new QuestionAttributesDTO(question)));
     }
 
     public InterviewDTO getInterview() {
