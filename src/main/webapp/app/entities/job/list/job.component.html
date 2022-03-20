@@ -35,10 +35,7 @@
           <th scope="col"><span>ID</span></th>
           <th scope="col"><span>Job Name</span></th>
           <th scope="col"><span>Job Description</span></th>
-          <th scope="col"><span>Posted Date</span></th>
           <th scope="col"><span>Job Role</span></th>
-          <th scope="col"><span>Minimum Qualifications</span></th>
-          <th scope="col"><span>Responsibilities</span></th>
           <th scope="col"><span>Interviews</span></th>
           <th scope="col"></th>
         </tr>
@@ -50,10 +47,7 @@
           </td>
           <td>{{ job.jobName }}</td>
           <td>{{ job.jobDescription }}</td>
-          <td>{{ job.postedDate | formatMediumDatetime }}</td>
           <td>{{ job.jobRole }}</td>
-          <td>{{ job.minimumQualifications }}</td>
-          <td>{{ job.responsibilities }}</td>
           <td>
             <span *ngFor="let interview of job.interviews; let last = last">
               <a class="form-control-static" [routerLink]="['/interview', interview.id, 'view']">{{ interview.id }}</a
