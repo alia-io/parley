@@ -150,7 +150,12 @@ public class InterviewService {
     }
 
     public void deleteInterview(Long id) {
-        interviewRepository.deleteById(id);
+        Interview interview = interviewRepository.findOneWithEagerRelationships(id).orElse(null);
+        assert interview != null;
+        if (interview.getCandidate() != null) candidateRepository.delete(interview.getCandidate());
+        interview.getJobs().forEach(jobRepository::delete);
+        interview.getUsers().forEach(usersRepository::delete);
+        interviewRepository.delete(interview);
     }
 
     public List<UserDisplayDTO> getAllUser() {
