@@ -211,9 +211,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
-    public Users removeUsers(Users users) {
+    public User removeUsers(Users users) {
         this.users.remove(users);
-        return users;
+        return this;
     }
 
     @Override

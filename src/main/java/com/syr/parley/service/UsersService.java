@@ -3,7 +3,7 @@ package com.syr.parley.service;
 import com.syr.parley.domain.Users;
 import com.syr.parley.repository.UserRepository;
 import com.syr.parley.repository.UsersRepository;
-import com.syr.parley.service.dto.UserDisplayDTO;
+import com.syr.parley.service.dto.UsersDisplayDTO;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,12 +36,12 @@ public class UsersService {
         return usersRepository.findOneWithEagerRelationships(id);
     }
 
-    public List<UserDisplayDTO> getAllUserDisplayNames() {
+    public List<UsersDisplayDTO> getAllPublicUsers() {
         return userRepository
             .findAll()
             .stream()
             .filter(user -> user.getId() != 1 && user.getId() != 2)
-            .map(UserDisplayDTO::new)
+            .map(UsersDisplayDTO::new)
             .collect(Collectors.toList());
     }
 
