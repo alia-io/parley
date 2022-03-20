@@ -2,10 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Interview;
 import com.syr.parley.service.InterviewService;
-import com.syr.parley.service.dto.InterviewDetailsDTO;
-import com.syr.parley.service.dto.NewInterviewDTO;
-import com.syr.parley.service.dto.UserDisplayDTO;
-import com.syr.parley.service.dto.UsersDTO;
+import com.syr.parley.service.dto.*;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -153,6 +150,11 @@ public class InterviewController {
     @GetMapping("/interviews/{id}/users")
     public List<UsersDTO> getAllUsersByInterviewId(@PathVariable Long id) {
         return interviewService.getAllUsersByInterviewId(id);
+    }
+
+    @GetMapping("/interview_summaries")
+    public List<InterviewSummaryDTO> getAllInterviewSummaries() {
+        return interviewService.getAllInterviewSummaries();
     }
 
     /**
