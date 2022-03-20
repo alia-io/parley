@@ -1,7 +1,19 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" [formGroup]="interviewForm" (ngSubmit)="interviewSubmit()">
-      <h2 id="jhi-interview-heading" data-cy="InterviewCreateUpdateHeading">Create or Update an Interview</h2>
+      <ng-container *ngIf="interviewExists">
+        <!--create-->
+        <h2 data-cy="InterviewCreateUpdateHeading">Update an Interview</h2>
+        <ng-container *ngFor="let user of interviewDetails.userList; let last = last">
+          <span>{{ user.id }}</span
+          >{{ last ? '' : ', ' }}
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="!interviewExists">
+        <!--update-->
+        <h2 data-cy="InterviewCreateUpdateHeading">Create an Interview</h2>
+      </ng-container>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
@@ -9,36 +21,82 @@
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Job</mat-label>
-          <mat-select formControlName="jobId">
-            <mat-option *ngFor="let job of jobs" [value]="job.id">{{ job.jobName }}</mat-option>
-          </mat-select>
+          <ng-container *ngIf="!interviewExists">
+            <!--create-->
+            <mat-select formControlName="jobId">
+              <mat-option *ngFor="let job of jobs" [value]="job.id">{{ job.jobName }}</mat-option>
+            </mat-select>
+          </ng-container>
+          <ng-container *ngIf="interviewExists">
+            <!--update-->
+            <mat-select formControlName="jobId" [(ngModel)]="interviewDetails.job.id">
+              <mat-option *ngFor="let job of jobs" [value]="job.id">{{ job.jobName }}</mat-option>
+            </mat-select>
+          </ng-container>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Candidate First Name</mat-label>
-          <input matInput formControlName="candidateFirstName" />
+          <ng-container *ngIf="!interviewExists">
+            <!--create-->
+            <input matInput formControlName="candidateFirstName" />
+          </ng-container>
+          <ng-container *ngIf="interviewExists">
+            <!--update-->
+            <input matInput formControlName="candidateFirstName" [(ngModel)]="interviewDetails.candidate.firstName" />
+          </ng-container>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Candidate Last Name</mat-label>
-          <input matInput formControlName="candidateLastName" />
+          <ng-container *ngIf="!interviewExists">
+            <!--create-->
+            <input matInput formControlName="candidateLastName" />
+          </ng-container>
+          <ng-container *ngIf="interviewExists">
+            <!--update-->
+            <input matInput formControlName="candidateLastName" [(ngModel)]="interviewDetails.candidate.lastName" />
+          </ng-container>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Candidate Email</mat-label>
-          <input matInput formControlName="candidateEmail" />
+          <ng-container *ngIf="!interviewExists">
+            <!--create-->
+            <input matInput formControlName="candidateEmail" />
+          </ng-container>
+          <ng-container *ngIf="interviewExists">
+            <!--update-->
+            <input matInput formControlName="candidateEmail" [(ngModel)]="interviewDetails.candidate.email" />
+          </ng-container>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Interviewers</mat-label>
-          <mat-select formControlName="userIdList" multiple>
-            <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</mat-option>
-          </mat-select>
+          <ng-container *ngIf="!interviewExists">
+            <!--create-->
+            <mat-select formControlName="userIdList" multiple>
+              <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</mat-option>
+            </mat-select>
+          </ng-container>
+          <ng-container *ngIf="interviewExists">
+            <!--update-->
+            <mat-select formControlName="userIdList" multiple>
+              <mat-option *ngFor="let user of userList" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</mat-option>
+            </mat-select>
+          </ng-container>
         </mat-form-field>
 
         <mat-form-field appearance="outline" style="width: 75vw">
           <mat-label>Interview Details</mat-label>
-          <textarea matInput formControlName="interviewDetails"></textarea>
+          <ng-container *ngIf="!interviewExists">
+            <!-- create -->
+            <textarea matInput formControlName="interviewDetails"></textarea>
+          </ng-container>
+          <ng-container *ngIf="interviewExists">
+            <!-- update -->
+            <textarea matInput formControlName="interviewDetails" [(ngModel)]="interviewDetails.interview.details"></textarea>
+          </ng-container>
         </mat-form-field>
       </div>
 
