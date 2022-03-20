@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IInterview, getInterviewIdentifier, NewInterviewDTO, InterviewDetailsDTO } from '../interview.model';
+import { IInterview, getInterviewIdentifier, NewInterviewDTO, InterviewDetailsDTO, InterviewSummaryDTO } from '../interview.model';
 import { UserDisplayDTO } from '../../user/user.model';
 import { UsersDTO } from '../../users/users.model';
 export type EntityResponseType = HttpResponse<IInterview>;
@@ -47,6 +47,10 @@ export class InterviewService {
 
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IInterview>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getAllInterviews(): Observable<InterviewSummaryDTO[]> {
+    return this.http.get<InterviewSummaryDTO[]>(`${this.resourceUrl}/list`);
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

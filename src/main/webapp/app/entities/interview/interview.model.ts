@@ -48,3 +48,11 @@ export interface InterviewDetailsDTO {
   userList?: UsersDTO[] | null;
   questionList?: QuestionAttributesDTO[] | null;
 }
+
+export interface InterviewSummaryDTO {
+  interviewId: number;
+  interviewDetails?: string | null;
+  jobName?: string | null;
+  candidateName?: string | null;
+  usersNames?: string[] | null;
+}

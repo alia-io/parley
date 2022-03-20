@@ -152,7 +152,7 @@ public class InterviewController {
         return interviewService.getAllUsersByInterviewId(id);
     }
 
-    @GetMapping("/interview_summaries")
+    @GetMapping("/interviews/list")
     public List<InterviewSummaryDTO> getAllInterviewSummaries() {
         return interviewService.getAllInterviewSummaries();
     }

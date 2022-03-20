@@ -9,7 +9,7 @@ public class InterviewSummaryDTO {
     private String interviewDetails;
     private String jobName;
     private String candidateName;
-    private ArrayList<String> usersNames;
+    private ArrayList<String> usersNames = new ArrayList<>();
 
     public InterviewSummaryDTO() {}
 
@@ -17,7 +17,8 @@ public class InterviewSummaryDTO {
         interviewId = interview.getId();
         interviewDetails = interview.getDetails();
         interview.getJobs().stream().findFirst().ifPresent(jobEntity -> jobName = jobEntity.getJobName());
-        candidateName = interview.getCandidate().getFirstName() + " " + interview.getCandidate().getLastName();
+        if (interview.getCandidate() != null) candidateName =
+            interview.getCandidate().getFirstName() + " " + interview.getCandidate().getLastName();
         interview.getUsers().forEach(users -> usersNames.add(users.getFirstName() + " " + users.getLastName()));
     }
 
