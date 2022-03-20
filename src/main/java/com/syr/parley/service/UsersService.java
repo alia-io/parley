@@ -37,12 +37,18 @@ public class UsersService {
     }
 
     public List<UsersDisplayDTO> getAllPublicUsers() {
-        return userRepository
+        List<UsersDisplayDTO> usersList = userRepository
             .findAll()
             .stream()
             .filter(user -> user.getId() != 1 && user.getId() != 2)
             .map(UsersDisplayDTO::new)
             .collect(Collectors.toList());
+        for (UsersDisplayDTO usersDisplayDTO : usersList) {
+            usersRepository
+                .findOneByUserId(usersDisplayDTO.getId())
+                .ifPresent(users -> users.getInterviews().forEach(interview -> usersDisplayDTO.addInterviewId(interview.getId())));
+        }
+        return usersList;
     }
 
     public Optional<Users> updateUsers(Users users) {

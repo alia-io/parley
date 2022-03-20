@@ -25,4 +25,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     @Query("select users from Users users left join fetch users.interviews where users.id =:id")
     Optional<Users> findOneWithEagerRelationships(@Param("id") Long id);
+
+    @Query(value = "select * from users where users.user_id =:id", nativeQuery = true)
+    Optional<Users> findOneByUserId(@Param("id") Long id);
 }
