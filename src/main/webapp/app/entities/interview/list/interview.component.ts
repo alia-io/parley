@@ -23,7 +23,10 @@ export class InterviewComponent implements OnInit {
     this.interviewService
       .getAllInterviews()
       .pipe(take(1))
-      .subscribe(interviewList => (this.interviews = interviewList));
+      .subscribe(interviewList => {
+        this.interviews = interviewList;
+        this.isLoading = false;
+      });
   }
 
   ngOnInit(): void {
