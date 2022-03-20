@@ -2,6 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.service.UserService;
 import com.syr.parley.service.dto.UserDTO;
+import com.syr.parley.service.dto.UserDisplayDTO;
 import java.util.*;
 import java.util.Collections;
 import org.slf4j.Logger;
@@ -61,5 +62,10 @@ public class PublicUserController {
     @GetMapping("/authorities")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
+    }
+
+    @GetMapping("/users/user_list")
+    public List<UserDisplayDTO> getAllUserDisplayNames() {
+        return userService.getAllUserDisplayNames();
     }
 }

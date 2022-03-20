@@ -81,8 +81,4 @@ export class InterviewService {
     }
     return interviewCollection;
   }
-
-  getUserList(): Observable<UserDisplayDTO[]> {
-    return this.http.get<UserDisplayDTO[]>(`${this.resourceUrl}/user_list`);
-  }
 }

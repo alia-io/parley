@@ -12,6 +12,7 @@ import { QuestionService } from 'app/entities/question/service/question.service'
 import { JobService } from '../../job/service/job.service';
 import { IJob } from '../../job/job.model';
 import { UserDisplayDTO } from '../../user/user.model';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'jhi-interview-update',
@@ -34,6 +35,7 @@ export class InterviewUpdateComponent implements OnInit {
     protected interviewService: InterviewService,
     protected jobService: JobService,
     protected questionService: QuestionService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
     protected router: Router
@@ -49,8 +51,8 @@ export class InterviewUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.interviewService
-      .getUserList()
+    this.userService
+      .getUserDisplayList()
       .pipe(take(1))
       .subscribe(user => (this.userList = user));
 
