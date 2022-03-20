@@ -129,6 +129,14 @@ public class InterviewService {
             .map(interviewRepository::save);
     }
 
+    public List<InterviewSummaryDTO> getAllInterviewSummaries() {
+        List<InterviewSummaryDTO> interviewSummaryList = new ArrayList<>();
+        interviewRepository
+            .findAllWithEagerRelationships()
+            .forEach(interview -> interviewSummaryList.add(new InterviewSummaryDTO(interview)));
+        return interviewSummaryList;
+    }
+
     public List<Interview> getAllInterviews(@RequestParam(required = false) String filter) {
         if ("candidate-is-null".equals(filter)) {
             log.debug("REST request to get all Interviews where candidate is null");

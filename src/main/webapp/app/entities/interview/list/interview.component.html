@@ -33,28 +33,29 @@
       <thead>
         <tr>
           <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Job</span></th>
+          <th scope="col"><span>Candidate</span></th>
           <th scope="col"><span>Details</span></th>
-          <th scope="col"><span>Questions</span></th>
+          <th scope="col"><span>Interviewers</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let interview of interviews; trackBy: trackId" data-cy="entityTable">
           <td>
-            <a [routerLink]="['/interview', interview.id, 'view']">{{ interview.id }}</a>
+            <a [routerLink]="['/interview', interview.interviewId, 'view']">{{ interview.interviewId }}</a>
           </td>
-          <td>{{ interview.details }}</td>
+          <td>{{ interview.jobName }}</td>
+          <td>{{ interview.candidateName }}</td>
+          <td>{{ interview.interviewDetails }}</td>
           <td>
-            <span *ngFor="let questions of interview.questions; let last = last">
-              <a class="form-control-static" [routerLink]="['/question', questions.id, 'view']">{{ questions.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <span *ngFor="let user of interview.usersNames; let last = last"> {{ user }}{{ last ? '' : ', ' }} </span>
           </td>
           <td class="text-right">
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/interview', interview.id, 'view']"
+                [routerLink]="['/interview', interview.interviewId, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
@@ -64,7 +65,7 @@
 
               <button
                 type="submit"
-                [routerLink]="['/interview', interview.id, 'edit']"
+                [routerLink]="['/interview', interview.interviewId, 'edit']"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >
@@ -72,7 +73,7 @@
                 <span class="d-none d-md-inline">Edit</span>
               </button>
 
-              <button type="submit" (click)="delete(interview)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button type="submit" (click)="delete(interview.interviewId)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline">Delete</span>
               </button>
