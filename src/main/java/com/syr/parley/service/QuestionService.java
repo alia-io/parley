@@ -7,6 +7,7 @@ import com.syr.parley.repository.AttributeRepository;
 import com.syr.parley.repository.InterviewRepository;
 import com.syr.parley.repository.QuestionRepository;
 import com.syr.parley.service.dto.AttributeDTO;
+import com.syr.parley.service.dto.NewQuestionDTO;
 import com.syr.parley.service.dto.QuestionAttributesDTO;
 import java.util.HashSet;
 import java.util.List;
@@ -36,23 +37,24 @@ public class QuestionService {
         this.attributeRepository = attributeRepository;
     }
 
-    public QuestionAttributesDTO createQuestion(Long interviewId, QuestionAttributesDTO questionAttributesDTO) {
+    public QuestionAttributesDTO createQuestion(Long interviewId, NewQuestionDTO newQuestionDTO) {
         Interview interview = interviewRepository.findById(interviewId).orElse(null);
-
-        Question question = new Question();
-        question.setQuestionName(questionAttributesDTO.getQuestionName());
-        question.setQuestion(question.getQuestion());
-
-        Set<Attribute> attributeSet = new HashSet<>();
-        questionAttributesDTO.getAttributes().forEach(attribute -> attributeSet.add(attributeRepository.findById(attribute.getId()).get()));
-
-        question.setAttributes(attributeSet);
         assert interview != null;
-        question.setInterviews(Set.of(interview));
-
-        questionRepository.save(question);
-
-        return questionAttributesDTO;
+        Question question = new Question();
+        question.setQuestionName(newQuestionDTO.getQuestionName());
+        question = questionRepository.save(question);
+        if (newQuestionDTO.getQuestion() != null && newQuestionDTO.getQuestion().length() > 0) question.setQuestion(
+            newQuestionDTO.getQuestion()
+        );
+        if (question.getAttributes() != null) {
+            for (AttributeDTO attributeDTO : newQuestionDTO.getAttributes()) {
+                Attribute attribute = attributeRepository.findById(attributeDTO.getId()).orElse(null);
+                if (attribute != null) question.addAttributes(attribute);
+            }
+        }
+        interview.addQuestions(question);
+        question = questionRepository.save(question);
+        return new QuestionAttributesDTO(interviewId, question);
     }
 
     public Optional<Question> getQuestionById(Long id) {
@@ -90,20 +92,11 @@ public class QuestionService {
     // Send Question and Attributes by interview
     public List<QuestionAttributesDTO> getQuestionsByInterview(Long interviewId) {
         Interview interview = interviewRepository.findById(interviewId).orElse(null);
-
         assert interview != null;
         return interview
             .getQuestions()
             .stream()
-            .map(question -> {
-                List<AttributeDTO> attributeDTOS = question
-                    .getAttributes()
-                    .stream()
-                    .map(attribute -> new AttributeDTO(attribute.getId(), attribute.getAttributeName(), attribute.getDescription()))
-                    .collect(Collectors.toList());
-
-                return new QuestionAttributesDTO(question.getQuestion(), question.getQuestionName(), attributeDTOS);
-            })
+            .map(question -> new QuestionAttributesDTO(interviewId, question))
             .collect(Collectors.toList());
     }
 }

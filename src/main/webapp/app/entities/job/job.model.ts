@@ -31,7 +31,7 @@ export function getJobIdentifier(job: IJob): number | undefined {
 
 export interface JobDTO {
   id?: number;
-  jobName?: string | null;
+  jobName: string;
   jobDescription?: string | null;
   postedDate?: dayjs.Dayjs | null;
   jobRole?: string | null;

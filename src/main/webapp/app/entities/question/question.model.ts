@@ -29,14 +29,20 @@ export interface QuestionDTO {
   question?: string | null;
 }
 
-export interface QuestionAttributesDTO {
-  questionName: string;
-  question: string;
-  attributes: AttributeDTO[];
-}
-
 export interface AttributeDTO {
   id: number;
   attributeName: string;
   description: string;
+}
+
+export interface NewQuestionDTO {
+  questionName: string;
+  question?: string | null;
+  attributes?: AttributeDTO[] | null;
+}
+
+export interface QuestionAttributesDTO {
+  interviewId?: number;
+  question: QuestionDTO;
+  attributes: AttributeDTO[];
 }

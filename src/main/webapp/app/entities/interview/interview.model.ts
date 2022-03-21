@@ -42,17 +42,17 @@ export interface NewInterviewDTO {
 }
 
 export interface InterviewDetailsDTO {
-  interview?: InterviewDTO | null;
-  candidate?: CandidateDTO | null;
-  job?: JobDTO | null;
-  userList?: UsersDTO[] | null;
-  questionList?: QuestionAttributesDTO[] | null;
+  interview: InterviewDTO;
+  candidate: CandidateDTO;
+  job: JobDTO;
+  userList: UsersDTO[];
+  questionList: QuestionAttributesDTO[];
 }
 
 export interface InterviewSummaryDTO {
   interviewId: number;
   interviewDetails?: string | null;
-  jobName?: string | null;
+  jobName: string;
   candidateName?: string | null;
   usersNames?: string[] | null;
 }

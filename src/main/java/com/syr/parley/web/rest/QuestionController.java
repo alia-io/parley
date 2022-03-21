@@ -2,6 +2,7 @@ package com.syr.parley.web.rest;
 
 import com.syr.parley.domain.Question;
 import com.syr.parley.service.QuestionService;
+import com.syr.parley.service.dto.NewQuestionDTO;
 import com.syr.parley.service.dto.QuestionAttributesDTO;
 import com.syr.parley.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -44,12 +45,12 @@ public class QuestionController {
     /**
      * {@code POST  /questions{interviewId}} : Create a new question.
      *
-     * @param questionAttributesDTO the question to create.
+     * @param newQuestionDTO the question to create.
      * @return newly created questionAttributesDTO
      */
     @PostMapping("/questions/{interviewId}")
-    public QuestionAttributesDTO createQuestion(@PathVariable Long interviewId, @RequestBody QuestionAttributesDTO questionAttributesDTO) {
-        return questionService.createQuestion(interviewId, questionAttributesDTO);
+    public QuestionAttributesDTO createQuestion(@PathVariable Long interviewId, @RequestBody NewQuestionDTO newQuestionDTO) {
+        return questionService.createQuestion(interviewId, newQuestionDTO);
     }
 
     /**
