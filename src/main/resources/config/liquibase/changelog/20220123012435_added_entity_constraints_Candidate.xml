@@ -22,4 +22,41 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="20220321" author="Alifa-Stith">
+        <delete tableName="attribute"/>
+        <delete tableName="candidate"/>
+        <delete tableName="interview"/>
+        <delete tableName="job"/>
+        <delete tableName="question"/>
+        <delete tableName="users"/>
+        <loadData
+            file="config/liquibase/data/parley_public_jhi_user.csv"
+            separator=","
+            tableName="jhi_user"
+            usePreparedStatements="true">
+            <column name="user_id" type="numeric"/>
+        </loadData>
+        <loadData
+            file="config/liquibase/fake-data/parley_public_users.csv"
+            separator=","
+            tableName="users"
+            usePreparedStatements="true">
+            <column name="user_id" type="numeric"/>
+        </loadData>
+        <loadData
+            file="config/liquibase/fake-data/parley_public_attribute.csv"
+            separator=","
+            tableName="attribute"
+            usePreparedStatements="true">
+            <column name="user_id" type="numeric"/>
+        </loadData>
+        <loadData
+            file="config/liquibase/fake-data/parley_public_job.csv"
+            separator=","
+            tableName="job"
+            usePreparedStatements="true">
+            <column name="user_id" type="numeric"/>
+        </loadData>
+    </changeSet>
 </databaseChangeLog>
