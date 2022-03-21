@@ -19,7 +19,14 @@ export class UsersRoutingResolveService implements Resolve<IUsers> {
           if (users.body) {
             return of(users.body);
           } else {
-            this.router.navigate(['404']);
+            this.router
+              .navigate(['404'])
+              .then(function (success) {
+                console.log(success);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             return EMPTY;
           }
         })

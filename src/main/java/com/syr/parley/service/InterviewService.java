@@ -159,9 +159,20 @@ public class InterviewService {
     public void deleteInterview(Long id) {
         Interview interview = interviewRepository.findOneWithEagerRelationships(id).orElse(null);
         assert interview != null;
+        interview
+            .getUsers()
+            .forEach(users -> {
+                users.removeInterview(interview);
+                usersRepository.save(users);
+            });
+        interview
+            .getJobs()
+            .forEach(job -> {
+                job.removeInterview(interview);
+                jobRepository.save(job);
+            });
+        interview.getQuestions().forEach(questionRepository::delete);
         if (interview.getCandidate() != null) candidateRepository.delete(interview.getCandidate());
-        interview.getJobs().forEach(jobRepository::delete);
-        interview.getUsers().forEach(usersRepository::delete);
         interviewRepository.delete(interview);
     }
 }

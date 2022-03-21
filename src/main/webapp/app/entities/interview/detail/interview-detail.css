@@ -26,3 +26,8 @@
   flex-direction: row;
   width: 75vw;
 }
+
+.add-question-nested {
+  background-color: green;
+  border-color: green;
+}

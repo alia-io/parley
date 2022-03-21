@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/domain/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/InterviewService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +198,7 @@
       <recent name="com.syr.parley.service.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.Angular Application">
+  <component name="RunManager" selected="Application.ParleyApp">
     <configuration name="ParleyApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.syr.parley.ParleyApp" />
       <module name="parley" />
@@ -292,6 +293,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ParleyApp" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -313,7 +319,7 @@
       <workItem from="1647736501141" duration="727000" />
       <workItem from="1647737999717" duration="3325000" />
       <workItem from="1647800814944" duration="26822000" />
-      <workItem from="1647828551712" duration="5931000" />
+      <workItem from="1647828551712" duration="7242000" />
     </task>
     <servers />
   </component>

@@ -95,6 +95,17 @@
         <br />
       </ng-container>
 
+      <ng-container *ngIf="deleteQuestionOpen">
+        <mat-form-field appearance="outline" style="width: 75vw">
+          <mat-label>Delete a Question</mat-label>
+          <mat-select [(ngModel)]="questionId">
+            <mat-option *ngFor="let question of questionList" [value]="question.question.id">{{
+              question.question.questionName
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
       <button type="submit" [routerLink]="['/interview']" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
@@ -103,8 +114,19 @@
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
 
-      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" (click)="addQuestion()" class="btn btn-danger">
+      <button
+        type="submit"
+        id="save-entity"
+        data-cy="entityCreateSaveButton"
+        (click)="addQuestion()"
+        class="btn btn-danger add-question-nested"
+      >
         <fa-icon icon="plus"></fa-icon>&nbsp;<span>Add Question</span>
+      </button>
+
+      <button type="submit" id="delete-entity" data-cy="entityDeleteButton" (click)="deleteQuestion()" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>
+        <span class="d-none d-md-inline">Delete Question</span>
       </button>
     </div>
   </div>

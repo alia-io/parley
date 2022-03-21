@@ -19,7 +19,14 @@ export class QuestionRoutingResolveService implements Resolve<IQuestion> {
           if (question.body) {
             return of(question.body);
           } else {
-            this.router.navigate(['404']);
+            this.router
+              .navigate(['404'])
+              .then(function (success) {
+                console.log(success);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             return EMPTY;
           }
         })

@@ -165,7 +165,6 @@ public class Job implements Serializable {
 
     public Job removeInterview(Interview interview) {
         this.interviews.remove(interview);
-        interview.getJobs().remove(this);
         return this;
     }
 
