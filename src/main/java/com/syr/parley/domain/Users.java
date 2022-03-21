@@ -109,7 +109,6 @@ public class Users implements Serializable {
 
     public Users removeInterview(Interview interview) {
         this.interviews.remove(interview);
-        interview.getUsers().remove(this);
         return this;
     }
 
