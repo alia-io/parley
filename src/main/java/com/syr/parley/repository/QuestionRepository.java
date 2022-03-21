@@ -20,7 +20,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     )
     Page<Question> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct question from Question question left join fetch question.attributes")
+    @Query("select distinct question from Question question left join fetch question.attributes left join fetch question.interviews")
     List<Question> findAllWithEagerRelationships();
 
     @Query("select question from Question question left join fetch question.attributes where question.id =:id")

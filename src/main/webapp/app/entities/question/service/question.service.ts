@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IQuestion, getQuestionIdentifier, QuestionAttributesDTO } from '../question.model';
+import { IQuestion, getQuestionIdentifier, QuestionAttributesDTO, NewQuestionDTO } from '../question.model';
 
 export type EntityResponseType = HttpResponse<IQuestion>;
 export type EntityArrayResponseType = HttpResponse<IQuestion[]>;
@@ -18,6 +18,10 @@ export class QuestionService {
 
   create(question: IQuestion): Observable<EntityResponseType> {
     return this.http.post<IQuestion>(this.resourceUrl, question, { observe: 'response' });
+  }
+
+  addQuestionToInterview(interviewId: number, question: NewQuestionDTO): Observable<QuestionAttributesDTO> {
+    return this.http.post<QuestionAttributesDTO>(`${this.resourceUrl}/${interviewId}`, question);
   }
 
   update(question: IQuestion): Observable<EntityResponseType> {

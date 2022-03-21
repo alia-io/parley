@@ -54,21 +54,46 @@
           </dd>
         </ng-container>
 
-        <!-- TODO: will probably need to redo this when questions are added -->
+        <ng-container *ngFor="let question of questionList; let first = first">
+          <dt><span></span>{{ first ? 'Questions' : '' }}</dt>
+          <dd>
+            <span class="question">{{ question.question.questionName }}</span
+            ><br />
+            <ng-container *ngFor="let attribute of question.attributes; let last = last">
+              <span class="attribute">{{ attribute.attributeName }}</span
+              >{{ last ? '' : '&emsp;' }} </ng-container
+            ><br />
+            <span class="response">{{ question.question.question }}</span>
+          </dd>
+        </ng-container>
       </dl>
-      <div class="question-list">
-        <p>Questions:</p>
-        <div *ngFor="let question of questionList">
-          <ng-container class="q-row">
-            <mat-label [id]="question.questionName">Question: </mat-label>
-            <input matInput [id]="question.questionName" [name]="question.questionName" [value]="question.questionName" />
-          </ng-container>
-          <ng-container class="q-row">
-            <mat-label [id]="question.question">Answer: </mat-label>
-            <input matInput [id]="question.question" [name]="question.question" [value]="question.question" />
-          </ng-container>
+      <ng-container *ngIf="newQuestionOpen">
+        <div>
+          <br />
+          <dt><span>Add a New Question</span></dt>
+          <br />
+
+          <form name="questionForm" role="form" [formGroup]="questionForm">
+            <mat-form-field appearance="outline" style="width: 65vw">
+              <mat-label>Question</mat-label>
+              <input matInput [value]="newQuestion.questionName" formControlName="questionName" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 65vw">
+              <mat-label>Response</mat-label>
+              <textarea matInput [value]="newQuestion.question" formControlName="question"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="width: 65vw">
+              <mat-label>Attributes</mat-label>
+              <mat-select multiple [value]="newQuestion.attributes" formControlName="attributes">
+                <mat-option *ngFor="let attribute of attributeList" [value]="attribute">{{ attribute.attributeName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
         </div>
-      </div>
+        <br />
+      </ng-container>
 
       <button type="submit" [routerLink]="['/interview']" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
@@ -78,8 +103,7 @@
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
 
-      <!--Will change route to "New Question" page when available-->
-      <button type="button" (click)="addQuestion()" class="btn btn-danger">
+      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" (click)="addQuestion()" class="btn btn-danger">
         <fa-icon icon="plus"></fa-icon>&nbsp;<span>Add Question</span>
       </button>
     </div>

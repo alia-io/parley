@@ -1,44 +1,48 @@
 package com.syr.parley.service.dto;
 
-import java.util.List;
-import lombok.*;
+import com.syr.parley.domain.Question;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
 public class QuestionAttributesDTO {
 
-    private String questionName;
-    private String question;
-    private List<AttributeDTO> attributes;
+    private Long interviewId;
+    private QuestionDTO question;
+    private Set<AttributeDTO> attributes = new HashSet<>();
 
     public QuestionAttributesDTO() {}
 
-    public QuestionAttributesDTO(String questionName, String question, List<AttributeDTO> attributes) {
-        this.questionName = questionName;
-        this.question = question;
-        this.attributes = attributes;
+    public QuestionAttributesDTO(Long interviewId, Question question) {
+        this.interviewId = interviewId;
+        this.question = new QuestionDTO(question.getId(), question.getQuestionName(), question.getQuestion());
+        question
+            .getAttributes()
+            .forEach(attribute ->
+                this.attributes.add(new AttributeDTO(attribute.getId(), attribute.getAttributeName(), attribute.getDescription()))
+            );
     }
 
-    public String getQuestionName() {
-        return questionName;
+    public Long getInterviewId() {
+        return interviewId;
     }
 
-    public void setQuestionName(String questionName) {
-        this.questionName = questionName;
+    public void setInterviewId(Long interviewId) {
+        this.interviewId = interviewId;
     }
 
-    public String getQuestion() {
+    public QuestionDTO getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(QuestionDTO question) {
         this.question = question;
     }
 
-    public List<AttributeDTO> getAttributes() {
+    public Set<AttributeDTO> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<AttributeDTO> attributes) {
+    public void setAttributes(Set<AttributeDTO> attributes) {
         this.attributes = attributes;
     }
 }

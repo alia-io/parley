@@ -6,7 +6,11 @@ import { InterviewService } from '../service/interview.service';
 import { take } from 'rxjs';
 import { UsersDTO } from '../../users/users.model';
 import { QuestionService } from '../../question/service/question.service';
-import { QuestionAttributesDTO } from '../../question/question.model';
+import { NewQuestionDTO, QuestionAttributesDTO } from '../../question/question.model';
+import { AttributeService } from '../../attribute/service/attribute.service';
+import { IAttribute } from '../../attribute/attribute.model';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'jhi-interview-detail',
@@ -17,13 +21,25 @@ export class InterviewDetailComponent implements OnInit {
   interviewDetails!: InterviewDetailsDTO;
   usersList!: UsersDTO[];
   questionList!: QuestionAttributesDTO[];
-  private interviewId!: number;
+  attributeList!: IAttribute[];
+  newQuestion!: NewQuestionDTO;
+  newQuestionOpen = false;
+  interviewId!: number;
+  questionForm: FormGroup;
 
   constructor(
     protected interviewService: InterviewService,
     protected activatedRoute: ActivatedRoute,
-    protected questionService: QuestionService
-  ) {}
+    protected questionService: QuestionService,
+    protected attributeService: AttributeService,
+    protected fb: FormBuilder
+  ) {
+    this.questionForm = this.fb.group({
+      questionName: ['', Validators.required],
+      question: [''],
+      attributes: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(take(1)).subscribe(paramMap => (this.interviewId = Number(paramMap.get('id'))));
@@ -39,6 +55,9 @@ export class InterviewDetailComponent implements OnInit {
       .getQuestionsByInterview(this.interviewId)
       .pipe(take(1))
       .subscribe(questions => (this.questionList = questions));
+    this.attributeService.query().subscribe({
+      next: (res: HttpResponse<IAttribute[]>) => (this.attributeList = res.body ?? []),
+    });
   }
 
   previousState(): void {
@@ -46,26 +65,31 @@ export class InterviewDetailComponent implements OnInit {
   }
 
   addQuestion(): void {
-    if (!this.questionList) {
-      this.questionList = [
-        {
-          question: '',
-          questionName: ' ',
-          attributes: [
-            {
-              id: 5,
-              attributeName: 'something',
-              description: 'something',
-            },
-          ],
-        },
-      ];
+    if (this.newQuestionOpen) {
+      this.interviewSubmit();
+      this.newQuestionOpen = false;
     } else {
-      this.questionList.push({
+      this.newQuestionOpen = true;
+      this.newQuestion = {
+        questionName: '',
         question: '',
-        questionName: ' ',
-        attributes: [],
-      });
+        attributes: [
+          {
+            id: 0,
+            attributeName: '',
+            description: '',
+          },
+        ],
+      };
     }
+  }
+
+  interviewSubmit(): void {
+    this.newQuestion = this.questionForm.value;
+    this.questionService.addQuestionToInterview(this.interviewId, this.newQuestion).pipe(take(1)).subscribe();
+    this.questionService
+      .getQuestionsByInterview(this.interviewId)
+      .pipe(take(1))
+      .subscribe(questions => (this.questionList = questions));
   }
 }

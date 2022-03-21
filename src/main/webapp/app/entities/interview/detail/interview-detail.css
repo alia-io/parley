@@ -1,10 +1,28 @@
+.attribute {
+  background-color: blue;
+  color: #444444;
+  padding: 1%;
+  font-size: small;
+}
+
+.question {
+  font-weight: bold;
+}
+
+.response {
+  font-size: small;
+  color: aquamarine;
+}
+
 .question-list {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .q-row {
   display: flex;
   flex-direction: row;
+  width: 75vw;
 }

@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class AttributeDTO {
 
-    private long id;
+    private Long id;
     private String attributeName;
     private String description;
 
     public AttributeDTO() {}
 
-    public AttributeDTO(long id, String attributeName, String description) {
+    public AttributeDTO(Long id, String attributeName, String description) {
         this.id = id;
         this.attributeName = attributeName;
         this.description = description;
@@ -21,7 +21,7 @@ public class AttributeDTO {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
