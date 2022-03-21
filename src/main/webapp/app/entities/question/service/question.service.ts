@@ -47,6 +47,10 @@ export class QuestionService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  deleteQuestionFromInterview(interviewId: number, questionId: number): Observable<void> {
+    return this.http.delete<void>(`${this.resourceUrl}/${interviewId}/${questionId}`);
+  }
+
   getQuestionsByInterview(interviewId: number): Observable<QuestionAttributesDTO[]> {
     return this.http.get<QuestionAttributesDTO[]>(`${this.resourceUrl}/${interviewId}/interview`);
   }

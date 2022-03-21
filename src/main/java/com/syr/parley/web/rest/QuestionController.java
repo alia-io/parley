@@ -120,7 +120,7 @@ public class QuestionController {
      * @param questionId the question id of the question to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/questions/{questionId}")
+    @DeleteMapping("/questions/{interviewId}/{questionId}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long interviewId, @PathVariable Long questionId) {
         log.debug("REST request to delete Question : {} from Interview: {}", questionId, interviewId);
         questionService.deleteQuestion(interviewId, questionId);

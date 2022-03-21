@@ -27,6 +27,9 @@ export class InterviewDetailComponent implements OnInit {
   interviewId!: number;
   questionForm: FormGroup;
 
+  deleteQuestionOpen = false;
+  questionId!: number;
+
   constructor(
     protected interviewService: InterviewService,
     protected activatedRoute: ActivatedRoute,
@@ -70,22 +73,24 @@ export class InterviewDetailComponent implements OnInit {
   }
 
   addQuestion(): void {
-    if (this.newQuestionOpen) {
-      this.interviewSubmit();
-      this.newQuestionOpen = false;
-    } else {
-      this.newQuestionOpen = true;
-      this.newQuestion = {
-        questionName: '',
-        question: '',
-        attributes: [
-          {
-            id: 0,
-            attributeName: '',
-            description: '',
-          },
-        ],
-      };
+    if (!this.deleteQuestionOpen) {
+      if (this.newQuestionOpen) {
+        this.interviewSubmit();
+        this.newQuestionOpen = false;
+      } else {
+        this.newQuestionOpen = true;
+        this.newQuestion = {
+          questionName: '',
+          question: '',
+          attributes: [
+            {
+              id: 0,
+              attributeName: '',
+              description: '',
+            },
+          ],
+        };
+      }
     }
   }
 
@@ -96,7 +101,24 @@ export class InterviewDetailComponent implements OnInit {
       question: [''],
       attributes: [''],
     });
-    this.questionService.addQuestionToInterview(this.interviewId, this.newQuestion).pipe(take(1)).subscribe();
-    window.location.reload();
+    if (this.newQuestion.questionName != null && this.newQuestion.questionName.length > 0) {
+      this.questionService.addQuestionToInterview(this.interviewId, this.newQuestion).pipe(take(1)).subscribe();
+      window.location.reload();
+    }
+  }
+
+  deleteQuestion(): void {
+    if (!this.newQuestionOpen) {
+      if (this.deleteQuestionOpen) {
+        if (this.questionId > 0) {
+          this.questionService.deleteQuestionFromInterview(this.interviewId, this.questionId).pipe(take(1)).subscribe();
+          window.location.reload();
+        }
+        this.deleteQuestionOpen = false;
+      } else {
+        this.questionId = 0;
+        this.deleteQuestionOpen = true;
+      }
+    }
   }
 }
