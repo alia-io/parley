@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { InterviewDetailsDTO } from '../interview.model';
 import { InterviewService } from '../service/interview.service';
@@ -32,6 +32,7 @@ export class InterviewDetailComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected questionService: QuestionService,
     protected attributeService: AttributeService,
+    protected router: Router,
     protected fb: FormBuilder
   ) {
     this.questionForm = this.fb.group({
@@ -42,6 +43,10 @@ export class InterviewDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadPage();
+  }
+
+  loadPage(): void {
     this.activatedRoute.paramMap.pipe(take(1)).subscribe(paramMap => (this.interviewId = Number(paramMap.get('id'))));
     this.interviewService
       .getInterviewDetails(this.interviewId)
@@ -86,10 +91,12 @@ export class InterviewDetailComponent implements OnInit {
 
   interviewSubmit(): void {
     this.newQuestion = this.questionForm.value;
+    this.questionForm = this.fb.group({
+      questionName: ['', Validators.required],
+      question: [''],
+      attributes: [''],
+    });
     this.questionService.addQuestionToInterview(this.interviewId, this.newQuestion).pipe(take(1)).subscribe();
-    this.questionService
-      .getQuestionsByInterview(this.interviewId)
-      .pipe(take(1))
-      .subscribe(questions => (this.questionList = questions));
+    window.location.reload();
   }
 }
