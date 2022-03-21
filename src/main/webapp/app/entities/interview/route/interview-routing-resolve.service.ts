@@ -19,7 +19,14 @@ export class InterviewRoutingResolveService implements Resolve<IInterview> {
           if (interview.body) {
             return of(interview.body);
           } else {
-            this.router.navigate(['404']);
+            this.router
+              .navigate(['404'])
+              .then(function (success) {
+                console.log(success);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             return EMPTY;
           }
         })

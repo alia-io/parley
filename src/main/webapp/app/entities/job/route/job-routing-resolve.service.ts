@@ -19,7 +19,14 @@ export class JobRoutingResolveService implements Resolve<IJob> {
           if (job.body) {
             return of(job.body);
           } else {
-            this.router.navigate(['404']);
+            this.router
+              .navigate(['404'])
+              .then(function (success) {
+                console.log(success);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             return EMPTY;
           }
         })

@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/update/interview-update.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/service/QuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/syr/parley/web/rest/QuestionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/route/interview-routing-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/route/interview-routing-resolve.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/job/route/job-routing-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/job/route/job-routing-resolve.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/question/route/question-routing-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/question/route/question-routing-resolve.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/users/route/users-routing-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/users/route/users-routing-resolve.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,7 +317,7 @@
       <workItem from="1647736501141" duration="727000" />
       <workItem from="1647737999717" duration="3325000" />
       <workItem from="1647800814944" duration="26822000" />
-      <workItem from="1647828551712" duration="5931000" />
+      <workItem from="1647828551712" duration="7242000" />
     </task>
     <servers />
   </component>

@@ -114,18 +114,19 @@ public class QuestionController {
     }
 
     /**
-     * {@code DELETE  /questions/:id} : delete the "id" question.
+     * {@code DELETE  /questions/{interviewId}/{questionId} : delete the "questionId" question.
      *
-     * @param id the id of the question to delete.
+     * @param interviewId the interview id of the interview the question belongs to.
+     * @param questionId the question id of the question to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/questions/{id}")
-    public ResponseEntity<Void> deleteQuestion(@PathVariable Long id) {
-        log.debug("REST request to delete Question : {}", id);
-        questionService.deleteQuestion(id);
+    @DeleteMapping("/questions/{questionId}")
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long interviewId, @PathVariable Long questionId) {
+        log.debug("REST request to delete Question : {} from Interview: {}", questionId, interviewId);
+        questionService.deleteQuestion(interviewId, questionId);
         return ResponseEntity
             .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, questionId.toString()))
             .build();
     }
 

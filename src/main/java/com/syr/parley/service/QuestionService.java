@@ -85,8 +85,14 @@ public class QuestionService {
             .map(questionRepository::save);
     }
 
-    public void deleteQuestion(Long id) {
-        questionRepository.deleteById(id);
+    public void deleteQuestion(Long interviewId, Long questionId) {
+        Interview interview = interviewRepository.getById(interviewId);
+        Question question = questionRepository.getById(questionId);
+        interview.removeQuestions(question);
+        question.removeInterview(interview);
+        interviewRepository.save(interview);
+        questionRepository.save(question);
+        questionRepository.delete(question);
     }
 
     // Send Question and Attributes by interview
