@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0800ec3-5267-4641-90b5-cf5e38aaabc7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/data/parley_public_jhi_user.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/fake-data/parley_public_attribute.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/fake-data/parley_public_job.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/fake-data/parley_public_users.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012435_added_entity_constraints_Candidate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/liquibase/changelog/20220123012435_added_entity_constraints_Candidate.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parley.iml" beforeDir="false" afterPath="$PROJECT_DIR$/parley.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/attribute/route/attribute-routing-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/attribute/route/attribute-routing-resolve.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/candidate/route/candidate-routing-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/candidate/route/candidate-routing-resolve.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/app/entities/interview/detail/interview-detail.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

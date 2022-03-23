@@ -19,7 +19,14 @@ export class AttributeRoutingResolveService implements Resolve<IAttribute> {
           if (attribute.body) {
             return of(attribute.body);
           } else {
-            this.router.navigate(['404']);
+            this.router
+              .navigate(['404'])
+              .then(function (success) {
+                console.log(success);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             return EMPTY;
           }
         })

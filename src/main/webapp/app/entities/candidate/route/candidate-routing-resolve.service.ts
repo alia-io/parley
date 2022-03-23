@@ -19,7 +19,14 @@ export class CandidateRoutingResolveService implements Resolve<ICandidate> {
           if (candidate.body) {
             return of(candidate.body);
           } else {
-            this.router.navigate(['404']);
+            this.router
+              .navigate(['404'])
+              .then(function (success) {
+                console.log(success);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             return EMPTY;
           }
         })
